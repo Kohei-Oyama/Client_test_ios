@@ -10,7 +10,7 @@ target 'Client_test' do
   pod 'SwiftyJSON', '~> 3.1'
   pod 'TextAttributes', '~> 1.0'
   pod 'SwiftDate', '~> 4.0'
-  
+  pod 'Socket.IO-Client-Swift'
   # Pods for Client_test
 
   target 'Client_testTests' do
