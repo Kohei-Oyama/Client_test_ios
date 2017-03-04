@@ -7,26 +7,53 @@
 //
 
 import UIKit
-import SocketIO
+import SwiftSocket
 
-class ViewController: UIViewController ,UITextFieldDelegate {
-    
-    var socket = SocketIOClient(socketURL: URL(string: "http://localhost:8080")!, config: [.log(true), .forcePolling(true)])
+class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var SendObject: UITextField!
     @IBOutlet weak var RecieveObject: UITextField!
+    let host = "localhost"
+    let port = 8084
+    var client: TCPClient?
     
     @IBAction func BT_Connect(_ sender: Any) {
-        self.socket.connect()
+        client = TCPClient(address: host, port: Int32(port))
+        guard let client = client else { return }
+        switch client.connect(timeout: 1) {
+        case .success:
+            print("connect!")
+            switch client.send(string: "GET / HTTP/1.0\n\n" ) {
+            case .success:
+                guard let data = client.read(1024*10) else { return }
+                
+                if let response = String(bytes: data, encoding: .utf8) {
+                    print(response)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        case .failure(let error):
+            print(error)
+        }
     }
     
     @IBAction func BT_Send(_ sender: Any) {
         //box内のMessageをsendする(オプショナルバインド)
-        self.socket.emit("HelloWorld")
+        guard let client = client else { return }
+        switch client.send(string: "Bump" ) {
+        case .success:
+            guard let data = client.read(1024*10) else { return }
+            
+            if let response = String(bytes: data, encoding: .utf8) {
+                print(response)
+            }
+        case .failure(let error):
+            print(error)
+        }
     }
     
     @IBAction func BT_End(_ sender: Any) {
-        self.socket.disconnect()
     }
     
     override func viewDidLoad() {
@@ -39,7 +66,7 @@ class ViewController: UIViewController ,UITextFieldDelegate {
         // プレースホルダ
         SendObject.placeholder = "送りたいメッセージを入力してください"
     }
-    
+        
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -48,52 +75,7 @@ class ViewController: UIViewController ,UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //キーボード閉じる
         textField.resignFirstResponder()
-        
         return true
     }
-    
-//    class Connection : NSObject, StreamDelegate {
-//        let serverAddress: String = "192.168.0.7"
-//        let serverPort : UInt32 = 8002
-//        
-//        private var inputStream: InputStream!
-//        private var outputStream: OutputStream!
-//        
-//        func connect() {
-//            print("connecrting...")
-//            
-//            var readStream: Unmanaged<CFReadStream>?
-//            var writeStream: Unmanaged<CFWriteStream>?
-//            
-//            CFStreamCreatePairWithSocketToHost(nil, self.serverAddress as CFString!, self.serverPort, &readStream, &writeStream)
-//            
-//            self.inputStream = readStream!.takeRetainedValue()
-//            self.outputStream = writeStream!.takeRetainedValue()
-//            
-//            self.inputStream.delegate = self
-//            self.outputStream.delegate = self
-//            
-//            self.inputStream.schedule(in: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
-//            self.outputStream.schedule(in: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
-//            
-//            self.inputStream.open()
-//            self.outputStream.open()
-//            
-//            print("connent success!!")
-//            
-//        }
-//        
-//                func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
-//                }
-//        
-//        func sendCommand(_ command: String){
-//            //String to UTF-8
-//            //Date型はbyteプロパティを持たない(NSDataはもつ)
-//            var ccomand = command.data(using: String.Encoding.utf8)!
-//            self.outputStream!.write(ccomand.first, maxLength: ccomand.count)
-//            print("Send: \(command)")
-//            
-//        }
-//    }
 }
 

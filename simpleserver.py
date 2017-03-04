@@ -1,6 +1,6 @@
 import socket
 host = socket.gethostbyname('localhost')
-port = 8080
+port = 8084
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.bind((host, port))
@@ -8,7 +8,7 @@ sock.listen(1)
 
 print 'waiting for connection...'
 (client_sock, client_addr) = sock.accept()
-client_sock.send("")
+client_sock.send("Hello")
 print 'connection start'
 while True:
     msg = client_sock.recv(1024)
@@ -19,7 +19,7 @@ while True:
       print 'connection end'
       break
     else:
-      #client_sock.send("server : %s \n" % msg)
+      client_sock.send("server : %s \n" % msg)
       print "from client : %s end" % msg
 client_sock.close()
 sock.close()
