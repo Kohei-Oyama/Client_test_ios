@@ -50,21 +50,26 @@
                                     <action selector="BT_End:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bnF-ez-yIU"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="jxb-UR-FZF">
+                                <rect key="frame" x="37.5" y="20" width="300" height="120"/>
+                                <color key="backgroundColor" red="0.7473322671" green="0.97971988340000005" blue="0.24297021860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="lPZ-yH-R96"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kiP-gY-9Kg">
+                                <rect key="frame" x="37.5" y="180" width="300" height="120"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="IqU-uW-cyi">
-                                <rect key="frame" x="37.5" y="120" width="300" height="80"/>
+                                <rect key="frame" x="37" y="393.5" width="300" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="3Dk-sj-IvK"/>
                                     <constraint firstAttribute="height" constant="80" id="Ebk-5u-4Fx"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="eSk-qi-JpA">
-                                <rect key="frame" x="37.5" y="220" width="300" height="80"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="ZYS-KB-Tmq"/>
-                                    <constraint firstAttribute="width" constant="300" id="gjc-Ao-NBH"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -75,16 +80,19 @@
                         <constraints>
                             <constraint firstItem="VY4-nm-Zkb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="0Iz-dS-RDl"/>
                             <constraint firstItem="IqU-uW-cyi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6C0-Pe-tll"/>
-                            <constraint firstItem="IqU-uW-cyi" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="100" id="7TA-vk-1kI"/>
+                            <constraint firstItem="IqU-uW-cyi" firstAttribute="top" secondItem="2j0-1b-b3A" secondAttribute="bottom" constant="10" id="A00-2u-A0N"/>
+                            <constraint firstItem="jxb-UR-FZF" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="20" id="AKN-jV-Sff"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2j0-1b-b3A" secondAttribute="trailing" id="ClM-CN-cSU"/>
                             <constraint firstItem="cSO-wj-W4H" firstAttribute="width" secondItem="VY4-nm-Zkb" secondAttribute="width" id="FO1-LB-xBC"/>
-                            <constraint firstItem="eSk-qi-JpA" firstAttribute="height" secondItem="IqU-uW-cyi" secondAttribute="height" id="GJ8-zx-Ek3"/>
+                            <constraint firstItem="kiP-gY-9Kg" firstAttribute="top" secondItem="jxb-UR-FZF" secondAttribute="bottom" constant="40" id="GBa-55-7M3"/>
                             <constraint firstItem="2j0-1b-b3A" firstAttribute="height" secondItem="cSO-wj-W4H" secondAttribute="height" id="I5g-Wg-TpG"/>
+                            <constraint firstItem="kiP-gY-9Kg" firstAttribute="width" secondItem="jxb-UR-FZF" secondAttribute="width" id="Icl-lu-U0y"/>
                             <constraint firstItem="cSO-wj-W4H" firstAttribute="height" secondItem="VY4-nm-Zkb" secondAttribute="height" id="KPe-0G-9YJ"/>
-                            <constraint firstItem="eSk-qi-JpA" firstAttribute="top" secondItem="IqU-uW-cyi" secondAttribute="bottom" constant="20" id="SBO-7d-B2j"/>
-                            <constraint firstItem="eSk-qi-JpA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TB5-RW-P59"/>
+                            <constraint firstItem="jxb-UR-FZF" firstAttribute="width" secondItem="IqU-uW-cyi" secondAttribute="width" id="NAh-pq-QAA"/>
+                            <constraint firstItem="kiP-gY-9Kg" firstAttribute="centerX" secondItem="jxb-UR-FZF" secondAttribute="centerX" id="UqW-7G-X8v"/>
+                            <constraint firstItem="kiP-gY-9Kg" firstAttribute="height" secondItem="jxb-UR-FZF" secondAttribute="height" id="XID-2q-a09"/>
+                            <constraint firstItem="jxb-UR-FZF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bAp-vX-7Mz"/>
                             <constraint firstItem="2j0-1b-b3A" firstAttribute="width" secondItem="cSO-wj-W4H" secondAttribute="width" id="dK2-Fu-aB0"/>
-                            <constraint firstItem="eSk-qi-JpA" firstAttribute="width" secondItem="IqU-uW-cyi" secondAttribute="width" id="dOV-OU-W9N"/>
                             <constraint firstItem="cSO-wj-W4H" firstAttribute="centerY" secondItem="VY4-nm-Zkb" secondAttribute="centerY" id="sRK-ZU-sUe"/>
                             <constraint firstItem="cSO-wj-W4H" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="skx-O5-4Rg"/>
                             <constraint firstItem="VY4-nm-Zkb" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="u60-hu-DmF"/>
@@ -92,8 +100,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="RecieveObject" destination="eSk-qi-JpA" id="VIN-T4-Hy7"/>
+                        <outlet property="Recieve_Text" destination="kiP-gY-9Kg" id="F0v-0P-anB"/>
                         <outlet property="SendObject" destination="IqU-uW-cyi" id="GPj-6e-Yus"/>
+                        <outlet property="Send_Text" destination="jxb-UR-FZF" id="AqO-x5-9Bj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

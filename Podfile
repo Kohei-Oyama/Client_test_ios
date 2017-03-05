@@ -7,6 +7,8 @@ target 'Client_test' do
 
   # Pods for Client_test
   pod 'SwiftSocket'
+  pod 'SwiftyJSON'
+
   target 'Client_testTests' do
     inherit! :search_paths
     # Pods for testing
