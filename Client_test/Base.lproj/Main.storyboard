@@ -31,7 +31,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <state key="normal" title="Connect"/>
                                 <connections>
-                                    <action selector="BT_Connect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ggt-Ug-pAv"/>
+                                    <action selector="connectToServer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zn9-QN-ycF"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cSO-wj-W4H">
@@ -39,7 +39,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <state key="normal" title="Send"/>
                                 <connections>
-                                    <action selector="BT_Send:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ry7-96-Beq"/>
+                                    <action selector="sendText:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Scx-bY-6yt"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2j0-1b-b3A">
@@ -47,7 +47,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <state key="normal" title="End"/>
                                 <connections>
-                                    <action selector="BT_End:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bnF-ez-yIU"/>
+                                    <action selector="endConnection:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Uf7-cA-OYp"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="jxb-UR-FZF">
@@ -100,9 +100,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="Recieve_Text" destination="kiP-gY-9Kg" id="F0v-0P-anB"/>
-                        <outlet property="SendObject" destination="IqU-uW-cyi" id="GPj-6e-Yus"/>
-                        <outlet property="Send_Text" destination="jxb-UR-FZF" id="AqO-x5-9Bj"/>
+                        <outlet property="recieveTextView" destination="kiP-gY-9Kg" id="s5W-D2-p1y"/>
+                        <outlet property="sendText" destination="IqU-uW-cyi" id="VRc-NB-iig"/>
+                        <outlet property="sendTextView" destination="jxb-UR-FZF" id="JLv-GC-u1h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
