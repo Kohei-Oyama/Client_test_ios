@@ -66,10 +66,10 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="IqU-uW-cyi">
-                                <rect key="frame" x="37" y="393.5" width="300" height="80"/>
+                                <rect key="frame" x="37" y="393.5" width="300" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="3Dk-sj-IvK"/>
-                                    <constraint firstAttribute="height" constant="80" id="Ebk-5u-4Fx"/>
+                                    <constraint firstAttribute="height" constant="40" id="Ebk-5u-4Fx"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
