@@ -9,62 +9,35 @@
 import UIKit
 import SwiftSocket
 import SwiftyJSON
+import AVFoundation
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController, UITextViewDelegate {
     
-    @IBOutlet weak var sendText: UITextField!
-    @IBOutlet weak var sendTextView: UITextView!
-    @IBOutlet weak var recieveTextView: UITextView!
-    
-    let host = "localhost"
+    let host = "192.168.12.205"
     let port: Int32 = 8083
-    var client: TCPClient!
+    let userName = "Oyama"
+    var client: JSONSocket!
+    
+    @IBOutlet weak var sendText: UITextView!
+    @IBOutlet weak var sendTextView: UITextView!
+    @IBOutlet weak var receiveTextView: UITextView!
+    
+    /*let fileManager = FileManager()
+    var audioRecorder: AVAudioRecorder?
+    var audioPlayer: AVAudioPlayer?
+    let fileName = "sample.caf"*/
     
     @IBAction func connectToServer(_ sender: Any) {
-        switch client.connect(timeout: 1) {
-        case .success:
-            print("connect!")
-            // 受信待機を別スレッドに任せる
-            DispatchQueue.global(qos: .background).async {
-                while true {
-                    guard let receiveObject = self.receiveJSONData() else { return }
-                    // UI部分の更新はメインスレッドでないといけない
-                    DispatchQueue.main.async {
-                        self.appendToTextField(json: receiveObject, view: self.recieveTextView)
-                    }
-                }
-            }
-        case .failure(let error):
-            print(error)
+        switch client.connect(){
+        case true:
+            client.receive(view: receiveTextView)
+        default:
+            print("connection error")
         }
     }
     
     @IBAction func sendText(_ sender: Any) {
-        // dictionaryをJSONデータに変換しData型で送信
-        let dict = makeDictionary()
-        var jsonData: Data!
-        do {
-            // dict -> JSON(Data型?)
-            jsonData = try JSONSerialization.data(withJSONObject: dict, options: [])
-        } catch {
-            print(error)
-        }
-        switch client.send(data: jsonData) {
-        case .success:
-            let json = JSON(data: jsonData)
-            if json["text"].string != nil {
-                appendToTextField(json: json, view: sendTextView)
-            }
-        case .failure(let error):
-            print(error)
-        }
-        /*// textField内のtextをsend
-         switch client.send(string: sendText.text! ) {
-         case .success:
-         appendToTextField(string: sendText.text, view: sendTextView)
-         case .failure(let error):
-         print(error)
-         }*/
+        client.send(text: sendText.text, view: sendTextView)
     }
     
     @IBAction func endConnection(_ sender: Any) {
@@ -72,19 +45,41 @@ class ViewController: UIViewController, UITextFieldDelegate {
         print("End connect")
     }
     
+    @IBAction func recordAudio(_ sender: Any) {
+        //audioRecorder?.record()
+    }
+    @IBAction func playAudio(_ sender: Any) {
+        //self.play()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        client = TCPClient(address: host, port: port)
+        //self.setupAudioRecorder()
         
-        // textFieldの通知先とプレースホルダ
+        client = JSONSocket(username: userName, address: host, port: port)
+        
+        // textFieldの通知先
         sendText.delegate = self
-        sendText.placeholder = "送りたいメッセージを入力してください"
         
-        // textViewを編集不可
+        // viewとbutton作成
+        let closeView = UIView()
+        closeView.frame.size.height = 30
+        closeView.backgroundColor = UIColor.gray
+        let closeButton = UIButton()
+        closeButton.frame = CGRect(x:0,y:0,width:70,height:30)
+        closeButton.setTitle("close", for: UIControlState.normal)
+        closeButton.backgroundColor = UIColor.blue
+        closeButton.addTarget(self, action: #selector(self.onClick(_:)), for: .touchUpInside)
+        closeView.addSubview(closeButton)
+        
+        //キーボードのアクセサリにビューを設定
+        sendText.inputAccessoryView = closeView
+        
+        // textView編集不可
         sendTextView.isEditable = false
-        recieveTextView.isEditable = false
+        receiveTextView.isEditable = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -92,60 +87,72 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        //キーボード閉じる
-        textField.resignFirstResponder()
-        return true
+    func onClick(_ sender: AnyObject){
+        //キーボードを閉じる
+        sendText.resignFirstResponder()
     }
     
-    func receiveData() -> String! {
-        // Stringの何か受信したらstring返す
-        guard let data = client.read(1024*10) else { return nil }
-        let response = String(bytes: data, encoding: .utf8)
-        return response
-    }
-    
-    func receiveJSONData() -> JSON! {
-        // JSONの何か受信したらstring返す
-        guard let data = client.read(1024*10) else { return nil }
-        // Byte array -> Data -> JSON
-        let json = JSON(data: Data(bytes: data))
-        if json["text"].string != nil {
-            return json
-        }else{
-            return nil
+    /*func setupAudioRecorder() {
+        // 再生と録音機能をアクティブにする
+        let session = AVAudioSession.sharedInstance()
+        try! session.setCategory(AVAudioSessionCategoryPlayAndRecord)
+        try! session.setActive(true)
+        let recordSetting : [String : Any] = [
+            AVEncoderAudioQualityKey : AVAudioQuality.min.rawValue,
+            AVEncoderBitRateKey : 16,
+            AVNumberOfChannelsKey: 2,
+            AVSampleRateKey: 44100
+        ]
+        do {
+            try audioRecorder = AVAudioRecorder(url: self.documentFilePath(), settings: recordSetting)
+        } catch {
+            print("初期設定でerror")
         }
     }
     
-    func appendToTextField(string: String!, view: UITextView!) {
-        // TextFieldにtext追加
-        guard let string = string else { return }
-        print(string)
-        view.text = view.text.appending("\n\(string)")
+    func play() {
+        do {
+            try audioPlayer = AVAudioPlayer(contentsOf: documentFilePath())
+        } catch {
+            print("再生時にerror")
+        }
+        audioPlayer?.play()
     }
     
-    func appendToTextField(json: JSON, view: UITextView!) {
-        // TextFieldにJSON追加
-        view.text = view.text.appending("\(json["time"].string!)\n")
-        view.text = view.text.appending("From \(json["person"].string!): \(json["text"].string!)\n")
-    }
-    
-    func makeDictionary() -> [String: String?] {
-        // Dictionary作成
-        let time = getTimeString()
-        let dict: [String: String?] = [
-            "person": "Oyama",
-            "time": time,
-            "text": sendText.text!
-        ]
-        return dict
-    }
-    
-    func getTimeString() -> String {
-        //現在時刻取得
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd' 'HH:mm:ss"
-        let now = Date()
-        return formatter.string(from: now)
-    }
+    func documentFilePath()-> URL {
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        print(documentsPath)
+        let cacheKey = "/Desktop/Oyama"
+        let fileName = "sample.caf"
+        
+        // ディレクトリのパス
+        let folderPath=documentsPath+cacheKey
+        //　ファイルのパス
+        let filePath = documentsPath+cacheKey+"/"+fileName
+        
+        //ディレクトリとファイルの有無を調べる
+        let fileManager = FileManager.default
+        let isDir : Bool = false
+        let isFile = fileManager.fileExists(atPath: filePath)
+        //ファイルのパスからNSURLを作成することが出来ます
+        let url = URL(fileURLWithPath: filePath)
+        
+        //ディレクトリが存在しない場合に、ディレクトリを作成する
+        if !isDir {
+            do {
+            try fileManager.createDirectory(atPath: folderPath, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error)
+            }
+        }
+        
+        //ファイルが存在しない場合に、ファイルを保存する
+        if isFile {
+            return url
+        }else{
+            //responseは保存しておきたいデータ（NSData型）
+            //response.writeToFile(filePath, atomically: true)
+            return url
+        }
+    }*/
 }
