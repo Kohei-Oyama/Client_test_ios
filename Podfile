@@ -8,6 +8,8 @@ target 'Client_test' do
   # Pods for Client_test
   pod 'SwiftSocket'
   pod 'SwiftyJSON'
+  pod 'NextGrowingTextView'
+  pod 'JSQMessagesViewController'
 
   target 'Client_testTests' do
     inherit! :search_paths

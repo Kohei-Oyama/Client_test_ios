@@ -1,15 +1,24 @@
 PODS:
+  - JSQMessagesViewController (7.3.4):
+    - JSQSystemSoundPlayer (~> 2.0.1)
+  - JSQSystemSoundPlayer (2.0.1)
+  - NextGrowingTextView (0.8.5)
   - SwiftSocket (2.0.1)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
+  - JSQMessagesViewController
+  - NextGrowingTextView
   - SwiftSocket
   - SwiftyJSON
 
 SPEC CHECKSUMS:
+  JSQMessagesViewController: 39fed975e3c9f8eba7292071e29eeb541d105e66
+  JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
+  NextGrowingTextView: 3cc930a03c5979071244af42bcc81360d7453323
   SwiftSocket: 2d814afdc97c89217982f86fd036c1874134a63f
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: e33235470061d13a5793ae4f680b6f332545cf98
+PODFILE CHECKSUM: f3bf0df09cd05681b7243eec7437ac968cac1bcf
 
 COCOAPODS: 1.2.0
