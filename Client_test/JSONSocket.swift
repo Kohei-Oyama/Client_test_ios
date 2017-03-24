@@ -84,9 +84,12 @@ class JSONSocket {
     func receiveJSONData() -> JSON! {
         // JSONの何か受信したらstring返す
         guard let data = client.read(1024*10) else { return nil }
+        if data.count == 1 && data[0] == 10 { return nil }
         // Byte array -> Data -> JSON
+        print(data)
         let tmpData = Data(bytes: data)
         let json = JSON(data: tmpData)
+        print(json)
         /*if json["text"].string!.isEmpty {
             return nil
         }else{
@@ -104,8 +107,8 @@ class JSONSocket {
     func appendToTextField(json: JSON, view: UITextView!) {
         // TextFieldにJSON追加
         print(json["text"])
-        view.text = view.text.appending("\(json["time"].string)\n")
-        view.text = view.text.appending("From \(json["person"].string): \(json["text"].string)")
+        view.text = view.text.appending("\(json["time"].string!): From \(json["person"].string!)\n")
+        view.text = view.text.appending("\(json["text"].string!)\n")
     }
     
     func close() {

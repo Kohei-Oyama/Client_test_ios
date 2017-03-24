@@ -10,14 +10,14 @@ import UIKit
 import Foundation
 import NextGrowingTextView
 
-class InputView {
+/*class InputView: UIView {
     
-    var inputTextViewBottom: NSLayoutConstraint!
-    var inputText: NextGrowingTextView!
-    var view = UIView()
+    @IBOutlet weak var inputTextView: UIView!
+    @IBOutlet weak var inputTextViewBottom: NSLayoutConstraint!
+    @IBOutlet weak var inputText: NextGrowingTextView!
     
-    func setview() {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+    func setup() {
+    NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
@@ -47,4 +47,4 @@ class InputView {
             }
         }
     }
-}
+}*/

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6134BF0F86CA385E96C2F5DB /* Pods_Client_testTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C41B9EBC539E8E26BEE3803 /* Pods_Client_testTests.framework */; };
+		8E1CE4541E84308D006B9C29 /* OutputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1CE4531E84308D006B9C29 /* OutputTextView.swift */; };
+		8E1CE45B1E843975006B9C29 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1CE45A1E843975006B9C29 /* InputTextView.swift */; };
 		8E2236E21E70CC3600899B9C /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2236E11E70CC3600899B9C /* Object.swift */; };
 		8E2236E41E712B0D00899B9C /* JSONSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2236E31E712B0D00899B9C /* JSONSocket.swift */; };
 		8E5BB2FF1E6819F100523DA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5BB2FE1E6819F100523DA6 /* AppDelegate.swift */; };
@@ -17,6 +19,8 @@
 		8E5BB3091E6819F100523DA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E5BB3071E6819F100523DA6 /* LaunchScreen.storyboard */; };
 		8E5BB3141E6819F100523DA6 /* Client_testTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5BB3131E6819F100523DA6 /* Client_testTests.swift */; };
 		8E5BB31F1E6819F100523DA6 /* Client_testUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5BB31E1E6819F100523DA6 /* Client_testUITests.swift */; };
+		8EBEA7161E7704D9002E6197 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBEA7151E7704D9002E6197 /* MessageModel.swift */; };
+		8EBEA7181E7704FD002E6197 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBEA7171E7704FD002E6197 /* MessageCell.swift */; };
 		99080B6C515F581017B9B8B3 /* Pods_Client_test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009F8D80003D1D7BB802E318 /* Pods_Client_test.framework */; };
 		EC4DDCC06E897B3E54FCEC9B /* Pods_Client_testUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36B079D1D6720BFB56CC70B0 /* Pods_Client_testUITests.framework */; };
 /* End PBXBuildFile section */
@@ -46,6 +50,8 @@
 		4790D15F8A9CF040DF12856D /* Pods-Client_testUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client_testUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Client_testUITests/Pods-Client_testUITests.release.xcconfig"; sourceTree = "<group>"; };
 		67598337869806C6384E3675 /* Pods-Client_testTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client_testTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Client_testTests/Pods-Client_testTests.release.xcconfig"; sourceTree = "<group>"; };
 		6C41B9EBC539E8E26BEE3803 /* Pods_Client_testTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Client_testTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E1CE4531E84308D006B9C29 /* OutputTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputTextView.swift; sourceTree = "<group>"; };
+		8E1CE45A1E843975006B9C29 /* InputTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		8E2236E11E70CC3600899B9C /* Object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 		8E2236E31E712B0D00899B9C /* JSONSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONSocket.swift; sourceTree = "<group>"; };
 		8E5BB2FB1E6819F100523DA6 /* Client_test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Client_test.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,6 +67,8 @@
 		8E5BB31A1E6819F100523DA6 /* Client_testUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Client_testUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5BB31E1E6819F100523DA6 /* Client_testUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client_testUITests.swift; sourceTree = "<group>"; };
 		8E5BB3201E6819F100523DA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EBEA7151E7704D9002E6197 /* MessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		8EBEA7171E7704FD002E6197 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		DFA3274D37FC4A837F5E7FC2 /* Pods-Client_testTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client_testTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Client_testTests/Pods-Client_testTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E48D862F6CC43243E120FBC4 /* Pods-Client_test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client_test.release.xcconfig"; path = "Pods/Target Support Files/Pods-Client_test/Pods-Client_test.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,9 +117,9 @@
 				8E5BB2FD1E6819F100523DA6 /* Client_test */,
 				8E5BB3121E6819F100523DA6 /* Client_testTests */,
 				8E5BB31D1E6819F100523DA6 /* Client_testUITests */,
-				8E5BB2FC1E6819F100523DA6 /* Products */,
-				F1AD7A8BDDCA757C7CF66FD0 /* Pods */,
 				4EEA4CA77F39E77892EC780D /* Frameworks */,
+				F1AD7A8BDDCA757C7CF66FD0 /* Pods */,
+				8E5BB2FC1E6819F100523DA6 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,13 +137,17 @@
 			isa = PBXGroup;
 			children = (
 				8E5BB2FE1E6819F100523DA6 /* AppDelegate.swift */,
-				8E5BB3001E6819F100523DA6 /* ViewController.swift */,
-				8E2236E31E712B0D00899B9C /* JSONSocket.swift */,
-				8E2236E11E70CC3600899B9C /* Object.swift */,
-				8E5BB3021E6819F100523DA6 /* Main.storyboard */,
 				8E5BB3051E6819F100523DA6 /* Assets.xcassets */,
-				8E5BB3071E6819F100523DA6 /* LaunchScreen.storyboard */,
 				8E5BB30A1E6819F100523DA6 /* Info.plist */,
+				8E1CE45A1E843975006B9C29 /* InputTextView.swift */,
+				8E2236E31E712B0D00899B9C /* JSONSocket.swift */,
+				8E5BB3071E6819F100523DA6 /* LaunchScreen.storyboard */,
+				8E5BB3021E6819F100523DA6 /* Main.storyboard */,
+				8EBEA7171E7704FD002E6197 /* MessageCell.swift */,
+				8EBEA7151E7704D9002E6197 /* MessageModel.swift */,
+				8E2236E11E70CC3600899B9C /* Object.swift */,
+				8E1CE4531E84308D006B9C29 /* OutputTextView.swift */,
+				8E5BB3001E6819F100523DA6 /* ViewController.swift */,
 			);
 			path = Client_test;
 			sourceTree = "<group>";
@@ -452,10 +464,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E1CE4541E84308D006B9C29 /* OutputTextView.swift in Sources */,
+				8EBEA7161E7704D9002E6197 /* MessageModel.swift in Sources */,
 				8E5BB3011E6819F100523DA6 /* ViewController.swift in Sources */,
 				8E2236E21E70CC3600899B9C /* Object.swift in Sources */,
 				8E2236E41E712B0D00899B9C /* JSONSocket.swift in Sources */,
 				8E5BB2FF1E6819F100523DA6 /* AppDelegate.swift in Sources */,
+				8E1CE45B1E843975006B9C29 /* InputTextView.swift in Sources */,
+				8EBEA7181E7704FD002E6197 /* MessageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,6 +513,7 @@
 				8E5BB3031E6819F100523DA6 /* Base */,
 			);
 			name = Main.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 		8E5BB3071E6819F100523DA6 /* LaunchScreen.storyboard */ = {
@@ -505,6 +522,7 @@
 				8E5BB3081E6819F100523DA6 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
