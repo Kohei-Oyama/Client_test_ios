@@ -9,7 +9,8 @@ target 'Client_test' do
   pod 'SwiftSocket'
   pod 'SwiftyJSON'
   pod 'NextGrowingTextView'
-  pod 'JSQMessagesViewController'
+  pod 'ActionCableClient'
+  pod 'SnapKit'
 
   target 'Client_testTests' do
     inherit! :search_paths

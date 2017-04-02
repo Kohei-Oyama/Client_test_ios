@@ -1,24 +1,27 @@
 PODS:
-  - JSQMessagesViewController (7.3.4):
-    - JSQSystemSoundPlayer (~> 2.0.1)
-  - JSQSystemSoundPlayer (2.0.1)
+  - ActionCableClient (0.2.3):
+    - Starscream (~> 2.0.0)
   - NextGrowingTextView (0.8.5)
+  - SnapKit (3.2.0)
+  - Starscream (2.0.3)
   - SwiftSocket (2.0.1)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
-  - JSQMessagesViewController
+  - ActionCableClient
   - NextGrowingTextView
+  - SnapKit
   - SwiftSocket
   - SwiftyJSON
 
 SPEC CHECKSUMS:
-  JSQMessagesViewController: 39fed975e3c9f8eba7292071e29eeb541d105e66
-  JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
+  ActionCableClient: c8a466410d31bfa14e7a9c209b539c1e2d026a5f
   NextGrowingTextView: 3cc930a03c5979071244af42bcc81360d7453323
+  SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
+  Starscream: 3fdd5c277e57cca6b5c406d274e3f34a7c88f2ce
   SwiftSocket: 2d814afdc97c89217982f86fd036c1874134a63f
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: f3bf0df09cd05681b7243eec7437ac968cac1bcf
+PODFILE CHECKSUM: 4198b817ac794f760039d79336db512f1435f778
 
 COCOAPODS: 1.2.0
