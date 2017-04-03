@@ -12,6 +12,7 @@ import UIKit
 // Cellの中身
 struct Object {
     var name: String
+    //var time: String
     var message: String
     
     func attributedString() -> NSAttributedString {

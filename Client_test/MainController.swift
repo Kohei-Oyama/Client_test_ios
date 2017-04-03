@@ -15,13 +15,11 @@ class MainViewController: UIViewController {
     
     let cellIdentifier = "MyCell"
     let channelIdentifier = "ChatChannel"
-    let channelAction = "talk"
     
     var userName: String = ""
     let client = ActionCableClient(url: URL(string:"wss://actioncable-echo.herokuapp.com/cable")!)
     var channel: Channel?
     var history: Array<Object> = Array()
-    
     var chatView: MainView?
     
     override func viewDidLoad() {
