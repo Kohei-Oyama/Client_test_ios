@@ -24,7 +24,6 @@ class MainView : UIView {
         super.init(frame: frame)
         
         self.tableView.frame = CGRect.zero
-        self.tableView.contentInset = UIEdgeInsetsMake(0, -5, 0, 0);
         self.addSubview(self.tableView)
         
         self.addSubview(self.inputTextView)

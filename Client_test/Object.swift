@@ -15,13 +15,14 @@ struct Object {
     //var time: String
     var message: String
     
+    // message本文の設定
     func attributedString() -> NSAttributedString {
         let messageString: String = "\(self.message)"
         let messageRange = NSRange(location: 0, length: self.message.characters.count)
         let string: NSMutableAttributedString = NSMutableAttributedString(string: messageString)
         // FontSize
         string.addAttribute(NSFontAttributeName,
-                            value: UIFont.boldSystemFont(ofSize: 18.0),
+                            value: UIFont.boldSystemFont(ofSize: 14.0),
                             range: messageRange)
         return string
     }

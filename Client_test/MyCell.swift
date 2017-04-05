@@ -14,15 +14,15 @@ class MyCell: UITableViewCell {
     static let inset:CGFloat = 10.0
     static let nameHeight:CGFloat = 20.0
     
-    let messageLabel = UILabel()
-    let nameLabel = UILabel()
+    let messageLabel = PaddingLabel()
+    let nameLabel = PaddingLabel()
     
-    var message: Object? {
+    var object: Object? {
         didSet {
-            // 値が変わったら行う処理
-            self.messageLabel.attributedText = message?.attributedString()
+            // objectの値が変わったら行う処理
+            self.messageLabel.attributedText = object?.attributedString()
             self.messageLabel.sizeToFit()
-            self.nameLabel.text = self.message?.name
+            self.nameLabel.text = self.object?.name
             self.nameLabel.sizeToFit()
         }
     }
@@ -34,9 +34,10 @@ class MyCell: UITableViewCell {
         messageLabel.frame = CGRect.zero
         messageLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         messageLabel.numberOfLines = 0
-        messageLabel.backgroundColor = UIColor.orange
+        messageLabel.backgroundColor = UIColor.green
         messageLabel.layer.masksToBounds = true
-        messageLabel.layer.cornerRadius = 2.0
+        messageLabel.layer.cornerRadius = 10.0
+        messageLabel.textAlignment = NSTextAlignment.center
 
         self.addSubview(messageLabel)
         
@@ -45,19 +46,7 @@ class MyCell: UITableViewCell {
         nameLabel.numberOfLines = 0
         
         self.addSubview(nameLabel)
-        
-        messageLabel.snp.remakeConstraints { (make) -> Void in
-            make.left.equalTo(self).offset(MyCell.inset)
-            make.bottom.right.equalTo(self).offset(-MyCell.inset)
-        }
-        
-        nameLabel.snp.remakeConstraints { (make) -> Void in
-            make.top.left.equalTo(self).offset(MyCell.inset)
-            make.right.equalTo(self).offset(-MyCell.inset)
-            make.bottom.equalTo(messageLabel.snp.top).offset(-MyCell.inset)
-            make.height.equalTo(MyCell.nameHeight)
-        }
-        
+                
         self.layoutMargins = UIEdgeInsets.zero
     }
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0BDEF2FE1E94ADB800283C0D /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDEF2FD1E94ADB800283C0D /* PaddingLabel.swift */; };
 		6134BF0F86CA385E96C2F5DB /* Pods_Client_testTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C41B9EBC539E8E26BEE3803 /* Pods_Client_testTests.framework */; };
 		8E5BB2FF1E6819F100523DA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5BB2FE1E6819F100523DA6 /* AppDelegate.swift */; };
 		8E5BB3011E6819F100523DA6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5BB3001E6819F100523DA6 /* ViewController.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		009F8D80003D1D7BB802E318 /* Pods_Client_test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Client_test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0BDEF2FD1E94ADB800283C0D /* PaddingLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		0E8862239A3EEBA1202B109B /* Pods-Client_testUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client_testUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Client_testUITests/Pods-Client_testUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		36B079D1D6720BFB56CC70B0 /* Pods_Client_testUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Client_testUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D53631647447259B7889E7D /* Pods-Client_test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client_test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Client_test/Pods-Client_test.debug.xcconfig"; sourceTree = "<group>"; };
@@ -132,16 +134,17 @@
 		8E5BB2FD1E6819F100523DA6 /* Client_test */ = {
 			isa = PBXGroup;
 			children = (
-				8E94777D1E90F8A700194FCA /* MainView.swift */,
 				8E5BB2FE1E6819F100523DA6 /* AppDelegate.swift */,
 				8E5BB30A1E6819F100523DA6 /* Info.plist */,
+				8E9477851E90F94E00194FCA /* InputTextView.swift */,
 				8E5BB3071E6819F100523DA6 /* LaunchScreen.storyboard */,
 				8E5BB3021E6819F100523DA6 /* Main.storyboard */,
-				8E5BB3001E6819F100523DA6 /* ViewController.swift */,
-				8E94777F1E90F8C400194FCA /* MyCell.swift */,
 				8E9477811E90F8D600194FCA /* MainController.swift */,
+				8E94777D1E90F8A700194FCA /* MainView.swift */,
+				8E94777F1E90F8C400194FCA /* MyCell.swift */,
 				8E9477831E90F8E700194FCA /* Object.swift */,
-				8E9477851E90F94E00194FCA /* InputTextView.swift */,
+				0BDEF2FD1E94ADB800283C0D /* PaddingLabel.swift */,
+				8E5BB3001E6819F100523DA6 /* ViewController.swift */,
 			);
 			path = Client_test;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 				8E5BB3011E6819F100523DA6 /* ViewController.swift in Sources */,
 				8E9477801E90F8C400194FCA /* MyCell.swift in Sources */,
 				8E94777E1E90F8A700194FCA /* MainView.swift in Sources */,
+				0BDEF2FE1E94ADB800283C0D /* PaddingLabel.swift in Sources */,
 				8E5BB2FF1E6819F100523DA6 /* AppDelegate.swift in Sources */,
 				8E9477841E90F8E700194FCA /* Object.swift in Sources */,
 				8E9477821E90F8D600194FCA /* MainController.swift in Sources */,

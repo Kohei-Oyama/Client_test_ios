@@ -25,17 +25,16 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // viewの設定
         chatView = MainView(frame: view.bounds)
         setup(view: self.chatView!)
         view.addSubview(chatView!)
-        
         chatView?.snp.remakeConstraints({ (make) -> Void in
             make.top.bottom.left.right.equalTo(self.view)
         })
         
         chatView?.tableView.delegate = self
         chatView?.tableView.dataSource = self
-        chatView?.tableView.separatorInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         chatView?.tableView.allowsSelection = false
         chatView?.tableView.register(MyCell.self, forCellReuseIdentifier: self.cellIdentifier)
         
@@ -57,6 +56,19 @@ class MainViewController: UIViewController {
         }))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func setup(view: MainView) {
+        view.backgroundColor = UIColor.gray
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Sendした時のイベントを追加
+        view.inputTextView.send.addTarget(self, action: #selector(self.sendPush), for: .touchUpInside)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // どこかタッチしたらキーボード閉じる
+        self.view.endEditing(true)
+    }
 }
 
 extension MainViewController {
@@ -67,6 +79,7 @@ extension MainViewController {
             print("Connected!")
         }
         
+        // channel作成
         self.channel = client.create(self.channelIdentifier)
         // 受信時の設定
         self.channel?.onReceive = {(data: Any?, error: Error?) in
@@ -90,49 +103,43 @@ extension MainViewController {
         self.client.connect()
     }
     
-    func setup(view: MainView) {
-        view.backgroundColor = UIColor.gray
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Sendした時のイベントを追加
-        view.inputTextView.send.addTarget(self, action: #selector(self.sendPush), for: .touchUpInside)
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        // どこかタッチしたらキーボード閉じる
-        self.view.endEditing(true)
-    }
-    
     func sendPush() {
         // Sendボタンを押した時のメソッド
         let message = (self.chatView?.inputTextView.inputField.text)!
+        let time = getTime()
         // message前後の不要な改行と空白削除
         let prettyMessage = message.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        // actionで送信
         if (!(prettyMessage.isEmpty)) {
-            print("Sending Message: \(message)")
-            _ = self.channel?.action("talk", with:
-                ["name": self.userName, "message": prettyMessage]
-            )
+            //self.channel?.action("talk", with: ["name": self.userName, "time": time, "message": prettyMessage])
+            self.channel?.action("talk", with: ["name": self.userName, "message": prettyMessage])
         }
         self.chatView?.inputTextView.inputField.text = ""
         view.endEditing(true)
     }
     
+    func getTime() -> String {
+        // 現在時刻取得
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd' 'HH:mm:ss"
+        let now = Date()
+        return formatter.string(from: now)
+    }
 }
 
 // UITableViewDelegate
 extension MainViewController: UITableViewDelegate {
     
-    // Cellの高さ指定
+    // MyCellの高さ指定
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let message = history[(indexPath as NSIndexPath).row]
-        let attrString = message.attributedString()
+        let object = history[(indexPath as NSIndexPath).row]
+        let attrString = object.attributedString()
         let width = self.chatView?.tableView.bounds.size.width;
         // message(1行)が入るサイズ
-        let rect = attrString.boundingRect(with: CGSize(width: width!, height: CGFloat.greatestFiniteMagnitude),
-                                           options: [.usesLineFragmentOrigin, .usesFontLeading], context:nil)
-        // messageのサイズ + 上下の余白 + 名前欄の高さ
-        return rect.size.height + (MyCell.inset * 3.0) + MyCell.nameHeight
+        let rect = attrString.boundingRect(with: CGSize(width: width!, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context:nil)
+        
+        // messageのサイズ + Labelの上中下の余白 + 名前欄の高さ + Label中のtextの余白 + 1
+        return rect.size.height + (MyCell.inset * 3.0) + MyCell.nameHeight + 16 + 1
     }
 }
 
@@ -147,7 +154,34 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as! MyCell
         let msg = history[(indexPath as NSIndexPath).row]
-        cell.message = msg
+        cell.object = msg
+        
+        cell.messageLabel.snp.remakeConstraints { (make) -> Void in
+            make.left.equalTo(cell).offset(MyCell.inset)
+            make.bottom.equalTo(cell).offset(-MyCell.inset)
+        }
+        
+        cell.nameLabel.snp.remakeConstraints { (make) -> Void in
+            make.top.left.equalTo(cell).offset(MyCell.inset)
+            make.bottom.equalTo(cell.messageLabel.snp.top).offset(-MyCell.inset)
+            make.height.equalTo(MyCell.nameHeight)
+        }
+        
+        // 自分の発言は右側に出現
+        if msg.name == self.userName {
+            cell.messageLabel.snp.remakeConstraints { (make) -> Void in
+                make.right.equalTo(cell).offset(-MyCell.inset)
+                make.bottom.equalTo(cell).offset(-MyCell.inset)
+            }
+            
+            cell.nameLabel.snp.remakeConstraints { (make) -> Void in
+                make.top.equalTo(cell).offset(MyCell.inset)
+                make.right.equalTo(cell).offset(-MyCell.inset)
+                make.bottom.equalTo(cell.messageLabel.snp.top).offset(-MyCell.inset)
+                make.height.equalTo(MyCell.nameHeight)
+            }
+        }
+        
         return cell
     }
 }
