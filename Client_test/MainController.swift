@@ -11,12 +11,15 @@ import ActionCableClient
 import SnapKit
 import SwiftyJSON
 
+// チャットのViewコントローラ
 class MainViewController: UIViewController {
     
     let cellIdentifier = "MyCell"
-    let channelIdentifier = "ChatChannel"
     
     var userName: String = ""
+    var channelIdentifier: String = ""
+    //let client = ActionCableClient(url: URL(string:"ws://192.168.11.5:3000/cable")!)
+    //let client = ActionCableClient(url: URL(string:"ws://localhost:3000/cable")!)
     let client = ActionCableClient(url: URL(string:"wss://actioncable-echo.herokuapp.com/cable")!)
     var channel: Channel?
     var history: Array<Object> = Array()
@@ -24,6 +27,11 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = self.channelIdentifier
+        
+        // テスト段階のためチャンネル名固定
+        channelIdentifier = "ChatChannel"
         
         // viewの設定
         chatView = MainView(frame: view.bounds)
@@ -41,20 +49,12 @@ class MainViewController: UIViewController {
         setupClient()
     }
     
-    // アプリ起動時の初期設定
+    // コントローラ起動時の初期設定
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let alert = UIAlertController(title: "Setting Name", message: "What's Your Name?", preferredStyle: UIAlertControllerStyle.alert)
-        var nameTextField: UITextField?
-        alert.addTextField(configurationHandler: {(textField: UITextField!) in
-            textField.placeholder = "Your Name"
-            nameTextField = textField
-        })
-        alert.addAction(UIAlertAction(title: "Start", style: .default, handler: {action in
-            self.userName = (nameTextField?.text)!
-        }))
-        self.present(alert, animated: true, completion: nil)
+        // サーバと接続
+        self.client.connect()
     }
     
     func setup(view: MainView) {
@@ -62,7 +62,8 @@ class MainViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         
         // Sendした時のイベントを追加
-        view.inputTextView.send.addTarget(self, action: #selector(self.sendPush), for: .touchUpInside)
+        view.inputTextView.buttonTitle = "Send"
+        view.inputTextView.button.addTarget(self, action: #selector(self.sendPush), for: .touchUpInside)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -74,10 +75,6 @@ class MainViewController: UIViewController {
 extension MainViewController {
     
     func setupClient() -> Void {
-        
-        self.client.onConnected = {
-            print("Connected!")
-        }
         
         // channel作成
         self.channel = client.create(self.channelIdentifier)
@@ -99,8 +96,33 @@ extension MainViewController {
                 self.chatView?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
             }
         }
-        // サーバと接続
-        self.client.connect()
+        
+        self.client.onConnected = {
+            // Connect成功時に通知する
+            print("Connect!")
+            let alert: UIAlertController = UIAlertController(title: "Connect Success!", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+            let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler:{(action: UIAlertAction!) -> Void in
+            })
+            alert.addAction(defaultAction)
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        self.client.willReconnect = {
+            // Connect失敗時 or Serverから切られた時に呼ばれる
+            print("Disconnect")
+            let alert: UIAlertController = UIAlertController(title: "Connect Fail...", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+            let defaultAction: UIAlertAction = UIAlertAction(title: "Reconnect", style: .default, handler:{(action: UIAlertAction!) -> Void in
+                // 再connect
+                self.client.connect()
+            })
+            let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler:{(action: UIAlertAction!) -> Void in
+                
+            })
+            alert.addAction(cancelAction)
+            alert.addAction(defaultAction)
+            self.present(alert, animated: true, completion: nil)
+            return true
+        }
     }
     
     func sendPush() {

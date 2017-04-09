@@ -13,27 +13,32 @@ import NextGrowingTextView
 
 class InputTextView: UIView{
     
-    // Sendボタンとテキスト入力欄を持つUIView
+    // ボタンとテキスト入力欄を持つUIView
     var inputField: NextGrowingTextView!
-    var send: UIButton!
+    var button: UIButton!
+    var buttonTitle: String = "" {
+        didSet {
+            // buttonTitleの値が変わったらタイトルセットしてサイズをフィットさせる
+            self.button.setTitle(self.buttonTitle, for: .normal)
+            self.button.titleLabel?.sizeToFit()
+        }
+    }
     
     required init() {
         super.init(frame: CGRect.zero)
-        send = UIButton(frame: CGRect.zero)
+        button = UIButton(frame: CGRect.zero)
         inputField = NextGrowingTextView(frame: CGRect.zero)
-        self.addSubview(send)
+        self.addSubview(button)
         self.addSubview(inputField)
         
         inputField.snp.remakeConstraints { (make) -> Void in
             make.top.left.equalTo(self).offset(4)
             make.bottom.equalTo(self).offset(-4)
-            make.right.equalTo(send.snp.left).offset(-4)
+            make.right.equalTo(button.snp.left).offset(-4)
         }
         
-        send.snp.remakeConstraints { (make) -> Void in
+        button.snp.remakeConstraints { (make) -> Void in
             make.bottom.right.equalTo(self).offset(-4)
-            make.height.equalTo(36)
-            make.width.equalTo(50)
         }
         
         inputField.layer.cornerRadius = 8
@@ -42,11 +47,11 @@ class InputTextView: UIView{
         inputField.placeholderAttributedText = NSAttributedString(string: "テキストを入力してください",attributes: [NSFontAttributeName: inputField.font!,NSForegroundColorAttributeName: UIColor.gray])
         inputField.translatesAutoresizingMaskIntoConstraints = false
         
-        send.setTitle("Send", for: .normal)
-        send.setTitleColor(UIColor.white, for: .normal)
-        send.backgroundColor = UIColor.blue
-        send.layer.cornerRadius = 8
-        send.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.backgroundColor = UIColor.blue
+        button.layer.cornerRadius = 8
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.textAlignment = NSTextAlignment.center
     }
     
     required init?(coder aDecoder: NSCoder) {

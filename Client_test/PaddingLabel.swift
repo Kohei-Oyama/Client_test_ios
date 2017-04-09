@@ -8,8 +8,8 @@
 
 import UIKit
 
+//　周囲に余白を持ったUILabel
 class PaddingLabel: UILabel {
-    //　周囲に余白を持ったUILabel
     let padding: UIEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     
     override func drawText(in rect: CGRect) {

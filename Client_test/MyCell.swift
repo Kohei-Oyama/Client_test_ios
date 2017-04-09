@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 
+// チャットのテーブルの1つのCell
 class MyCell: UITableViewCell {
     
     static let inset:CGFloat = 10.0

@@ -1,9 +1,9 @@
 //
-//  MainView.swift
-//  
+//  RoomView.swift
+//  Client_test
 //
-//  Created by Hirano on 2017/04/02.
-//
+//  Created by Kohei Oyama on 2017/04/09.
+//  Copyright © 2017年 Oyama. All rights reserved.
 //
 
 import Foundation
@@ -11,8 +11,8 @@ import UIKit
 import SnapKit
 import NextGrowingTextView
 
-// チャットする画面
-class MainView : UIView {
+// Roomを作る画面
+class RoomView : UIView {
     
     var tableView: UITableView
     var bottomLayoutConstraint: Constraint?
@@ -55,7 +55,7 @@ class MainView : UIView {
 }
 
 
-extension MainView {
+extension RoomView {
     func keyboardWillHideNotification(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo!
         let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
