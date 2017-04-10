@@ -15,14 +15,16 @@ import SwiftyJSON
 class MainViewController: UIViewController {
     
     let cellIdentifier = "MyCell"
+    let actionName = "speak"
     
     var userName: String = ""
     var channelIdentifier: String = ""
     //let client = ActionCableClient(url: URL(string:"ws://192.168.11.5:3000/cable")!)
+    let client = ActionCableClient(url: URL(string:"ws://10.213.225.68:3000/cable")!)
     //let client = ActionCableClient(url: URL(string:"ws://localhost:3000/cable")!)
-    let client = ActionCableClient(url: URL(string:"wss://actioncable-echo.herokuapp.com/cable")!)
+    //let client = ActionCableClient(url: URL(string:"wss://actioncable-echo.herokuapp.com/cable")!)
     var channel: Channel?
-    var history: Array<Object> = Array()
+    var history: Array<MainObject> = Array()
     var chatView: MainView?
     
     override func viewDidLoad() {
@@ -31,7 +33,8 @@ class MainViewController: UIViewController {
         self.title = self.channelIdentifier
         
         // テスト段階のためチャンネル名固定
-        channelIdentifier = "ChatChannel"
+        //channelIdentifier = "ChatChannel"
+        channelIdentifier = "MessageChannel"
         
         // viewの設定
         chatView = MainView(frame: view.bounds)
@@ -44,7 +47,7 @@ class MainViewController: UIViewController {
         chatView?.tableView.delegate = self
         chatView?.tableView.dataSource = self
         chatView?.tableView.allowsSelection = false
-        chatView?.tableView.register(MyCell.self, forCellReuseIdentifier: self.cellIdentifier)
+        chatView?.tableView.register(MainCell.self, forCellReuseIdentifier: self.cellIdentifier)
         
         setupClient()
     }
@@ -86,7 +89,7 @@ extension MainViewController {
             }
             
             let JSONObject = JSON(data!)
-            let msg = Object(name: JSONObject["name"].string!, message: JSONObject["message"].string!)
+            let msg = MainObject(name: JSONObject["name"].string!, message: JSONObject["message"].string!)
             self.history.append(msg)
             self.chatView?.tableView.reloadData()
             
@@ -134,7 +137,7 @@ extension MainViewController {
         // actionで送信
         if (!(prettyMessage.isEmpty)) {
             //self.channel?.action("talk", with: ["name": self.userName, "time": time, "message": prettyMessage])
-            self.channel?.action("talk", with: ["name": self.userName, "message": prettyMessage])
+            self.channel?.action(self.actionName, with: ["name": self.userName, "message": prettyMessage])
         }
         self.chatView?.inputTextView.inputField.text = ""
         view.endEditing(true)
@@ -161,7 +164,7 @@ extension MainViewController: UITableViewDelegate {
         let rect = attrString.boundingRect(with: CGSize(width: width!, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context:nil)
         
         // messageのサイズ + Labelの上中下の余白 + 名前欄の高さ + Label中のtextの余白 + 1
-        return rect.size.height + (MyCell.inset * 3.0) + MyCell.nameHeight + 16 + 1
+        return rect.size.height + (MainCell.inset * 3.0) + MainCell.nameHeight + 16 + 1
     }
 }
 
@@ -174,33 +177,33 @@ extension MainViewController: UITableViewDataSource {
     
     // Cellの中身設定
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as! MyCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as! MainCell
         let msg = history[(indexPath as NSIndexPath).row]
         cell.object = msg
         
         cell.messageLabel.snp.remakeConstraints { (make) -> Void in
-            make.left.equalTo(cell).offset(MyCell.inset)
-            make.bottom.equalTo(cell).offset(-MyCell.inset)
+            make.left.equalTo(cell).offset(MainCell.inset)
+            make.bottom.equalTo(cell).offset(-MainCell.inset)
         }
         
         cell.nameLabel.snp.remakeConstraints { (make) -> Void in
-            make.top.left.equalTo(cell).offset(MyCell.inset)
-            make.bottom.equalTo(cell.messageLabel.snp.top).offset(-MyCell.inset)
-            make.height.equalTo(MyCell.nameHeight)
+            make.top.left.equalTo(cell).offset(MainCell.inset)
+            make.bottom.equalTo(cell.messageLabel.snp.top).offset(-MainCell.inset)
+            make.height.equalTo(MainCell.nameHeight)
         }
         
         // 自分の発言は右側に出現
         if msg.name == self.userName {
             cell.messageLabel.snp.remakeConstraints { (make) -> Void in
-                make.right.equalTo(cell).offset(-MyCell.inset)
-                make.bottom.equalTo(cell).offset(-MyCell.inset)
+                make.right.equalTo(cell).offset(-MainCell.inset)
+                make.bottom.equalTo(cell).offset(-MainCell.inset)
             }
             
             cell.nameLabel.snp.remakeConstraints { (make) -> Void in
-                make.top.equalTo(cell).offset(MyCell.inset)
-                make.right.equalTo(cell).offset(-MyCell.inset)
-                make.bottom.equalTo(cell.messageLabel.snp.top).offset(-MyCell.inset)
-                make.height.equalTo(MyCell.nameHeight)
+                make.top.equalTo(cell).offset(MainCell.inset)
+                make.right.equalTo(cell).offset(-MainCell.inset)
+                make.bottom.equalTo(cell.messageLabel.snp.top).offset(-MainCell.inset)
+                make.height.equalTo(MainCell.nameHeight)
             }
         }
         

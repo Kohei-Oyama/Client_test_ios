@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 // チャットのテーブルの1つのCell
-class MyCell: UITableViewCell {
+class MainCell: UITableViewCell {
     
     static let inset:CGFloat = 10.0
     static let nameHeight:CGFloat = 20.0
@@ -18,7 +18,7 @@ class MyCell: UITableViewCell {
     let messageLabel = PaddingLabel()
     let nameLabel = PaddingLabel()
     
-    var object: Object? {
+    var object: MainObject? {
         didSet {
             // objectの値が変わったら行う処理
             self.messageLabel.attributedText = object?.attributedString()
@@ -47,7 +47,9 @@ class MyCell: UITableViewCell {
         nameLabel.numberOfLines = 0
         
         self.addSubview(nameLabel)
-                
+        
+        self.backgroundColor = Color.clearblue
+        
         self.layoutMargins = UIEdgeInsets.zero
     }
     

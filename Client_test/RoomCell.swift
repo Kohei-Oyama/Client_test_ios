@@ -10,18 +10,21 @@ import UIKit
 import SnapKit
 
 // チャットのテーブルの1つのCell
+// room名とCreate日時を表示
 class RoomCell: UITableViewCell {
     
     static let inset:CGFloat = 10.0
-    static let nameHeight:CGFloat = 20.0
     
-    let roomLabel = PaddingLabel()
+    let nameLabel = PaddingLabel()
+    let timeLabel = PaddingLabel()
     
-    var object: Object? {
+    var object: RoomObject? {
         didSet {
             // objectの値が変わったら行う処理
-            self.roomLabel.attributedText = object?.attributedString()
-            self.roomLabel.sizeToFit()
+            self.nameLabel.attributedText = object?.nameAttributedString()
+            self.nameLabel.sizeToFit()
+            self.timeLabel.attributedText = object?.timeAttributedString()
+            self.timeLabel.sizeToFit()
         }
     }
     
@@ -29,15 +32,23 @@ class RoomCell: UITableViewCell {
         // cellの初期スタイル
         super.init(style: UITableViewCellStyle.subtitle, reuseIdentifier: reuseIdentifier)
         
-        roomLabel.frame = CGRect.zero
-        roomLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        roomLabel.numberOfLines = 0
-        roomLabel.backgroundColor = UIColor.red
-        roomLabel.layer.masksToBounds = true
-        roomLabel.layer.cornerRadius = 10.0
-        roomLabel.textAlignment = NSTextAlignment.center
+        nameLabel.frame = CGRect.zero
+        nameLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        nameLabel.numberOfLines = 0
+        nameLabel.backgroundColor = UIColor.red
+        nameLabel.layer.masksToBounds = true
+        nameLabel.layer.cornerRadius = 10.0
+        nameLabel.textAlignment = NSTextAlignment.center
+        self.addSubview(nameLabel)
         
-        self.addSubview(roomLabel)
+        timeLabel.frame = CGRect.zero
+        timeLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        timeLabel.numberOfLines = 0
+        timeLabel.backgroundColor = UIColor.blue
+        timeLabel.layer.masksToBounds = true
+        timeLabel.layer.cornerRadius = 10.0
+        timeLabel.textAlignment = NSTextAlignment.center
+        self.addSubview(timeLabel)
         
         self.layoutMargins = UIEdgeInsets.zero
     }

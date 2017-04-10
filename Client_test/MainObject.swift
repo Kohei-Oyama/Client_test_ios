@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
-// Cellの中身
-struct Object {
+// MainCellの中身
+struct MainObject {
     var name: String
     //var time: String
     var message: String

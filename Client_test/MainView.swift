@@ -24,11 +24,11 @@ class MainView : UIView {
         super.init(frame: frame)
         
         self.tableView.frame = CGRect.zero
+        self.tableView.backgroundColor = Color.clearblue
+        self.tableView.separatorColor = UIColor.clear;
         self.addSubview(self.tableView)
         
         self.addSubview(self.inputTextView)
-        
-        self.backgroundColor = UIColor.white
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShowNotification(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHideNotification(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
