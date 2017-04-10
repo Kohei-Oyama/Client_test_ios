@@ -14,18 +14,18 @@ import SwiftyJSON
 // チャットのViewコントローラ
 class MainViewController: UIViewController {
     
-    let cellIdentifier = "MyCell"
-    let actionName = "speak"
+    internal let cellIdentifier = "MyCell"
+    private let actionName = "speak"
     
-    var userName: String = ""
-    var channelIdentifier: String = ""
+    internal var userName: String = ""
+    internal var channelIdentifier: String = ""
     //let client = ActionCableClient(url: URL(string:"ws://192.168.11.5:3000/cable")!)
-    let client = ActionCableClient(url: URL(string:"ws://10.213.225.68:3000/cable")!)
-    //let client = ActionCableClient(url: URL(string:"ws://localhost:3000/cable")!)
+    //let client = ActionCableClient(url: URL(string:"ws://10.213.225.68:3000/cable")!)
+    private let client = ActionCableClient(url: URL(string:"ws://localhost:3000/cable")!)
     //let client = ActionCableClient(url: URL(string:"wss://actioncable-echo.herokuapp.com/cable")!)
-    var channel: Channel?
-    var history: Array<MainObject> = Array()
-    var chatView: MainView?
+    private var channel: Channel?
+    internal var history: Array<MainObject> = Array()
+    internal var chatView: MainView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +60,12 @@ class MainViewController: UIViewController {
         self.client.connect()
     }
     
-    func setup(view: MainView) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // どこかタッチしたらキーボード閉じる
+        self.view.endEditing(true)
+    }
+    
+    private func setup(view: MainView) {
         view.backgroundColor = UIColor.gray
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -69,15 +74,7 @@ class MainViewController: UIViewController {
         view.inputTextView.button.addTarget(self, action: #selector(self.sendPush), for: .touchUpInside)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        // どこかタッチしたらキーボード閉じる
-        self.view.endEditing(true)
-    }
-}
-
-extension MainViewController {
-    
-    func setupClient() -> Void {
+    private func setupClient() -> Void {
         
         // channel作成
         self.channel = client.create(self.channelIdentifier)
@@ -128,7 +125,7 @@ extension MainViewController {
         }
     }
     
-    func sendPush() {
+    internal func sendPush() {
         // Sendボタンを押した時のメソッド
         let message = (self.chatView?.inputTextView.inputField.text)!
         let time = getTime()
@@ -143,7 +140,7 @@ extension MainViewController {
         view.endEditing(true)
     }
     
-    func getTime() -> String {
+    private func getTime() -> String {
         // 現在時刻取得
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd' 'HH:mm:ss"

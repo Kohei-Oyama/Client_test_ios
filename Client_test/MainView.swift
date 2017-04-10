@@ -14,18 +14,20 @@ import NextGrowingTextView
 // チャットする画面
 class MainView : UIView {
     
-    var tableView: UITableView
-    var bottomLayoutConstraint: Constraint?
-    var inputTextView: InputTextView!
+    internal var tableView: UITableView = {
+        let tableView: UITableView = UITableView()
+        tableView.frame = CGRect.zero
+        tableView.backgroundColor = Color.clearblue
+        tableView.separatorColor = UIColor.clear;
+        return tableView
+    }()
+    internal var bottomLayoutConstraint: Constraint?
+    internal var inputTextView: InputTextView!
     
     required override init(frame: CGRect) {
-        self.tableView = UITableView()
         self.inputTextView = InputTextView()
         super.init(frame: frame)
         
-        self.tableView.frame = CGRect.zero
-        self.tableView.backgroundColor = Color.clearblue
-        self.tableView.separatorColor = UIColor.clear;
         self.addSubview(self.tableView)
         
         self.addSubview(self.inputTextView)

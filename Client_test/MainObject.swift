@@ -11,9 +11,9 @@ import UIKit
 
 // MainCellの中身
 struct MainObject {
-    var name: String
+    internal var name: String
     //var time: String
-    var message: String
+    internal var message: String
     
     // message本文の設定
     func attributedString() -> NSAttributedString {

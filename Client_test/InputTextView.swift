@@ -14,9 +14,27 @@ import NextGrowingTextView
 class InputTextView: UIView{
     
     // ボタンとテキスト入力欄を持つUIView
-    var inputField: NextGrowingTextView!
-    var button: UIButton!
-    var buttonTitle: String = "" {
+    internal var inputField: NextGrowingTextView = {
+        let field = NextGrowingTextView(frame: CGRect.zero)
+        field.layer.cornerRadius = 8
+        field.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        field.textContainerInset = UIEdgeInsets(top: 16, left: 0, bottom: 4, right: 0)
+        field.placeholderAttributedText = NSAttributedString(string: "テキストを入力してください",attributes: [NSFontAttributeName: field.font!,NSForegroundColorAttributeName: UIColor.gray])
+        field.translatesAutoresizingMaskIntoConstraints = false
+        return field
+    }()
+    
+    internal var button: UIButton = {
+        let button = UIButton(frame: CGRect.zero)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.backgroundColor = UIColor.blue
+        button.layer.cornerRadius = 8
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.textAlignment = NSTextAlignment.center
+        return button
+    }()
+    
+    internal var buttonTitle: String = "" {
         didSet {
             // buttonTitleの値が変わったらタイトルセットしてサイズをフィットさせる
             self.button.setTitle(self.buttonTitle, for: .normal)
@@ -26,8 +44,7 @@ class InputTextView: UIView{
     
     required init() {
         super.init(frame: CGRect.zero)
-        button = UIButton(frame: CGRect.zero)
-        inputField = NextGrowingTextView(frame: CGRect.zero)
+        
         self.addSubview(button)
         self.addSubview(inputField)
         
@@ -40,18 +57,6 @@ class InputTextView: UIView{
         button.snp.remakeConstraints { (make) -> Void in
             make.bottom.right.equalTo(self).offset(-4)
         }
-        
-        inputField.layer.cornerRadius = 8
-        inputField.backgroundColor = UIColor(white: 0.9, alpha: 1)
-        inputField.textContainerInset = UIEdgeInsets(top: 16, left: 0, bottom: 4, right: 0)
-        inputField.placeholderAttributedText = NSAttributedString(string: "テキストを入力してください",attributes: [NSFontAttributeName: inputField.font!,NSForegroundColorAttributeName: UIColor.gray])
-        inputField.translatesAutoresizingMaskIntoConstraints = false
-        
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.backgroundColor = UIColor.blue
-        button.layer.cornerRadius = 8
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.textAlignment = NSTextAlignment.center
     }
     
     required init?(coder aDecoder: NSCoder) {
