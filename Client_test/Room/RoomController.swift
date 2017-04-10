@@ -18,7 +18,8 @@ class RoomViewController: UIViewController {
     var rooms: Array<RoomObject> = Array()
     var roomView: RoomView?
     let cellName = "RoomCell"
-    internal var channelIdentifier: String = "Init"
+    let nextVC: MainViewController = MainViewController()
+    internal var channelIdentifier: String = "RoomChannel"
     private let actionCreate = "create"
     private let actionInit = "init"
     let client = ActionCableClient(url: URL(string:"ws://localhost:3000/cable")!)
@@ -87,7 +88,7 @@ class RoomViewController: UIViewController {
             }
             
             let JSONObject = JSON(data!)
-            let obj = RoomObject(name: JSONObject["name"].string!, time: JSONObject["time"].string!)
+            let obj = RoomObject(name: JSONObject["roomName"].string!, time: JSONObject["time"].string!)
             self.rooms.append(obj)
             self.roomView?.tableView.reloadData()
         }
@@ -132,7 +133,7 @@ class RoomViewController: UIViewController {
         let prettyName = name.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         if (!(prettyName.isEmpty)) {
             let obj = RoomObject(name: prettyName, time: time)
-            self.channel?.action(self.actionCreate, with: ["name": name, "time": time])
+            self.channel?.action(self.actionCreate, with: ["roomName": name, "time": time])
             self.rooms.append(obj)
             self.roomView?.tableView.reloadData()
         }
@@ -167,12 +168,12 @@ extension RoomViewController: UITableViewDelegate {
     // Cellタップされたら画面遷移
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let nextVC:MainViewController = MainViewController()
         let room = rooms[(indexPath as NSIndexPath).row]
         // ユーザ名とルーム名とClientを渡す
-        nextVC.userName = self.userName
-        nextVC.client = self.client
-        nextVC.channelIdentifier = room.name
+        self.nextVC.userName = self.userName
+        self.nextVC.client = self.client
+        self.nextVC.roomName = room.name
+        self.nextVC.setupChannel()
         self.navigationController?.pushViewController(nextVC, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }

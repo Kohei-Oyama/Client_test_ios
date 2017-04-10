@@ -14,27 +14,20 @@ import SwiftyJSON
 // チャットのViewコントローラ
 class MainViewController: UIViewController {
     
-    internal let cellIdentifier = "MainCell"
+    let cellIdentifier = "MainCell"
     private let actionName = "speak"
-    private var channel: Channel?
-    internal var history: Array<MainObject> = Array()
-    internal var chatView: MainView?
+    private let channelIdentifier: String = "MessageChannel"
+    var channel: Channel?
+    var history: Array<MainObject> = Array()
+    var chatView: MainView?
 
     // 以下はRoomControllerから値をもらう
-    // channelIdentifierにはRoom名が入るはず(ログが欲しい)
-    // channel名で区別せずに送受信のJSONに"room"変数作ってそこで呼び出すDBを指定すべき?
-    // Cellを押した時にRoom名をサーバに送信し、その名前のchannelが作成できれば良い
-    internal var channelIdentifier: String = ""
-    internal var client = ActionCableClient(url: URL(string: "test")!)
-    internal var userName: String = ""
+    var client: ActionCableClient?
+    var userName: String = ""
+    var roomName: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.title = self.channelIdentifier
-        
-        // テスト段階のためチャンネル名固定
-        channelIdentifier = "MessageChannel"
         
         // viewの設定
         chatView = MainView(frame: view.bounds)
@@ -52,7 +45,7 @@ class MainViewController: UIViewController {
             make.top.bottom.left.right.equalTo(self.view)
         })
         
-        setupChannel()
+        //setupChannel()
     }
     
     // コントローラ起動時の初期設定
@@ -60,15 +53,16 @@ class MainViewController: UIViewController {
         super.viewDidAppear(animated)        
     }
     
+    // どこかタッチしたらキーボード閉じる
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        // どこかタッチしたらキーボード閉じる
         self.view.endEditing(true)
     }
     
-    private func setupChannel() -> Void {
-        
-        // Room名のchannel作成
-        self.channel = client.create(self.channelIdentifier)
+    func setupChannel() -> Void {
+        self.title = self.roomName
+        let room_identifier = ["room" : self.roomName]
+        // streamの切り替えや複製がどうしてもできない…
+        self.channel = (client?.create(self.channelIdentifier, identifier: room_identifier, autoSubscribe: true, bufferActions: true))
         // 受信時の設定
         self.channel?.onReceive = {(data: Any?, error: Error?) in
             if let _ = error {
@@ -77,7 +71,7 @@ class MainViewController: UIViewController {
             }
             
             let JSONObject = JSON(data!)
-            let msg = MainObject(name: JSONObject["name"].string!, message: JSONObject["message"].string!)
+            let msg = MainObject(name: JSONObject["userName"].string!, message: JSONObject["messageLog"].string!)
             self.history.append(msg)
             self.chatView?.tableView.reloadData()
             
@@ -90,13 +84,13 @@ class MainViewController: UIViewController {
     }
 
     // Sendボタンを押した時のメソッド
-    internal func sendPush() {
+    func sendPush() {
         let message = (self.chatView?.inputTextView.inputField.text)!
         // message前後の不要な改行と空白削除
         let prettyMessage = message.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         // 送信
         if (!(prettyMessage.isEmpty)) {
-            self.channel?.action(self.actionName, with: ["name": self.userName, "message": prettyMessage])
+            self.channel?.action(self.actionName, with: ["userName": self.userName, "messageLog": prettyMessage])
         }
         self.chatView?.inputTextView.inputField.text = ""
         view.endEditing(true)
