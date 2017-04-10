@@ -7,12 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B8254D31E9A904F00612EC5 /* RoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254D21E9A904F00612EC5 /* RoomCell.swift */; };
-		0B8254D51E9A905500612EC5 /* RoomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254D41E9A905500612EC5 /* RoomController.swift */; };
-		0B8254D71E9A905B00612EC5 /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254D61E9A905B00612EC5 /* RoomView.swift */; };
-		0B8254DA1E9B1A6B00612EC5 /* RoomObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254D91E9B1A6B00612EC5 /* RoomObject.swift */; };
-		0B8254DE1E9B23B900612EC5 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254DD1E9B23B900612EC5 /* Color.swift */; };
-		0BDEF2FE1E94ADB800283C0D /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDEF2FD1E94ADB800283C0D /* PaddingLabel.swift */; };
+		0B8254E61E9B750B00612EC5 /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254E11E9B750B00612EC5 /* MainCell.swift */; };
+		0B8254E71E9B750B00612EC5 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254E21E9B750B00612EC5 /* MainController.swift */; };
+		0B8254E81E9B750B00612EC5 /* MainObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254E31E9B750B00612EC5 /* MainObject.swift */; };
+		0B8254E91E9B750B00612EC5 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254E41E9B750B00612EC5 /* MainView.swift */; };
+		0B8254EE1E9B752100612EC5 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254EA1E9B752100612EC5 /* Color.swift */; };
+		0B8254EF1E9B752100612EC5 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254EB1E9B752100612EC5 /* InputTextView.swift */; };
+		0B8254F01E9B752100612EC5 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254EC1E9B752100612EC5 /* PaddingLabel.swift */; };
+		0B8254F61E9B756700612EC5 /* RoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254F11E9B756700612EC5 /* RoomCell.swift */; };
+		0B8254F71E9B756700612EC5 /* RoomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254F21E9B756700612EC5 /* RoomController.swift */; };
+		0B8254F81E9B756700612EC5 /* RoomObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254F31E9B756700612EC5 /* RoomObject.swift */; };
+		0B8254F91E9B756700612EC5 /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254F41E9B756700612EC5 /* RoomView.swift */; };
 		6134BF0F86CA385E96C2F5DB /* Pods_Client_testTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C41B9EBC539E8E26BEE3803 /* Pods_Client_testTests.framework */; };
 		8E5BB2FF1E6819F100523DA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5BB2FE1E6819F100523DA6 /* AppDelegate.swift */; };
 		8E5BB3011E6819F100523DA6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5BB3001E6819F100523DA6 /* ViewController.swift */; };
@@ -20,11 +25,6 @@
 		8E5BB3091E6819F100523DA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E5BB3071E6819F100523DA6 /* LaunchScreen.storyboard */; };
 		8E5BB3141E6819F100523DA6 /* Client_testTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5BB3131E6819F100523DA6 /* Client_testTests.swift */; };
 		8E5BB31F1E6819F100523DA6 /* Client_testUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5BB31E1E6819F100523DA6 /* Client_testUITests.swift */; };
-		8E94777E1E90F8A700194FCA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E94777D1E90F8A700194FCA /* MainView.swift */; };
-		8E9477801E90F8C400194FCA /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E94777F1E90F8C400194FCA /* MainCell.swift */; };
-		8E9477821E90F8D600194FCA /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9477811E90F8D600194FCA /* MainController.swift */; };
-		8E9477841E90F8E700194FCA /* MainObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9477831E90F8E700194FCA /* MainObject.swift */; };
-		8E9477861E90F94E00194FCA /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9477851E90F94E00194FCA /* InputTextView.swift */; };
 		99080B6C515F581017B9B8B3 /* Pods_Client_test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009F8D80003D1D7BB802E318 /* Pods_Client_test.framework */; };
 		EC4DDCC06E897B3E54FCEC9B /* Pods_Client_testUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36B079D1D6720BFB56CC70B0 /* Pods_Client_testUITests.framework */; };
 /* End PBXBuildFile section */
@@ -48,12 +48,17 @@
 
 /* Begin PBXFileReference section */
 		009F8D80003D1D7BB802E318 /* Pods_Client_test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Client_test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0B8254D21E9A904F00612EC5 /* RoomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomCell.swift; sourceTree = "<group>"; };
-		0B8254D41E9A905500612EC5 /* RoomController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomController.swift; sourceTree = "<group>"; };
-		0B8254D61E9A905B00612EC5 /* RoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
-		0B8254D91E9B1A6B00612EC5 /* RoomObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomObject.swift; sourceTree = "<group>"; };
-		0B8254DD1E9B23B900612EC5 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		0BDEF2FD1E94ADB800283C0D /* PaddingLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		0B8254E11E9B750B00612EC5 /* MainCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCell.swift; sourceTree = "<group>"; };
+		0B8254E21E9B750B00612EC5 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		0B8254E31E9B750B00612EC5 /* MainObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainObject.swift; sourceTree = "<group>"; };
+		0B8254E41E9B750B00612EC5 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		0B8254EA1E9B752100612EC5 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		0B8254EB1E9B752100612EC5 /* InputTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
+		0B8254EC1E9B752100612EC5 /* PaddingLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		0B8254F11E9B756700612EC5 /* RoomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomCell.swift; sourceTree = "<group>"; };
+		0B8254F21E9B756700612EC5 /* RoomController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomController.swift; sourceTree = "<group>"; };
+		0B8254F31E9B756700612EC5 /* RoomObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomObject.swift; sourceTree = "<group>"; };
+		0B8254F41E9B756700612EC5 /* RoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
 		0E8862239A3EEBA1202B109B /* Pods-Client_testUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client_testUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Client_testUITests/Pods-Client_testUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		36B079D1D6720BFB56CC70B0 /* Pods_Client_testUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Client_testUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D53631647447259B7889E7D /* Pods-Client_test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client_test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Client_test/Pods-Client_test.debug.xcconfig"; sourceTree = "<group>"; };
@@ -72,11 +77,6 @@
 		8E5BB31A1E6819F100523DA6 /* Client_testUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Client_testUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5BB31E1E6819F100523DA6 /* Client_testUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client_testUITests.swift; sourceTree = "<group>"; };
 		8E5BB3201E6819F100523DA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8E94777D1E90F8A700194FCA /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		8E94777F1E90F8C400194FCA /* MainCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCell.swift; sourceTree = "<group>"; };
-		8E9477811E90F8D600194FCA /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
-		8E9477831E90F8E700194FCA /* MainObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainObject.swift; sourceTree = "<group>"; };
-		8E9477851E90F94E00194FCA /* InputTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		DFA3274D37FC4A837F5E7FC2 /* Pods-Client_testTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client_testTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Client_testTests/Pods-Client_testTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E48D862F6CC43243E120FBC4 /* Pods-Client_test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client_test.release.xcconfig"; path = "Pods/Target Support Files/Pods-Client_test/Pods-Client_test.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,15 +109,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0B8254D81E9A97CD00612EC5 /* Room */ = {
+		0B8254E51E9B750B00612EC5 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				0B8254D41E9A905500612EC5 /* RoomController.swift */,
-				0B8254D61E9A905B00612EC5 /* RoomView.swift */,
-				0B8254D21E9A904F00612EC5 /* RoomCell.swift */,
-				0B8254D91E9B1A6B00612EC5 /* RoomObject.swift */,
+				0B8254E11E9B750B00612EC5 /* MainCell.swift */,
+				0B8254E21E9B750B00612EC5 /* MainController.swift */,
+				0B8254E31E9B750B00612EC5 /* MainObject.swift */,
+				0B8254E41E9B750B00612EC5 /* MainView.swift */,
 			);
-			name = Room;
+			path = Main;
+			sourceTree = "<group>";
+		};
+		0B8254ED1E9B752100612EC5 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				0B8254EA1E9B752100612EC5 /* Color.swift */,
+				0B8254EB1E9B752100612EC5 /* InputTextView.swift */,
+				0B8254EC1E9B752100612EC5 /* PaddingLabel.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		0B8254F51E9B756700612EC5 /* Room */ = {
+			isa = PBXGroup;
+			children = (
+				0B8254F11E9B756700612EC5 /* RoomCell.swift */,
+				0B8254F21E9B756700612EC5 /* RoomController.swift */,
+				0B8254F31E9B756700612EC5 /* RoomObject.swift */,
+				0B8254F41E9B756700612EC5 /* RoomView.swift */,
+			);
+			path = Room;
 			sourceTree = "<group>";
 		};
 		4EEA4CA77F39E77892EC780D /* Frameworks */ = {
@@ -155,18 +176,13 @@
 		8E5BB2FD1E6819F100523DA6 /* Client_test */ = {
 			isa = PBXGroup;
 			children = (
+				0B8254E51E9B750B00612EC5 /* Main */,
 				8E5BB2FE1E6819F100523DA6 /* AppDelegate.swift */,
 				8E5BB30A1E6819F100523DA6 /* Info.plist */,
-				8E9477851E90F94E00194FCA /* InputTextView.swift */,
 				8E5BB3071E6819F100523DA6 /* LaunchScreen.storyboard */,
 				8E5BB3021E6819F100523DA6 /* Main.storyboard */,
-				8E9477811E90F8D600194FCA /* MainController.swift */,
-				0B8254D81E9A97CD00612EC5 /* Room */,
-				8E94777D1E90F8A700194FCA /* MainView.swift */,
-				0B8254DD1E9B23B900612EC5 /* Color.swift */,
-				8E94777F1E90F8C400194FCA /* MainCell.swift */,
-				8E9477831E90F8E700194FCA /* MainObject.swift */,
-				0BDEF2FD1E94ADB800283C0D /* PaddingLabel.swift */,
+				0B8254F51E9B756700612EC5 /* Room */,
+				0B8254ED1E9B752100612EC5 /* Utility */,
 				8E5BB3001E6819F100523DA6 /* ViewController.swift */,
 			);
 			path = Client_test;
@@ -483,19 +499,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E9477861E90F94E00194FCA /* InputTextView.swift in Sources */,
+				0B8254E71E9B750B00612EC5 /* MainController.swift in Sources */,
 				8E5BB3011E6819F100523DA6 /* ViewController.swift in Sources */,
-				0B8254D51E9A905500612EC5 /* RoomController.swift in Sources */,
-				0B8254DA1E9B1A6B00612EC5 /* RoomObject.swift in Sources */,
-				0B8254DE1E9B23B900612EC5 /* Color.swift in Sources */,
-				8E9477801E90F8C400194FCA /* MainCell.swift in Sources */,
-				8E94777E1E90F8A700194FCA /* MainView.swift in Sources */,
-				0BDEF2FE1E94ADB800283C0D /* PaddingLabel.swift in Sources */,
+				0B8254EE1E9B752100612EC5 /* Color.swift in Sources */,
+				0B8254F81E9B756700612EC5 /* RoomObject.swift in Sources */,
+				0B8254F71E9B756700612EC5 /* RoomController.swift in Sources */,
+				0B8254E61E9B750B00612EC5 /* MainCell.swift in Sources */,
+				0B8254E91E9B750B00612EC5 /* MainView.swift in Sources */,
+				0B8254EF1E9B752100612EC5 /* InputTextView.swift in Sources */,
 				8E5BB2FF1E6819F100523DA6 /* AppDelegate.swift in Sources */,
-				8E9477841E90F8E700194FCA /* MainObject.swift in Sources */,
-				0B8254D71E9A905B00612EC5 /* RoomView.swift in Sources */,
-				0B8254D31E9A904F00612EC5 /* RoomCell.swift in Sources */,
-				8E9477821E90F8D600194FCA /* MainController.swift in Sources */,
+				0B8254E81E9B750B00612EC5 /* MainObject.swift in Sources */,
+				0B8254F91E9B756700612EC5 /* RoomView.swift in Sources */,
+				0B8254F61E9B756700612EC5 /* RoomCell.swift in Sources */,
+				0B8254F01E9B752100612EC5 /* PaddingLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

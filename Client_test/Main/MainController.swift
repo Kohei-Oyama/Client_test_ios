@@ -14,18 +14,19 @@ import SwiftyJSON
 // チャットのViewコントローラ
 class MainViewController: UIViewController {
     
-    internal let cellIdentifier = "MyCell"
+    internal let cellIdentifier = "MainCell"
     private let actionName = "speak"
-    
-    internal var userName: String = ""
-    internal var channelIdentifier: String = ""
-    //let client = ActionCableClient(url: URL(string:"ws://192.168.11.5:3000/cable")!)
-    //let client = ActionCableClient(url: URL(string:"ws://10.213.225.68:3000/cable")!)
-    private let client = ActionCableClient(url: URL(string:"ws://localhost:3000/cable")!)
-    //let client = ActionCableClient(url: URL(string:"wss://actioncable-echo.herokuapp.com/cable")!)
     private var channel: Channel?
     internal var history: Array<MainObject> = Array()
     internal var chatView: MainView?
+
+    // 以下はRoomControllerから値をもらう
+    // channelIdentifierにはRoom名が入るはず(ログが欲しい)
+    // channel名で区別せずに送受信のJSONに"room"変数作ってそこで呼び出すDBを指定すべき?
+    // Cellを押した時にRoom名をサーバに送信し、その名前のchannelが作成できれば良い
+    internal var channelIdentifier: String = ""
+    internal var client = ActionCableClient(url: URL(string: "test")!)
+    internal var userName: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,31 +34,30 @@ class MainViewController: UIViewController {
         self.title = self.channelIdentifier
         
         // テスト段階のためチャンネル名固定
-        //channelIdentifier = "ChatChannel"
         channelIdentifier = "MessageChannel"
         
         // viewの設定
         chatView = MainView(frame: view.bounds)
-        setup(view: self.chatView!)
-        view.addSubview(chatView!)
-        chatView?.snp.remakeConstraints({ (make) -> Void in
-            make.top.bottom.left.right.equalTo(self.view)
-        })
-        
+        chatView?.backgroundColor = UIColor.gray
+        chatView?.translatesAutoresizingMaskIntoConstraints = false
+        chatView?.inputTextView.buttonTitle = "Send"
+        chatView?.inputTextView.button.addTarget(self, action: #selector(self.sendPush), for: .touchUpInside)
         chatView?.tableView.delegate = self
         chatView?.tableView.dataSource = self
         chatView?.tableView.allowsSelection = false
         chatView?.tableView.register(MainCell.self, forCellReuseIdentifier: self.cellIdentifier)
         
-        setupClient()
+        view.addSubview(chatView!)
+        chatView?.snp.remakeConstraints({ (make) -> Void in
+            make.top.bottom.left.right.equalTo(self.view)
+        })
+        
+        setupChannel()
     }
     
     // コントローラ起動時の初期設定
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // サーバと接続
-        self.client.connect()
+        super.viewDidAppear(animated)        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -65,18 +65,9 @@ class MainViewController: UIViewController {
         self.view.endEditing(true)
     }
     
-    private func setup(view: MainView) {
-        view.backgroundColor = UIColor.gray
-        view.translatesAutoresizingMaskIntoConstraints = false
+    private func setupChannel() -> Void {
         
-        // Sendした時のイベントを追加
-        view.inputTextView.buttonTitle = "Send"
-        view.inputTextView.button.addTarget(self, action: #selector(self.sendPush), for: .touchUpInside)
-    }
-    
-    private func setupClient() -> Void {
-        
-        // channel作成
+        // Room名のchannel作成
         self.channel = client.create(self.channelIdentifier)
         // 受信時の設定
         self.channel?.onReceive = {(data: Any?, error: Error?) in
@@ -96,56 +87,19 @@ class MainViewController: UIViewController {
                 self.chatView?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
             }
         }
-        
-        self.client.onConnected = {
-            // Connect成功時に通知する
-            print("Connect!")
-            let alert: UIAlertController = UIAlertController(title: "Connect Success!", message: nil, preferredStyle: UIAlertControllerStyle.alert)
-            let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler:{(action: UIAlertAction!) -> Void in
-            })
-            alert.addAction(defaultAction)
-            self.present(alert, animated: true, completion: nil)
-        }
-        
-        self.client.willReconnect = {
-            // Connect失敗時 or Serverから切られた時に呼ばれる
-            print("Disconnect")
-            let alert: UIAlertController = UIAlertController(title: "Connect Fail...", message: nil, preferredStyle: UIAlertControllerStyle.alert)
-            let defaultAction: UIAlertAction = UIAlertAction(title: "Reconnect", style: .default, handler:{(action: UIAlertAction!) -> Void in
-                // 再connect
-                self.client.connect()
-            })
-            let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler:{(action: UIAlertAction!) -> Void in
-                
-            })
-            alert.addAction(cancelAction)
-            alert.addAction(defaultAction)
-            self.present(alert, animated: true, completion: nil)
-            return true
-        }
     }
-    
+
+    // Sendボタンを押した時のメソッド
     internal func sendPush() {
-        // Sendボタンを押した時のメソッド
         let message = (self.chatView?.inputTextView.inputField.text)!
-        let time = getTime()
         // message前後の不要な改行と空白削除
         let prettyMessage = message.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        // actionで送信
+        // 送信
         if (!(prettyMessage.isEmpty)) {
-            //self.channel?.action("talk", with: ["name": self.userName, "time": time, "message": prettyMessage])
             self.channel?.action(self.actionName, with: ["name": self.userName, "message": prettyMessage])
         }
         self.chatView?.inputTextView.inputField.text = ""
         view.endEditing(true)
-    }
-    
-    private func getTime() -> String {
-        // 現在時刻取得
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd' 'HH:mm:ss"
-        let now = Date()
-        return formatter.string(from: now)
     }
 }
 
