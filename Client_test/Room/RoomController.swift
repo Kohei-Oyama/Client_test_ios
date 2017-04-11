@@ -14,17 +14,18 @@ import SwiftyJSON
 // ルームのViewコントローラ
 class RoomViewController: UIViewController {
 
-    private let channelIdentifier: String = "RoomChannel"
+    let channelIdentifier: String = "RoomChannel"
     private let actionCreate = "create"
     private let actionInit = "init"
+    let actionDelete = "delete"
     let cellName = "RoomCell"
 
-    private var channel: Channel?
+    var channel: Channel?
     var rooms: Array<Object> = Array()
     var roomView: RoomView?
     
     let client = ActionCableClient(url: URL(string:"ws://localhost:3000/cable")!)
-    //let client = ActionCableClient(url: URL(string:"ws://192.168.11.5:3000/cable")!)
+    //let client = ActionCableClient(url: URL(string:"ws://192.168.12.126:3000/cable")!)
     var userName: String?
     let mainController: MainViewController = MainViewController()
     
@@ -64,9 +65,11 @@ class RoomViewController: UIViewController {
                 print(error as! String)
                 return
             }
-            
             let JSONObject = JSON(data!)
-            let obj = Object(name: JSONObject["roomName"].string!, time: JSONObject["time"].string!, message: nil)
+            let createTime = DateUtils.dateFromString(string: JSONObject["time"].string!, format: "yyyy/MM/dd HH:mm:ss Z")
+            let now = Date()
+            let duration = now.offsetFrom(date: createTime)
+            let obj = Object(name: JSONObject["roomName"].string!, time: duration, message: nil)
             self.rooms.append(obj)
             self.roomView?.tableView.reloadData()
         }
@@ -141,7 +144,7 @@ class RoomViewController: UIViewController {
     // 現在時刻取得
     private func getTime() -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM-dd' 'HH:mm"
+        formatter.dateFormat = "yyyy/MM-dd HH:mm:ss Z"
         let now = Date()
         return formatter.string(from: now)
     }
@@ -152,8 +155,8 @@ extension RoomViewController: UITableViewDelegate {
     
     // Cellの高さ指定
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let object = rooms[(indexPath as NSIndexPath).row]
-        let attrString = object.attributedString(sentence: object.name!, fontSize: 14.0)
+        let object = self.rooms[(indexPath as NSIndexPath).row]
+        let attrString = object.attributedString(sentence: object.name!, fontSize: 18.0)
         let width = self.roomView?.tableView.bounds.size.width;
         let rect = attrString.boundingRect(with: CGSize(width: width!, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context:nil)
         
@@ -163,10 +166,22 @@ extension RoomViewController: UITableViewDelegate {
     
     // Cellタップで画面遷移
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let room = rooms[(indexPath as NSIndexPath).row]
+        let room = self.rooms[(indexPath as NSIndexPath).row]
         self.mainController.roomName = room.name!
         self.navigationController?.pushViewController(self.mainController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    // Cellの削除
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteButton: UITableViewRowAction = UITableViewRowAction(style: .normal, title: "削除") { (action, index) -> Void in
+            let room = self.rooms[(indexPath as NSIndexPath).row]
+            self.rooms.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            self.channel?.action(self.actionDelete, with: ["roomName": room.name!, "time": room.time!])
+        }
+        deleteButton.backgroundColor = UIColor.red
+        return [deleteButton]
     }
 }
 

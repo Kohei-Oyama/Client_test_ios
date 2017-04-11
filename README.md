@@ -7,11 +7,10 @@ Rubyサーバを経由したリアルタイムチャットのモバイルアプ�
 #### 2.JSON使用(発信者や日付など多数のデータをやりとりしたい)
 
 ## (次の)目標
-* Room機能の実装
+* Roomを削除できるように(delete)
 
 ## 進捗
-* streamにRoom名を指定することで最低限のRoom機能は完成
-* stream(=channelのidentifier)の切り替えや、複数のstreamの作成が何故かできない…
+* streamにRoom名を指定することでRoom機能完成
 
 ## メモ
 * Webソケット通信(ActionCable)を使用

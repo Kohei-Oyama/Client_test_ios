@@ -47,7 +47,7 @@ class MainCell: UITableViewCell {
         
         self.addSubview(nameLabel)
         
-        self.backgroundColor = Color.clearblue
+        self.backgroundColor = Color.clearBlue
         
         self.layoutMargins = UIEdgeInsets.zero
     }

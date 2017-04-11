@@ -8,8 +8,10 @@
 
 import UIKit
 
+// 0~255のRGBで色を作成
 struct Color {
-    static let clearblue: UIColor = UIColor.rgb(r: 140, g: 233, b: 237, alpha: 1)
+    static let clearBlue: UIColor = UIColor.rgb(r: 140, g: 233, b: 237, alpha: 1)
+    static let clearYellow: UIColor = UIColor.rgb(r: 218, g: 227, b: 146, alpha: 1)
 }
 
 extension UIColor {

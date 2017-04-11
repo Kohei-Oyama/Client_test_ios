@@ -20,9 +20,9 @@ class RoomCell: UITableViewCell {
     
     var object: Object? {
         didSet {
-            self.nameLabel.attributedText = object?.attributedString(sentence: (object?.name)!, fontSize: 14.0)
+            self.nameLabel.attributedText = object?.attributedString(sentence: (object?.name)!, fontSize: 18.0)
             self.nameLabel.sizeToFit()
-            self.timeLabel.attributedText = object?.attributedString(sentence: (object?.time)!, fontSize: 10.0)
+            self.timeLabel.attributedText = object?.attributedString(sentence: (object?.time)!, fontSize: 12.0)
             self.timeLabel.sizeToFit()
         }
     }
@@ -34,7 +34,7 @@ class RoomCell: UITableViewCell {
         nameLabel.frame = CGRect.zero
         nameLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         nameLabel.numberOfLines = 0
-        nameLabel.backgroundColor = UIColor.red
+        nameLabel.backgroundColor = Color.clearYellow
         nameLabel.layer.masksToBounds = true
         nameLabel.layer.cornerRadius = 10.0
         nameLabel.textAlignment = NSTextAlignment.center
@@ -43,7 +43,7 @@ class RoomCell: UITableViewCell {
         timeLabel.frame = CGRect.zero
         timeLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         timeLabel.numberOfLines = 0
-        timeLabel.backgroundColor = UIColor.blue
+        timeLabel.backgroundColor = Color.clearBlue
         timeLabel.layer.masksToBounds = true
         timeLabel.layer.cornerRadius = 10.0
         timeLabel.textAlignment = NSTextAlignment.center

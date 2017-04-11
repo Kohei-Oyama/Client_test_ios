@@ -17,7 +17,7 @@ class MainView : UIView {
     var tableView: UITableView = {
         let tableView: UITableView = UITableView()
         tableView.frame = CGRect.zero
-        tableView.backgroundColor = Color.clearblue
+        tableView.backgroundColor = Color.clearBlue
         tableView.separatorColor = UIColor.clear
         tableView.allowsSelection = false
         return tableView
