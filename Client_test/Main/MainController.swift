@@ -13,18 +13,22 @@ import SwiftyJSON
 
 // チャットのViewコントローラ
 class MainViewController: UIViewController {
-    
-    let cellIdentifier = "MainCell"
-    private let actionName = "speak"
-    private let channelIdentifier: String = "MessageChannel"
-    var channel: Channel?
-    var history: Array<MainObject> = Array()
-    var chatView: MainView?
 
-    // 以下はRoomControllerから値をもらう
+    private let channelIdentifier: String = "MessageChannel"
+    private let actionNameChat = "chat"
+    private let actionNameChange = "change"
+    let cellName = "MainCell"
+    var channel: Channel?
+    var log: Array<Object> = Array()
+    var chatView: MainView?
     var client: ActionCableClient?
-    var userName: String = ""
-    var roomName: String = ""
+    var userName: String?
+    var roomName: String? {
+        didSet {
+            // roomNameの値が変わったら行う
+            resetChannel(roomName: roomName!)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,20 +41,17 @@ class MainViewController: UIViewController {
         chatView?.inputTextView.button.addTarget(self, action: #selector(self.sendPush), for: .touchUpInside)
         chatView?.tableView.delegate = self
         chatView?.tableView.dataSource = self
-        chatView?.tableView.allowsSelection = false
-        chatView?.tableView.register(MainCell.self, forCellReuseIdentifier: self.cellIdentifier)
+        chatView?.tableView.register(MainCell.self, forCellReuseIdentifier: self.cellName)
         
         view.addSubview(chatView!)
         chatView?.snp.remakeConstraints({ (make) -> Void in
             make.top.bottom.left.right.equalTo(self.view)
         })
-        
-        //setupChannel()
     }
     
     // コントローラ起動時の初期設定
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)        
+        super.viewDidAppear(animated)
     }
     
     // どこかタッチしたらキーボード閉じる
@@ -58,39 +59,43 @@ class MainViewController: UIViewController {
         self.view.endEditing(true)
     }
     
-    func setupChannel() -> Void {
-        self.title = self.roomName
-        let room_identifier = ["room" : self.roomName]
-        // streamの切り替えや複製がどうしてもできない…
-        self.channel = (client?.create(self.channelIdentifier, identifier: room_identifier, autoSubscribe: true, bufferActions: true))
-        // 受信時の設定
+    func resetChannel(roomName: String) -> Void {
+        self.title = roomName
+        // channelのstreamを変更
+        let room_identifier = ["roomID" : roomName]
+        self.channel?.unsubscribe()
+        self.channel = (client?.create(self.channelIdentifier, identifier: room_identifier, autoSubscribe: false, bufferActions: true))
+        self.channel?.subscribe()
+        // 受信処理
         self.channel?.onReceive = {(data: Any?, error: Error?) in
             if let _ = error {
-                print(error)
+                print(error as! String)
                 return
             }
             
             let JSONObject = JSON(data!)
-            let msg = MainObject(name: JSONObject["userName"].string!, message: JSONObject["messageLog"].string!)
-            self.history.append(msg)
+            let msg = Object(name: JSONObject["userName"].string!, time: nil, message: JSONObject["messageLog"].string!)
+            self.log.append(msg)
             self.chatView?.tableView.reloadData()
-            
             // 自分が発言したら一番下にスクロール
             if (msg.name == self.userName) {
-                let indexPath = IndexPath(row: self.history.count - 1, section: 0)
+                let indexPath = IndexPath(row: self.log.count - 1, section: 0)
                 self.chatView?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
             }
         }
+        // RoomのLog読み取り
+        self.log = []
+        // ↓DBからちゃんと送られてくれば本来は不要
+        self.chatView?.tableView.reloadData()
+        self.channel?.action(self.actionNameChange, with: room_identifier)
     }
-
-    // Sendボタンを押した時のメソッド
+    
+    // Send
     func sendPush() {
         let message = (self.chatView?.inputTextView.inputField.text)!
-        // message前後の不要な改行と空白削除
         let prettyMessage = message.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        // 送信
         if (!(prettyMessage.isEmpty)) {
-            self.channel?.action(self.actionName, with: ["userName": self.userName, "messageLog": prettyMessage])
+            self.channel?.action(self.actionNameChat, with: ["userName": self.userName!, "messageLog": prettyMessage])
         }
         self.chatView?.inputTextView.inputField.text = ""
         view.endEditing(true)
@@ -99,13 +104,11 @@ class MainViewController: UIViewController {
 
 // UITableViewDelegate
 extension MainViewController: UITableViewDelegate {
-    
     // MyCellの高さ指定
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let object = history[(indexPath as NSIndexPath).row]
-        let attrString = object.attributedString()
+        let object = log[(indexPath as NSIndexPath).row]
+        let attrString = object.attributedString(sentence: object.message!, fontSize: 14.0)
         let width = self.chatView?.tableView.bounds.size.width;
-        // message(1行)が入るサイズ
         let rect = attrString.boundingRect(with: CGSize(width: width!, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context:nil)
         
         // messageのサイズ + Labelの上中下の余白 + 名前欄の高さ + Label中のtextの余白 + 1
@@ -117,25 +120,14 @@ extension MainViewController: UITableViewDelegate {
 extension MainViewController: UITableViewDataSource {
     // Cellの数
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return history.count
+        return log.count
     }
     
     // Cellの中身設定
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier, for: indexPath) as! MainCell
-        let msg = history[(indexPath as NSIndexPath).row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.cellName, for: indexPath) as! MainCell
+        let msg = log[(indexPath as NSIndexPath).row]
         cell.object = msg
-        
-        cell.messageLabel.snp.remakeConstraints { (make) -> Void in
-            make.left.equalTo(cell).offset(MainCell.inset)
-            make.bottom.equalTo(cell).offset(-MainCell.inset)
-        }
-        
-        cell.nameLabel.snp.remakeConstraints { (make) -> Void in
-            make.top.left.equalTo(cell).offset(MainCell.inset)
-            make.bottom.equalTo(cell.messageLabel.snp.top).offset(-MainCell.inset)
-            make.height.equalTo(MainCell.nameHeight)
-        }
         
         // 自分の発言は右側に出現
         if msg.name == self.userName {
@@ -143,15 +135,24 @@ extension MainViewController: UITableViewDataSource {
                 make.right.equalTo(cell).offset(-MainCell.inset)
                 make.bottom.equalTo(cell).offset(-MainCell.inset)
             }
-            
             cell.nameLabel.snp.remakeConstraints { (make) -> Void in
                 make.top.equalTo(cell).offset(MainCell.inset)
                 make.right.equalTo(cell).offset(-MainCell.inset)
                 make.bottom.equalTo(cell.messageLabel.snp.top).offset(-MainCell.inset)
                 make.height.equalTo(MainCell.nameHeight)
             }
+        } else {
+            cell.messageLabel.snp.remakeConstraints { (make) -> Void in
+                make.left.equalTo(cell).offset(MainCell.inset)
+                make.bottom.equalTo(cell).offset(-MainCell.inset)
+            }
+            
+            cell.nameLabel.snp.remakeConstraints { (make) -> Void in
+                make.top.left.equalTo(cell).offset(MainCell.inset)
+                make.bottom.equalTo(cell.messageLabel.snp.top).offset(-MainCell.inset)
+                make.height.equalTo(MainCell.nameHeight)
+            }
         }
-        
         return cell
     }
 }

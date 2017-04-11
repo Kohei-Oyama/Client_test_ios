@@ -14,21 +14,20 @@ import NextGrowingTextView
 // Roomを作る画面
 class RoomView : UIView {
     
-    var tableView: UITableView
-    var bottomLayoutConstraint: Constraint?
-    var inputTextView: InputTextView!
+    var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.frame = CGRect.zero
+        tableView.allowsSelection = true
+        return tableView
+    }()
+    private var bottomLayoutConstraint: Constraint?
+    var inputTextView = InputTextView()
     
     required override init(frame: CGRect) {
-        self.tableView = UITableView()
-        self.inputTextView = InputTextView()
         super.init(frame: frame)
         
-        self.tableView.frame = CGRect.zero
         self.addSubview(self.tableView)
-        
         self.addSubview(self.inputTextView)
-        
-        self.backgroundColor = UIColor.white
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShowNotification(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHideNotification(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -52,10 +51,7 @@ class RoomView : UIView {
     func requiresConstraintBasedLayout() -> Bool {
         return true
     }
-}
 
-
-extension RoomView {
     func keyboardWillHideNotification(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo!
         let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue

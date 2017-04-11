@@ -14,26 +14,25 @@ import NextGrowingTextView
 // チャットする画面
 class MainView : UIView {
     
-    internal var tableView: UITableView = {
+    var tableView: UITableView = {
         let tableView: UITableView = UITableView()
         tableView.frame = CGRect.zero
         tableView.backgroundColor = Color.clearblue
-        tableView.separatorColor = UIColor.clear;
+        tableView.separatorColor = UIColor.clear
+        tableView.allowsSelection = false
         return tableView
     }()
-    internal var bottomLayoutConstraint: Constraint?
-    internal var inputTextView: InputTextView!
+    private var bottomLayoutConstraint: Constraint?
+    var inputTextView = InputTextView()
     
     required override init(frame: CGRect) {
-        self.inputTextView = InputTextView()
         super.init(frame: frame)
         
         self.addSubview(self.tableView)
-        
         self.addSubview(self.inputTextView)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShowNotification(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHideNotification(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowNotification(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideNotification(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         tableView.snp.remakeConstraints { (make) -> Void in
             make.top.left.right.equalTo(self)
@@ -54,10 +53,7 @@ class MainView : UIView {
     func requiresConstraintBasedLayout() -> Bool {
         return true
     }
-}
-
-
-extension MainView {
+    
     func keyboardWillHideNotification(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo!
         let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue

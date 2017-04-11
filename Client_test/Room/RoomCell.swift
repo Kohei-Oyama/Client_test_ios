@@ -18,18 +18,17 @@ class RoomCell: UITableViewCell {
     let nameLabel = PaddingLabel()
     let timeLabel = PaddingLabel()
     
-    var object: RoomObject? {
+    var object: Object? {
         didSet {
-            // objectの値が変わったら行う処理
-            self.nameLabel.attributedText = object?.nameAttributedString()
+            self.nameLabel.attributedText = object?.attributedString(sentence: (object?.name)!, fontSize: 14.0)
             self.nameLabel.sizeToFit()
-            self.timeLabel.attributedText = object?.timeAttributedString()
+            self.timeLabel.attributedText = object?.attributedString(sentence: (object?.time)!, fontSize: 10.0)
             self.timeLabel.sizeToFit()
         }
     }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        // cellの初期スタイル
+        // cellのスタイル
         super.init(style: UITableViewCellStyle.subtitle, reuseIdentifier: reuseIdentifier)
         
         nameLabel.frame = CGRect.zero
