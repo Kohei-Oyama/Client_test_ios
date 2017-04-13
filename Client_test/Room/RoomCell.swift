@@ -18,11 +18,11 @@ class RoomCell: UITableViewCell {
     let nameLabel = PaddingLabel()
     let timeLabel = PaddingLabel()
     
-    var object: Object? {
+    var cellValue: RoomCellValue? {
         didSet {
-            self.nameLabel.attributedText = object?.attributedString(sentence: (object?.name)!, fontSize: 18.0)
+            self.nameLabel.attributedText = cellValue?.attributedString(sentence: (cellValue?.roomName)!, fontSize: 18.0)
             self.nameLabel.sizeToFit()
-            self.timeLabel.attributedText = object?.attributedString(sentence: (object?.time)!, fontSize: 12.0)
+            self.timeLabel.attributedText = cellValue?.attributedString(sentence: (cellValue?.time)!, fontSize: 12.0)
             self.timeLabel.sizeToFit()
         }
     }

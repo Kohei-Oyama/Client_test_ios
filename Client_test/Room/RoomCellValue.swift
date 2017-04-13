@@ -9,11 +9,11 @@
 import Foundation
 import UIKit
 
-// Cellの中身
-struct Object {
-    var name: String?
+// RoomCellが保有する情報
+struct RoomCellValue {
+    var roomName: String?
+    var roomID: Int = 0
     var time: String?
-    var message: String?
     
     // 文の設定
     func attributedString(sentence: String, fontSize: CGFloat) -> NSAttributedString {

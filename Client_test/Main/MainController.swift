@@ -13,20 +13,22 @@ import SwiftyJSON
 
 // チャットのViewコントローラ
 class MainViewController: UIViewController {
-
+    
     private let channelIdentifier: String = "MessageChannel"
     private let actionNameChat = "chat"
-    private let actionNameChange = "change"
+    private let actionNameEnter = "enter"
     let cellName = "MainCell"
     var channel: Channel?
-    var log: Array<Object> = Array()
+    var log: Array<MainCellValue> = Array()
     var chatView: MainView?
     var client: ActionCableClient?
     var userName: String?
+    var userID: Int?
+    var roomID: Int?
     var roomName: String? {
         didSet {
             // roomNameの値が変わったら行う
-            resetChannel(roomName: roomName!)
+            resetChannel(roomName: roomName!, roomID: self.roomID!)
         }
     }
     
@@ -59,35 +61,45 @@ class MainViewController: UIViewController {
         self.view.endEditing(true)
     }
     
-    func resetChannel(roomName: String) -> Void {
+    func resetChannel(roomName: String, roomID: Int) -> Void {
         self.title = roomName
         // channelのstreamを変更
-        let room_identifier = ["roomID" : roomName]
+        let room_identifier = ["roomID" : roomID]
         self.channel?.unsubscribe()
         self.channel = (client?.create(self.channelIdentifier, identifier: room_identifier, autoSubscribe: false, bufferActions: true))
         self.channel?.subscribe()
+        // Log初期化
+        self.log = []
         // 受信処理
         self.channel?.onReceive = {(data: Any?, error: Error?) in
             if let _ = error {
                 print(error as! String)
                 return
             }
-            
             let JSONObject = JSON(data!)
-            let msg = Object(name: JSONObject["userName"].string!, time: nil, message: JSONObject["messageLog"].string!)
-            self.log.append(msg)
+            print("JSON-MessageChannel:")
+            print(JSONObject)
+
+            var recieveArray = JSONObject.arrayValue.map{ MainCellValue(userName: $0["userName"].stringValue, messageLog: $0["messageLog"].stringValue)}
+            
+            var obj: MainCellValue?
+            for i in 0..<recieveArray.count {
+                guard let userName = recieveArray[i].userName else { continue }
+                guard let messageLog = recieveArray[i].messageLog else { continue }
+                obj = MainCellValue(userName: userName, messageLog: messageLog)
+                
+                self.log.append(obj!)
+            }
             self.chatView?.tableView.reloadData()
             // 自分が発言したら一番下にスクロール
-            if (msg.name == self.userName) {
+            if (obj?.userName! == self.userName) {
                 let indexPath = IndexPath(row: self.log.count - 1, section: 0)
                 self.chatView?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
             }
         }
-        // RoomのLog読み取り
-        self.log = []
         // ↓DBからちゃんと送られてくれば本来は不要
         self.chatView?.tableView.reloadData()
-        self.channel?.action(self.actionNameChange, with: room_identifier)
+        self.channel?.action(self.actionNameEnter, with: ["roomID": roomID, "userID": self.userID!])
     }
     
     // Send
@@ -106,8 +118,8 @@ class MainViewController: UIViewController {
 extension MainViewController: UITableViewDelegate {
     // MyCellの高さ指定
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let object = log[(indexPath as NSIndexPath).row]
-        let attrString = object.attributedString(sentence: object.message!, fontSize: 14.0)
+        let object = log[indexPath.row]
+        let attrString = object.attributedString(sentence: object.messageLog!, fontSize: 14.0)
         let width = self.chatView?.tableView.bounds.size.width;
         let rect = attrString.boundingRect(with: CGSize(width: width!, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context:nil)
         
@@ -126,11 +138,11 @@ extension MainViewController: UITableViewDataSource {
     // Cellの中身設定
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.cellName, for: indexPath) as! MainCell
-        let msg = log[(indexPath as NSIndexPath).row]
+        let msg = log[indexPath.row]
         cell.object = msg
         
         // 自分の発言は右側に出現
-        if msg.name == self.userName {
+        if msg.userName! == self.userName! {
             cell.messageLabel.snp.remakeConstraints { (make) -> Void in
                 make.right.equalTo(cell).offset(-MainCell.inset)
                 make.bottom.equalTo(cell).offset(-MainCell.inset)

@@ -18,11 +18,11 @@ class MainCell: UITableViewCell {
     let messageLabel = PaddingLabel()
     let nameLabel = PaddingLabel()
     
-    var object: Object? {
+    var object: MainCellValue? {
         didSet {
-            self.messageLabel.attributedText = object?.attributedString(sentence: (object?.message)!, fontSize: 14.0)
+            self.messageLabel.attributedText = object?.attributedString(sentence: (object?.messageLog)!, fontSize: 14.0)
             self.messageLabel.sizeToFit()
-            self.nameLabel.text = self.object?.name
+            self.nameLabel.text = self.object?.userName
             self.nameLabel.sizeToFit()
         }
     }
