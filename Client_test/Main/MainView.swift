@@ -15,8 +15,7 @@ import NextGrowingTextView
 class MainView : UIView {
     
     var tableView: UITableView = {
-        let tableView: UITableView = UITableView()
-        tableView.frame = CGRect.zero
+        let tableView: UITableView = UITableView(frame: CGRect.zero)
         tableView.backgroundColor = Color.clearBlue
         tableView.separatorColor = UIColor.clear
         tableView.allowsSelection = false

@@ -15,11 +15,11 @@ import NextGrowingTextView
 class RoomView : UIView {
     
     var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.frame = CGRect.zero
+        let tableView = UITableView(frame: CGRect.zero)
         tableView.allowsSelection = true
         return tableView
     }()
+    
     private var bottomLayoutConstraint: Constraint?
     var inputTextView = InputTextView()
     

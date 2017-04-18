@@ -15,8 +15,26 @@ class RoomCell: UITableViewCell {
     
     static let inset:CGFloat = 10.0
     
-    let nameLabel = PaddingLabel()
-    let timeLabel = PaddingLabel()
+    let nameLabel: PaddingLabel = {
+        let nameLabel = PaddingLabel(frame: CGRect.zero)
+        nameLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        nameLabel.numberOfLines = 0
+        nameLabel.backgroundColor = Color.clearYellow
+        nameLabel.layer.masksToBounds = true
+        nameLabel.layer.cornerRadius = 10.0
+        nameLabel.textAlignment = NSTextAlignment.center
+        return nameLabel
+    }()
+    let timeLabel: PaddingLabel = {
+        let timeLabel = PaddingLabel(frame: CGRect.zero)
+        timeLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        timeLabel.numberOfLines = 0
+        timeLabel.backgroundColor = Color.clearBlue
+        timeLabel.layer.masksToBounds = true
+        timeLabel.layer.cornerRadius = 10.0
+        timeLabel.textAlignment = NSTextAlignment.center
+        return timeLabel
+    }()
     
     var cellValue: RoomCellValue? {
         didSet {
@@ -31,25 +49,10 @@ class RoomCell: UITableViewCell {
         // cellのスタイル
         super.init(style: UITableViewCellStyle.subtitle, reuseIdentifier: reuseIdentifier)
         
-        nameLabel.frame = CGRect.zero
-        nameLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        nameLabel.numberOfLines = 0
-        nameLabel.backgroundColor = Color.clearYellow
-        nameLabel.layer.masksToBounds = true
-        nameLabel.layer.cornerRadius = 10.0
-        nameLabel.textAlignment = NSTextAlignment.center
         self.addSubview(nameLabel)
-        
-        timeLabel.frame = CGRect.zero
-        timeLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        timeLabel.numberOfLines = 0
-        timeLabel.backgroundColor = Color.clearBlue
-        timeLabel.layer.masksToBounds = true
-        timeLabel.layer.cornerRadius = 10.0
-        timeLabel.textAlignment = NSTextAlignment.center
         self.addSubview(timeLabel)
         
-        self.layoutMargins = UIEdgeInsets.zero
+        //self.layoutMargins = UIEdgeInsets.zero
     }
     
     required init?(coder aDecoder: NSCoder) {

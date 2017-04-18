@@ -13,18 +13,23 @@ enum myURL {
     case Local
     case Finatext
     case Hirose
+    case Ist
     
-    var url: String {
-        let host: String = "ws://localhost:3000"
+    var url: URL {
+        let local: String = "ws://localhost:3000"
         let finatext: String = "ws://192.168.12.126:3000"
         let hirose: String = "ws://157.82.6.240:3000"
+        let ist: String = "ws://157.82.4.137:3000"
+
         switch self {
         case .Local:
-            return "\(host)/cable"
+            return URL(string: "\(local)/cable")!
         case .Finatext:
-            return "\(finatext)/cable"
+            return URL(string: "\(finatext)/cable")!
         case .Hirose:
-            return "\(hirose)/cable"
+            return URL(string: "\(hirose)/cable")!
+        case .Ist:
+            return URL(string: "\(ist)/cable")!
         }
     }
 }

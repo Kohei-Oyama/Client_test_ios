@@ -14,8 +14,8 @@ import SwiftyJSON
 // ルームのViewコントローラ
 class RoomViewController: UIViewController {
     
-    let channelIdentifier: String = "RoomChannel"
-    let registerChannelIdentifier: String = "RegisterChannel"
+    private let channelIdentifier: String = "RoomChannel"
+    private let registerChannelIdentifier: String = "RegisterChannel"
     private let actionRegister = "register"
     private let actionInit = "init"
     private let actionCreate = "create"
@@ -23,50 +23,45 @@ class RoomViewController: UIViewController {
     let cellName = "RoomCell"
     
     var channel: Channel?
-    var registerChannel: Channel?
+    private var registerChannel: Channel?
     var rooms: Array<RoomCellValue> = Array()
-    var roomView: RoomView?
+    var roomView : RoomView = {
+        let roomView = RoomView(frame: CGRect.zero)
+        roomView.backgroundColor = UIColor.gray
+        roomView.translatesAutoresizingMaskIntoConstraints = false
+        roomView.inputTextView.buttonTitle = "Create"
+        roomView.inputTextView.button.addTarget(self, action: #selector(RoomViewController.createPush), for: .touchUpInside)
+        return roomView
+    }()
     
-    let client = ActionCableClient(url: URL(string: myURL.Local.url)!)
-    //let client = ActionCableClient(url: URL(string: myURL.Finatext.url)!)
-    //let client = ActionCableClient(url: URL(string: myURL.Hirose.url)!)
+    private let client = ActionCableClient(url: myURL.Local.url)
     var userName: String?
     var userID: Int?
     let mainController: MainViewController = MainViewController()
-    var refreshControl = UIRefreshControl()
+    private var refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("Start program")
         
         // タイトル
         self.navigationController?.navigationBar.barTintColor = UIColor.red
         self.title = "Rooms"
         
         // viewの設定
-        roomView = RoomView(frame: view.bounds)
-        roomView?.backgroundColor = UIColor.gray
-        roomView?.translatesAutoresizingMaskIntoConstraints = false
-        roomView?.inputTextView.buttonTitle = "Create"
-        roomView?.inputTextView.button.addTarget(self, action: #selector(self.createPush), for: .touchUpInside)
-        roomView?.tableView.delegate = self
-        roomView?.tableView.dataSource = self
-        roomView?.tableView.register(RoomCell.self, forCellReuseIdentifier: self.cellName)
-        view.addSubview(roomView!)
-        roomView?.snp.remakeConstraints({ (make) -> Void in
+        roomView.tableView.delegate = self
+        roomView.tableView.dataSource = self
+        roomView.tableView.register(RoomCell.self, forCellReuseIdentifier: self.cellName)
+        view.addSubview(roomView)
+        roomView.snp.remakeConstraints({ (make) -> Void in
             make.top.bottom.left.right.equalTo(self.view)
         })
         refreshControl.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
-        roomView?.tableView.addSubview(refreshControl)
+        roomView.tableView.addSubview(refreshControl)
         
-        setupChannel()
-        
-    }
-    
-    private func setupChannel() -> Void {
         // channel作成
         self.channel = client.create(self.channelIdentifier)
-        self.channel = client.create(self.channelIdentifier, identifier: nil, autoSubscribe: false, bufferActions: true)
-        self.channel?.subscribe()
         // 受信設定
         self.channel?.onReceive = {(data: Any?, error: Error?) in
             if let _ = error {
@@ -74,8 +69,6 @@ class RoomViewController: UIViewController {
                 return
             }
             let JSONObject = JSON(data!)
-            print("JSON:")
-            print(JSONObject)
             
             var recieveArray = JSONObject.arrayValue.map{ RoomCellValue(roomName: $0["roomName"].stringValue, roomID: $0["id"].intValue, time: $0["time"].stringValue)}
             
@@ -90,7 +83,7 @@ class RoomViewController: UIViewController {
                 
                 self.rooms.insert(obj, at: 0)
             }
-            self.roomView?.tableView.reloadData()
+            self.roomView.tableView.reloadData()
         }
         
         // 通知
@@ -103,31 +96,29 @@ class RoomViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
         
-        self.client.willReconnect = {
+        self.client.onRejected = {
+            print("Reject!")
+        }
+        
+        self.client.onDisconnected = {(error: Error?) in
             print("Disconnect")
-            let alert: UIAlertController = UIAlertController(title: "Connect Fail...", message: nil, preferredStyle: UIAlertControllerStyle.alert)
-            let defaultAction: UIAlertAction = UIAlertAction(title: "Reconnect", style: .default, handler:{(action: UIAlertAction!) -> Void in
-                self.client.connect()
-                self.channel?.action(self.actionInit)
-            })
-            let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler:{(action: UIAlertAction!) -> Void in
-            })
-            alert.addAction(cancelAction)
-            alert.addAction(defaultAction)
-            self.present(alert, animated: true, completion: nil)
-            return true
+            /*let alert: UIAlertController = UIAlertController(title: "Connect Fail...", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+             let defaultAction: UIAlertAction = UIAlertAction(title: "Reconnect", style: .default, handler:{(action: UIAlertAction!) -> Void in
+             self.client.connect()
+             self.channel?.action(self.actionInit)
+             })
+             let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler:{(action: UIAlertAction!) -> Void in
+             })
+             alert.addAction(cancelAction)
+             alert.addAction(defaultAction)
+             self.present(alert, animated: true, completion: nil)*/
         }
         
         self.mainController.client = self.client
         
-    }
-    
-    // ユーザ名登録とConnect
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
         self.client.connect()
         
+        // アプリの初回起動でユーザ登録
         let userName = UserDefaults.standard
         let userNameValue = ["userName": ""]
         userName.register(defaults: userNameValue)
@@ -136,18 +127,15 @@ class RoomViewController: UIViewController {
         let userIDValue = ["userID": 0]
         userID.register(defaults: userIDValue)
         
-        // アプリの初回起動でユーザ登録
         let userDefault = UserDefaults.standard
         let dict = ["firstLaunch": true]
         userDefault.register(defaults: dict)
         if userDefault.bool(forKey: "firstLaunch") {
             userDefault.set(false, forKey: "firstLaunch")
-            registerUser(name: userName, ID: userID)
-        } else {
-            self.userName = userName.string(forKey: "userName")
-            self.userID = userID.integer(forKey: "userID")
-            self.channel?.action(self.actionInit)
+            self.registerUser(name: userName, ID: userID)
         }
+        self.userName = userName.string(forKey: "userName")
+        self.userID = userID.integer(forKey: "userID")
     }
     
     // ユーザ登録のQue送る
@@ -160,7 +148,7 @@ class RoomViewController: UIViewController {
         })
         alert.addAction(UIAlertAction(title: "Register", style: .default, handler: {action in
             let registerName = (nameTextField?.text)!
-            let registerID = registerName + self.getTime()
+            let registerID = registerName + DateUtils.stringFromDate(date: Date(), format: "yyyy/MM-dd HH:mm:ss Z")
             let registerIdentifier = ["registerID" : registerID]
             self.registerChannel = (self.client.create(self.registerChannelIdentifier, identifier: registerIdentifier, autoSubscribe: false, bufferActions: true))
             self.registerChannel?.subscribe()
@@ -173,14 +161,19 @@ class RoomViewController: UIViewController {
                 let JSONObject = JSON(data!)
                 name.set(registerName, forKey: "userName")
                 ID.set(JSONObject["userID"].int, forKey: "userID")
-                self.userName = name.string(forKey: "userName")
-                self.userID = ID.integer(forKey: "userID")
                 self.registerChannel?.unsubscribe()
-                self.channel?.action(self.actionInit)
             }
             self.registerChannel?.action(self.actionRegister, with: ["userName": registerName])
         }))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Room画面になる度に一覧リセット
+        self.rooms = []
+        self.channel?.action(self.actionInit)
     }
     
     // タッチしたらキーボード閉じる
@@ -190,22 +183,14 @@ class RoomViewController: UIViewController {
     
     // Create
     func createPush() {
-        let name = (self.roomView?.inputTextView.inputField.text)!
-        let time = getTime()
+        let name = (self.roomView.inputTextView.inputField.text)!
+        let time = DateUtils.stringFromDate(date: Date(), format: "yyyy/MM-dd HH:mm:ss Z")
         let prettyName = name.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         if (!(prettyName.isEmpty)) {
             self.channel?.action(self.actionCreate, with: ["roomName": prettyName, "time": time])
         }
-        self.roomView?.inputTextView.inputField.text = ""
+        self.roomView.inputTextView.inputField.text = ""
         view.endEditing(true)
-    }
-    
-    // 現在時刻取得
-    private func getTime() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM-dd HH:mm:ss Z"
-        let now = Date()
-        return formatter.string(from: now)
     }
     
     // tableの更新
@@ -221,10 +206,10 @@ extension RoomViewController: UITableViewDelegate {
     
     // Cellの高さ指定
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let object = self.rooms[(indexPath as NSIndexPath).row]
+        let object = self.rooms[indexPath.row]
         let attrString = object.attributedString(sentence: object.roomName!, fontSize: 18.0)
-        let width = self.roomView?.tableView.bounds.size.width;
-        let rect = attrString.boundingRect(with: CGSize(width: width!, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context:nil)
+        let width = self.roomView.tableView.bounds.size.width;
+        let rect = attrString.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context:nil)
         
         // messageのサイズ + Labelの上下の余白 + Label中のtextの余白 + 1
         return rect.size.height + (RoomCell.inset * 2.0) + 16 + 1

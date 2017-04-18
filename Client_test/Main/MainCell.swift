@@ -12,11 +12,25 @@ import SnapKit
 // チャット画面のCell
 class MainCell: UITableViewCell {
     
-    static let inset:CGFloat = 10.0
-    static let nameHeight:CGFloat = 20.0
+    static let inset: CGFloat = 10.0
+    static let nameHeight: CGFloat = 20.0
     
-    let messageLabel = PaddingLabel()
-    let nameLabel = PaddingLabel()
+    let messageLabel: PaddingLabel = {
+        let messageLabel = PaddingLabel(frame: CGRect.zero)
+        messageLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        messageLabel.numberOfLines = 0
+        messageLabel.backgroundColor = UIColor.green
+        messageLabel.layer.masksToBounds = true
+        messageLabel.layer.cornerRadius = 10.0
+        messageLabel.textAlignment = NSTextAlignment.center
+        return messageLabel
+    }()
+    let nameLabel: PaddingLabel = {
+        let nameLabel = PaddingLabel(frame: CGRect.zero)
+        nameLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        nameLabel.numberOfLines = 0
+        return nameLabel
+    }()
     
     var object: MainCellValue? {
         didSet {
@@ -31,24 +45,10 @@ class MainCell: UITableViewCell {
         // cellの初期スタイル
         super.init(style: UITableViewCellStyle.subtitle, reuseIdentifier: reuseIdentifier)
         
-        messageLabel.frame = CGRect.zero
-        messageLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        messageLabel.numberOfLines = 0
-        messageLabel.backgroundColor = UIColor.green
-        messageLabel.layer.masksToBounds = true
-        messageLabel.layer.cornerRadius = 10.0
-        messageLabel.textAlignment = NSTextAlignment.center
-
         self.addSubview(messageLabel)
-        
-        nameLabel.frame = CGRect.zero
-        nameLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        nameLabel.numberOfLines = 0
-        
         self.addSubview(nameLabel)
         
         self.backgroundColor = Color.clearBlue
-        
         self.layoutMargins = UIEdgeInsets.zero
     }
     

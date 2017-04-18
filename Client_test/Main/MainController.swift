@@ -107,7 +107,7 @@ class MainViewController: UIViewController {
         let message = (self.chatView?.inputTextView.inputField.text)!
         let prettyMessage = message.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         if (!(prettyMessage.isEmpty)) {
-            self.channel?.action(self.actionNameChat, with: ["userName": self.userName!, "messageLog": prettyMessage])
+            self.channel?.action(self.actionNameChat, with: ["userID": self.userID!, "messageLog": prettyMessage, "roomID": self.roomID!])
         }
         self.chatView?.inputTextView.inputField.text = ""
         view.endEditing(true)

@@ -28,23 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    // Tabbar使うときの設定
-    /*private func configureNavigationBar() {
-        let navbarFont: UIFont = UIFont(name: "HiraKakuProN-W6", size: 17) ?? UIFont.systemFont(ofSize: 17)
-        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: navbarFont, NSForegroundColorAttributeName:UIColor.white]
-        UINavigationBar.appearance().barTintColor = UIColor.red
-        UINavigationBar.appearance().backgroundColor = UIColor.red
-        UIApplication.shared.statusBarStyle = .lightContent
-    }
-    
-    
-    func applicationDidFinishLaunching(_ application: UIApplication) {
-        window = UIWindow(frame: UIScreen.main.bounds)
-        configureNavigationBar()
-        window?.rootViewController = MainTabbarController()
-        window?.makeKeyAndVisible()
-    }*/
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
                 
         // Room画面から開始
