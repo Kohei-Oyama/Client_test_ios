@@ -12,15 +12,22 @@ import SnapKit
 import SwiftyJSON
 
 // チャットのViewコントローラ
-class MainViewController: UIViewController {
+class ChatViewController: UIViewController {
     
     private let channelIdentifier: String = "MessageChannel"
     private let actionNameChat = "chat"
     private let actionNameEnter = "enter"
     let cellName = "MainCell"
     var channel: Channel?
-    var log: Array<MainCellValue> = Array()
-    var chatView: MainView?
+    var log: Array<ChatCellValue> = Array()
+    var chatView: ChatView = {
+        let chatView = ChatView(frame: CGRect.zero)
+        chatView.backgroundColor = UIColor.gray
+        chatView.translatesAutoresizingMaskIntoConstraints = false
+        chatView.inputTextView.buttonTitle = "Send"
+        chatView.inputTextView.button.addTarget(self, action: #selector(ChatViewController.sendPush), for: .touchUpInside)
+        return chatView
+    }()
     var client: ActionCableClient?
     var userName: String?
     var userID: Int?
@@ -28,7 +35,7 @@ class MainViewController: UIViewController {
     var roomName: String? {
         didSet {
             // roomNameの値が変わったら行う
-            resetChannel(roomName: roomName!, roomID: self.roomID!)
+            resetChannel(roomName: roomName!, roomID: self.roomID!, userID: self.userID!)
         }
     }
     
@@ -36,19 +43,13 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         // viewの設定
-        chatView = MainView(frame: view.bounds)
-        chatView?.backgroundColor = UIColor.gray
-        chatView?.translatesAutoresizingMaskIntoConstraints = false
-        chatView?.inputTextView.buttonTitle = "Send"
-        chatView?.inputTextView.button.addTarget(self, action: #selector(self.sendPush), for: .touchUpInside)
-        chatView?.tableView.delegate = self
-        chatView?.tableView.dataSource = self
-        chatView?.tableView.register(MainCell.self, forCellReuseIdentifier: self.cellName)
-        
-        view.addSubview(chatView!)
-        chatView?.snp.remakeConstraints({ (make) -> Void in
+        chatView.tableView.delegate = self
+        chatView.tableView.dataSource = self
+        chatView.tableView.register(ChatCell.self, forCellReuseIdentifier: self.cellName)
+        view.addSubview(chatView)
+        chatView.snp.remakeConstraints({ (make) -> Void in
             make.top.bottom.left.right.equalTo(self.view)
-        })
+        })        
     }
     
     // コントローラ起動時の初期設定
@@ -56,15 +57,10 @@ class MainViewController: UIViewController {
         super.viewDidAppear(animated)
     }
     
-    // どこかタッチしたらキーボード閉じる
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
-    func resetChannel(roomName: String, roomID: Int) -> Void {
+    func resetChannel(roomName: String, roomID: Int, userID: Int) -> Void {
         self.title = roomName
         // channelのstreamを変更
-        let room_identifier = ["roomID" : roomID]
+        let room_identifier = ["roomID" : roomID, "userID" : userID]
         self.channel?.unsubscribe()
         self.channel = (client?.create(self.channelIdentifier, identifier: room_identifier, autoSubscribe: false, bufferActions: true))
         self.channel?.subscribe()
@@ -80,89 +76,89 @@ class MainViewController: UIViewController {
             print("JSON-MessageChannel:")
             print(JSONObject)
 
-            var recieveArray = JSONObject.arrayValue.map{ MainCellValue(userName: $0["userName"].stringValue, messageLog: $0["messageLog"].stringValue)}
+            var recieveArray = JSONObject.arrayValue.map{ ChatCellValue(userName: $0["userName"].stringValue, messageLog: $0["messageLog"].stringValue)}
             
-            var obj: MainCellValue?
+            var obj: ChatCellValue?
             for i in 0..<recieveArray.count {
                 guard let userName = recieveArray[i].userName else { continue }
                 guard let messageLog = recieveArray[i].messageLog else { continue }
-                obj = MainCellValue(userName: userName, messageLog: messageLog)
+                obj = ChatCellValue(userName: userName, messageLog: messageLog)
                 
                 self.log.append(obj!)
             }
-            self.chatView?.tableView.reloadData()
+            self.chatView.tableView.reloadData()
             // 自分が発言したら一番下にスクロール
             if (obj?.userName! == self.userName) {
                 let indexPath = IndexPath(row: self.log.count - 1, section: 0)
-                self.chatView?.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                self.chatView.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
             }
         }
-        // ↓DBからちゃんと送られてくれば本来は不要
-        self.chatView?.tableView.reloadData()
         self.channel?.action(self.actionNameEnter, with: ["roomID": roomID, "userID": self.userID!])
     }
     
     // Send
     func sendPush() {
-        let message = (self.chatView?.inputTextView.inputField.text)!
+        let message = (self.chatView.inputTextView.inputField.text)!
         let prettyMessage = message.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         if (!(prettyMessage.isEmpty)) {
             self.channel?.action(self.actionNameChat, with: ["userID": self.userID!, "messageLog": prettyMessage, "roomID": self.roomID!])
         }
-        self.chatView?.inputTextView.inputField.text = ""
+        self.chatView.inputTextView.inputField.text = ""
         view.endEditing(true)
     }
 }
 
 // UITableViewDelegate
-extension MainViewController: UITableViewDelegate {
+extension ChatViewController: UITableViewDelegate {
     // MyCellの高さ指定
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let object = log[indexPath.row]
+        print("Index")
+        print(indexPath.row)
+        let object = self.log[indexPath.row]
         let attrString = object.attributedString(sentence: object.messageLog!, fontSize: 14.0)
-        let width = self.chatView?.tableView.bounds.size.width;
-        let rect = attrString.boundingRect(with: CGSize(width: width!, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context:nil)
+        let width = self.chatView.tableView.bounds.size.width;
+        let rect = attrString.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context:nil)
         
         // messageのサイズ + Labelの上中下の余白 + 名前欄の高さ + Label中のtextの余白 + 1
-        return rect.size.height + (MainCell.inset * 3.0) + MainCell.nameHeight + 16 + 1
+        return rect.size.height + (ChatCell.inset * 3.0) + ChatCell.nameHeight + 16 + 1
     }
 }
 
 // UITableViewDataSource
-extension MainViewController: UITableViewDataSource {
+extension ChatViewController: UITableViewDataSource {
     // Cellの数
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return log.count
+        return self.log.count
     }
     
     // Cellの中身設定
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: self.cellName, for: indexPath) as! MainCell
-        let msg = log[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.cellName, for: indexPath) as! ChatCell
+        let msg = self.log[indexPath.row]
         cell.object = msg
         
         // 自分の発言は右側に出現
         if msg.userName! == self.userName! {
             cell.messageLabel.snp.remakeConstraints { (make) -> Void in
-                make.right.equalTo(cell).offset(-MainCell.inset)
-                make.bottom.equalTo(cell).offset(-MainCell.inset)
+                make.right.equalTo(cell).offset(-ChatCell.inset)
+                make.bottom.equalTo(cell).offset(-ChatCell.inset)
             }
             cell.nameLabel.snp.remakeConstraints { (make) -> Void in
-                make.top.equalTo(cell).offset(MainCell.inset)
-                make.right.equalTo(cell).offset(-MainCell.inset)
-                make.bottom.equalTo(cell.messageLabel.snp.top).offset(-MainCell.inset)
-                make.height.equalTo(MainCell.nameHeight)
+                make.top.equalTo(cell).offset(ChatCell.inset)
+                make.right.equalTo(cell).offset(-ChatCell.inset)
+                make.bottom.equalTo(cell.messageLabel.snp.top).offset(-ChatCell.inset)
+                make.height.equalTo(ChatCell.nameHeight)
             }
         } else {
             cell.messageLabel.snp.remakeConstraints { (make) -> Void in
-                make.left.equalTo(cell).offset(MainCell.inset)
-                make.bottom.equalTo(cell).offset(-MainCell.inset)
+                make.left.equalTo(cell).offset(ChatCell.inset)
+                make.bottom.equalTo(cell).offset(-ChatCell.inset)
             }
             
             cell.nameLabel.snp.remakeConstraints { (make) -> Void in
-                make.top.left.equalTo(cell).offset(MainCell.inset)
-                make.bottom.equalTo(cell.messageLabel.snp.top).offset(-MainCell.inset)
-                make.height.equalTo(MainCell.nameHeight)
+                make.top.left.equalTo(cell).offset(ChatCell.inset)
+                make.bottom.equalTo(cell.messageLabel.snp.top).offset(-ChatCell.inset)
+                make.height.equalTo(ChatCell.nameHeight)
             }
         }
         return cell

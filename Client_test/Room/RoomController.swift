@@ -21,10 +21,10 @@ class RoomViewController: UIViewController {
     private let actionCreate = "create"
     let actionDelete = "delete"
     let cellName = "RoomCell"
-    
     var channel: Channel?
     private var registerChannel: Channel?
     var rooms: Array<RoomCellValue> = Array()
+
     var roomView : RoomView = {
         let roomView = RoomView(frame: CGRect.zero)
         roomView.backgroundColor = UIColor.gray
@@ -37,7 +37,7 @@ class RoomViewController: UIViewController {
     private let client = ActionCableClient(url: myURL.Local.url)
     var userName: String?
     var userID: Int?
-    let mainController: MainViewController = MainViewController()
+    let chatController: ChatViewController = ChatViewController()
     private var refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
@@ -59,62 +59,38 @@ class RoomViewController: UIViewController {
         })
         refreshControl.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
         roomView.tableView.addSubview(refreshControl)
-        
-        // channel作成
-        self.channel = client.create(self.channelIdentifier)
-        // 受信設定
-        self.channel?.onReceive = {(data: Any?, error: Error?) in
-            if let _ = error {
-                print(error as! String)
-                return
-            }
-            let JSONObject = JSON(data!)
-            
-            var recieveArray = JSONObject.arrayValue.map{ RoomCellValue(roomName: $0["roomName"].stringValue, roomID: $0["id"].intValue, time: $0["time"].stringValue)}
-            
-            for i in 0..<recieveArray.count {
-                guard let time = recieveArray[i].time else { continue }
-                guard let roomName = recieveArray[i].roomName else { continue }
-                let roomID = recieveArray[i].roomID
-                let createTime = DateUtils.dateFromString(string: time, format: "yyyy/MM/dd HH:mm:ss Z")
-                let now = Date()
-                let duration = now.offsetFrom(date: createTime)
-                let obj = RoomCellValue(roomName: roomName, roomID: roomID, time: duration)
-                
-                self.rooms.insert(obj, at: 0)
-            }
-            self.roomView.tableView.reloadData()
-        }
-        
+                        
         // 通知
         self.client.onConnected = {
             print("Connect!")
             let alert: UIAlertController = UIAlertController(title: "Connect Success!", message: nil, preferredStyle: UIAlertControllerStyle.alert)
             let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler:{(action: UIAlertAction!) -> Void in
+                self.rooms = []
+                self.channel?.action(self.actionInit)
             })
             alert.addAction(defaultAction)
             self.present(alert, animated: true, completion: nil)
         }
         
-        self.client.onRejected = {
-            print("Reject!")
-        }
-        
         self.client.onDisconnected = {(error: Error?) in
             print("Disconnect")
-            /*let alert: UIAlertController = UIAlertController(title: "Connect Fail...", message: nil, preferredStyle: UIAlertControllerStyle.alert)
-             let defaultAction: UIAlertAction = UIAlertAction(title: "Reconnect", style: .default, handler:{(action: UIAlertAction!) -> Void in
-             self.client.connect()
-             self.channel?.action(self.actionInit)
-             })
-             let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler:{(action: UIAlertAction!) -> Void in
-             })
-             alert.addAction(cancelAction)
-             alert.addAction(defaultAction)
-             self.present(alert, animated: true, completion: nil)*/
         }
         
-        self.mainController.client = self.client
+        self.client.willReconnect = {
+            print("Reconnect")
+            let alert: UIAlertController = UIAlertController(title: "Connect Fail...", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+            let defaultAction: UIAlertAction = UIAlertAction(title: "Reconnect", style: .default, handler:{(action: UIAlertAction!) -> Void in
+                self.client.connect()
+            })
+            let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler:{(action: UIAlertAction!) -> Void in
+            })
+            alert.addAction(cancelAction)
+            alert.addAction(defaultAction)
+            self.present(alert, animated: true, completion: nil)
+            return true
+        }
+        
+        self.chatController.client = self.client
         
         self.client.connect()
         
@@ -136,6 +112,31 @@ class RoomViewController: UIViewController {
         }
         self.userName = userName.string(forKey: "userName")
         self.userID = userID.integer(forKey: "userID")
+        
+        // channel作成
+        self.channel = client.create(self.channelIdentifier, identifier: ["userID": self.userID!])
+        // 受信設定
+        self.channel?.onReceive = {(data: Any?, error: Error?) in
+            if let _ = error {
+                print(error as! String)
+                return
+            }
+            let JSONObject = JSON(data!)
+            var recieveArray = JSONObject.arrayValue.map{ RoomCellValue(roomName: $0["roomName"].stringValue, roomID: $0["id"].intValue, time: $0["time"].stringValue)}
+            print(recieveArray)
+            for i in 0..<recieveArray.count {
+                guard let time = recieveArray[i].time else { continue }
+                guard let roomName = recieveArray[i].roomName else { continue }
+                let roomID = recieveArray[i].roomID
+                let createTime = DateUtils.dateFromString(string: time, format: "yyyy/MM/dd HH:mm:ss Z")
+                let now = Date()
+                let duration = now.offsetFrom(date: createTime)
+                let obj = RoomCellValue(roomName: roomName, roomID: roomID, time: duration)
+                
+                self.rooms.insert(obj, at: 0)
+            }
+            self.roomView.tableView.reloadData()
+        }
     }
     
     // ユーザ登録のQue送る
@@ -161,6 +162,8 @@ class RoomViewController: UIViewController {
                 let JSONObject = JSON(data!)
                 name.set(registerName, forKey: "userName")
                 ID.set(JSONObject["userID"].int, forKey: "userID")
+                self.userName = name.string(forKey: "userName")
+                self.userID = ID.integer(forKey: "userID")
                 self.registerChannel?.unsubscribe()
             }
             self.registerChannel?.action(self.actionRegister, with: ["userName": registerName])
@@ -168,17 +171,13 @@ class RoomViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         // Room画面になる度に一覧リセット
         self.rooms = []
         self.channel?.action(self.actionInit)
-    }
-    
-    // タッチしたらキーボード閉じる
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
     }
     
     // Create
@@ -217,12 +216,13 @@ extension RoomViewController: UITableViewDelegate {
     
     // Cellタップで画面遷移
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
         let room = self.rooms[indexPath.row]
-        self.mainController.roomID = room.roomID
-        self.mainController.userID = self.userID!
-        self.mainController.userName = self.userName!
-        self.mainController.roomName = room.roomName!
-        self.navigationController?.pushViewController(self.mainController, animated: true)
+        self.chatController.roomID = room.roomID
+        self.chatController.userID = self.userID!
+        self.chatController.userName = self.userName!
+        self.chatController.roomName = room.roomName!
+        self.navigationController?.pushViewController(self.chatController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

@@ -12,7 +12,7 @@ import SnapKit
 import NextGrowingTextView
 
 // チャットする画面
-class MainView : UIView {
+class ChatView : UIView, UIGestureRecognizerDelegate {
     
     var tableView: UITableView = {
         let tableView: UITableView = UITableView(frame: CGRect.zero)
@@ -23,12 +23,16 @@ class MainView : UIView {
     }()
     private var bottomLayoutConstraint: Constraint?
     var inputTextView = InputTextView()
+    var tapGesture: UITapGestureRecognizer?
     
     required override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.addSubview(self.tableView)
         self.addSubview(self.inputTextView)
+        
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(ChatView.tap(_:)))
+        tapGesture!.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShowNotification(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHideNotification(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -54,6 +58,7 @@ class MainView : UIView {
     }
     
     func keyboardWillHideNotification(_ notification: Notification) {
+        self.removeGestureRecognizer(self.tapGesture!)
         let userInfo = (notification as NSNotification).userInfo!
         let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         let rawAnimationCurve = ((notification as NSNotification).userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).uint32Value << 16
@@ -66,6 +71,7 @@ class MainView : UIView {
     }
     
     func keyboardWillShowNotification(_ notification: Notification) {
+        self.addGestureRecognizer(self.tapGesture!)
         let userInfo = (notification as NSNotification).userInfo!
         let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         let keyboardEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
@@ -76,5 +82,9 @@ class MainView : UIView {
             self.bottomLayoutConstraint?.update(offset: -convertedKeyboardEndFrame.height)
             self.updateConstraintsIfNeeded()
         }, completion: nil)
+    }
+
+    func tap(_ sender: UITapGestureRecognizer){
+        self.endEditing(true)
     }
 }

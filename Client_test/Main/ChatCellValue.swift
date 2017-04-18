@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // MainCellの保有する情報
-struct MainCellValue {
+struct ChatCellValue {
     var userName: String?
     var messageLog: String?
     

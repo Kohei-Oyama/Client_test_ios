@@ -12,7 +12,7 @@ import SnapKit
 import NextGrowingTextView
 
 // Roomを作る画面
-class RoomView : UIView {
+class RoomView : UIView, UIGestureRecognizerDelegate {
     
     var tableView: UITableView = {
         let tableView = UITableView(frame: CGRect.zero)
@@ -22,6 +22,7 @@ class RoomView : UIView {
     
     private var bottomLayoutConstraint: Constraint?
     var inputTextView = InputTextView()
+    var tapGesture: UITapGestureRecognizer?
     
     required override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,6 +30,9 @@ class RoomView : UIView {
         self.addSubview(self.tableView)
         self.addSubview(self.inputTextView)
         
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(RoomView.tap(_:)))
+        tapGesture!.delegate = self
+
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShowNotification(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHideNotification(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
@@ -53,6 +57,7 @@ class RoomView : UIView {
     }
 
     func keyboardWillHideNotification(_ notification: Notification) {
+        self.removeGestureRecognizer(self.tapGesture!)
         let userInfo = (notification as NSNotification).userInfo!
         let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         let rawAnimationCurve = ((notification as NSNotification).userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).uint32Value << 16
@@ -65,6 +70,7 @@ class RoomView : UIView {
     }
     
     func keyboardWillShowNotification(_ notification: Notification) {
+        self.addGestureRecognizer(self.tapGesture!)
         let userInfo = (notification as NSNotification).userInfo!
         let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         let keyboardEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
@@ -75,5 +81,9 @@ class RoomView : UIView {
             self.bottomLayoutConstraint?.update(offset: -convertedKeyboardEndFrame.height)
             self.updateConstraintsIfNeeded()
         }, completion: nil)
+    }
+    
+    func tap(_ sender: UITapGestureRecognizer){
+        self.endEditing(true)
     }
 }

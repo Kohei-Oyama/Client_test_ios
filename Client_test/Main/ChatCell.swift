@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 // チャット画面のCell
-class MainCell: UITableViewCell {
+class ChatCell: UITableViewCell {
     
     static let inset: CGFloat = 10.0
     static let nameHeight: CGFloat = 20.0
@@ -32,7 +32,7 @@ class MainCell: UITableViewCell {
         return nameLabel
     }()
     
-    var object: MainCellValue? {
+    var object: ChatCellValue? {
         didSet {
             self.messageLabel.attributedText = object?.attributedString(sentence: (object?.messageLog)!, fontSize: 14.0)
             self.messageLabel.sizeToFit()

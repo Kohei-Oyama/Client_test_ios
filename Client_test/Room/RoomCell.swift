@@ -51,8 +51,6 @@ class RoomCell: UITableViewCell {
         
         self.addSubview(nameLabel)
         self.addSubview(timeLabel)
-        
-        //self.layoutMargins = UIEdgeInsets.zero
     }
     
     required init?(coder aDecoder: NSCoder) {
