@@ -7,17 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B3F06E21EA6FCF100DB707E /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3F06DD1EA6FCF100DB707E /* ChatCell.swift */; };
+		0B3F06E31EA6FCF100DB707E /* ChatCellValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3F06DE1EA6FCF100DB707E /* ChatCellValue.swift */; };
+		0B3F06E41EA6FCF100DB707E /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3F06DF1EA6FCF100DB707E /* ChatViewController.swift */; };
+		0B3F06E51EA6FCF100DB707E /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3F06E01EA6FCF100DB707E /* ChatView.swift */; };
+		0B3F06E81EA6FDB600DB707E /* RegisterViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3F06E71EA6FDB600DB707E /* RegisterViewControler.swift */; };
 		0B7F568E1E9E35740094BBD5 /* RoomCellValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F568D1E9E35740094BBD5 /* RoomCellValue.swift */; };
-		0B7F56901E9E359D0094BBD5 /* ChatCellValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F568F1E9E359D0094BBD5 /* ChatCellValue.swift */; };
 		0B7F56921E9E4A400094BBD5 /* myURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F56911E9E4A400094BBD5 /* myURL.swift */; };
-		0B8254E61E9B750B00612EC5 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254E11E9B750B00612EC5 /* ChatCell.swift */; };
-		0B8254E71E9B750B00612EC5 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254E21E9B750B00612EC5 /* ChatController.swift */; };
-		0B8254E91E9B750B00612EC5 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254E41E9B750B00612EC5 /* ChatView.swift */; };
 		0B8254EE1E9B752100612EC5 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254EA1E9B752100612EC5 /* Color.swift */; };
 		0B8254EF1E9B752100612EC5 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254EB1E9B752100612EC5 /* InputTextView.swift */; };
 		0B8254F01E9B752100612EC5 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254EC1E9B752100612EC5 /* PaddingLabel.swift */; };
 		0B8254F61E9B756700612EC5 /* RoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254F11E9B756700612EC5 /* RoomCell.swift */; };
-		0B8254F71E9B756700612EC5 /* RoomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254F21E9B756700612EC5 /* RoomController.swift */; };
+		0B8254F71E9B756700612EC5 /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254F21E9B756700612EC5 /* RoomViewController.swift */; };
 		0B8254F91E9B756700612EC5 /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8254F41E9B756700612EC5 /* RoomView.swift */; };
 		0B8255071E9CA87E00612EC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B8255061E9CA87E00612EC5 /* Assets.xcassets */; };
 		0BD496C21E9CF6170013F4BB /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD496C11E9CF6170013F4BB /* DateUtils.swift */; };
@@ -51,17 +52,18 @@
 
 /* Begin PBXFileReference section */
 		009F8D80003D1D7BB802E318 /* Pods_Client_test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Client_test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B3F06DD1EA6FCF100DB707E /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
+		0B3F06DE1EA6FCF100DB707E /* ChatCellValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCellValue.swift; sourceTree = "<group>"; };
+		0B3F06DF1EA6FCF100DB707E /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		0B3F06E01EA6FCF100DB707E /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		0B3F06E71EA6FDB600DB707E /* RegisterViewControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewControler.swift; sourceTree = "<group>"; };
 		0B7F568D1E9E35740094BBD5 /* RoomCellValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomCellValue.swift; sourceTree = "<group>"; };
-		0B7F568F1E9E359D0094BBD5 /* ChatCellValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCellValue.swift; sourceTree = "<group>"; };
 		0B7F56911E9E4A400094BBD5 /* myURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = myURL.swift; sourceTree = "<group>"; };
-		0B8254E11E9B750B00612EC5 /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
-		0B8254E21E9B750B00612EC5 /* ChatController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
-		0B8254E41E9B750B00612EC5 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		0B8254EA1E9B752100612EC5 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		0B8254EB1E9B752100612EC5 /* InputTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		0B8254EC1E9B752100612EC5 /* PaddingLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		0B8254F11E9B756700612EC5 /* RoomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomCell.swift; sourceTree = "<group>"; };
-		0B8254F21E9B756700612EC5 /* RoomController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomController.swift; sourceTree = "<group>"; };
+		0B8254F21E9B756700612EC5 /* RoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
 		0B8254F41E9B756700612EC5 /* RoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
 		0B8255061E9CA87E00612EC5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0BD496C11E9CF6170013F4BB /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
@@ -115,25 +117,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0B8254E51E9B750B00612EC5 /* Main */ = {
+		0B3F06E11EA6FCF100DB707E /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				0B8254E11E9B750B00612EC5 /* ChatCell.swift */,
-				0B8254E21E9B750B00612EC5 /* ChatController.swift */,
-				0B8254E41E9B750B00612EC5 /* ChatView.swift */,
-				0B7F568F1E9E359D0094BBD5 /* ChatCellValue.swift */,
+				0B3F06DD1EA6FCF100DB707E /* ChatCell.swift */,
+				0B3F06DE1EA6FCF100DB707E /* ChatCellValue.swift */,
+				0B3F06E01EA6FCF100DB707E /* ChatView.swift */,
+				0B3F06DF1EA6FCF100DB707E /* ChatViewController.swift */,
 			);
-			path = Main;
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		0B3F06E61EA6FD8300DB707E /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				0B3F06E71EA6FDB600DB707E /* RegisterViewControler.swift */,
+			);
+			path = Register;
 			sourceTree = "<group>";
 		};
 		0B8254ED1E9B752100612EC5 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
 				0B8254EA1E9B752100612EC5 /* Color.swift */,
-				0B7F56911E9E4A400094BBD5 /* myURL.swift */,
 				0BD496C11E9CF6170013F4BB /* DateUtils.swift */,
 				0B8254EB1E9B752100612EC5 /* InputTextView.swift */,
 				0B8254EC1E9B752100612EC5 /* PaddingLabel.swift */,
+				0B7F56911E9E4A400094BBD5 /* myURL.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -142,9 +152,9 @@
 			isa = PBXGroup;
 			children = (
 				0B8254F11E9B756700612EC5 /* RoomCell.swift */,
-				0B8254F21E9B756700612EC5 /* RoomController.swift */,
-				0B8254F41E9B756700612EC5 /* RoomView.swift */,
 				0B7F568D1E9E35740094BBD5 /* RoomCellValue.swift */,
+				0B8254F41E9B756700612EC5 /* RoomView.swift */,
+				0B8254F21E9B756700612EC5 /* RoomViewController.swift */,
 			);
 			path = Room;
 			sourceTree = "<group>";
@@ -184,7 +194,8 @@
 		8E5BB2FD1E6819F100523DA6 /* Client_test */ = {
 			isa = PBXGroup;
 			children = (
-				0B8254E51E9B750B00612EC5 /* Main */,
+				0B3F06E11EA6FCF100DB707E /* Chat */,
+				0B3F06E61EA6FD8300DB707E /* Register */,
 				0B8254F51E9B756700612EC5 /* Room */,
 				0B8254ED1E9B752100612EC5 /* Utility */,
 				8E5BB2FE1E6819F100523DA6 /* AppDelegate.swift */,
@@ -509,21 +520,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B8254E71E9B750B00612EC5 /* ChatController.swift in Sources */,
+				0B3F06E31EA6FCF100DB707E /* ChatCellValue.swift in Sources */,
 				8E5BB3011E6819F100523DA6 /* ViewController.swift in Sources */,
 				0B8254EE1E9B752100612EC5 /* Color.swift in Sources */,
-				0B8254F71E9B756700612EC5 /* RoomController.swift in Sources */,
-				0B8254E61E9B750B00612EC5 /* ChatCell.swift in Sources */,
+				0B8254F71E9B756700612EC5 /* RoomViewController.swift in Sources */,
 				0B7F56921E9E4A400094BBD5 /* myURL.swift in Sources */,
-				0B7F56901E9E359D0094BBD5 /* ChatCellValue.swift in Sources */,
-				0B8254E91E9B750B00612EC5 /* ChatView.swift in Sources */,
 				0B8254EF1E9B752100612EC5 /* InputTextView.swift in Sources */,
+				0B3F06E21EA6FCF100DB707E /* ChatCell.swift in Sources */,
+				0B3F06E51EA6FCF100DB707E /* ChatView.swift in Sources */,
 				8E5BB2FF1E6819F100523DA6 /* AppDelegate.swift in Sources */,
 				0B8254F91E9B756700612EC5 /* RoomView.swift in Sources */,
+				0B3F06E41EA6FCF100DB707E /* ChatViewController.swift in Sources */,
 				0B8254F61E9B756700612EC5 /* RoomCell.swift in Sources */,
 				0BD496C21E9CF6170013F4BB /* DateUtils.swift in Sources */,
 				0B7F568E1E9E35740094BBD5 /* RoomCellValue.swift in Sources */,
 				0B8254F01E9B752100612EC5 /* PaddingLabel.swift in Sources */,
+				0B3F06E81EA6FDB600DB707E /* RegisterViewControler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

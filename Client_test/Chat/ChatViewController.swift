@@ -24,8 +24,8 @@ class ChatViewController: UIViewController {
         let chatView = ChatView(frame: CGRect.zero)
         chatView.backgroundColor = UIColor.gray
         chatView.translatesAutoresizingMaskIntoConstraints = false
-        chatView.inputTextView.buttonTitle = "Send"
         chatView.inputTextView.button.addTarget(self, action: #selector(ChatViewController.sendPush), for: .touchUpInside)
+        chatView.inputTextView.buttonTitle = "Send"
         return chatView
     }()
     var client: ActionCableClient?

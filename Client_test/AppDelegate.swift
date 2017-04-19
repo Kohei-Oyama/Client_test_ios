@@ -30,8 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
                 
-        // Room画面から開始
-        let controller = RoomViewController()
+        // Register画面から開始
+        let controller = RegisterViewController()
         let navigationController = UINavigationController()
         navigationController.pushViewController(controller, animated: true)
         self.window = UIWindow();
