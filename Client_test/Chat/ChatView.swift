@@ -1,6 +1,6 @@
 //
 //  MainView.swift
-//  
+//
 //
 //  Created by Hirano on 2017/04/02.
 //
@@ -59,12 +59,7 @@ class ChatView : UIView, UIGestureRecognizerDelegate {
     
     func keyboardWillHideNotification(_ notification: Notification) {
         self.removeGestureRecognizer(self.tapGesture!)
-        let userInfo = (notification as NSNotification).userInfo!
-        let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-        let rawAnimationCurve = ((notification as NSNotification).userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).uint32Value << 16
-        let animationCurve = UIViewAnimationOptions(rawValue: UInt(rawAnimationCurve))
-        
-        UIView.animate(withDuration: animationDuration, delay: 0.0, options: [.beginFromCurrentState, animationCurve], animations: {
+        UIView.animate(withDuration: 0, delay: 0.0, options: [.beginFromCurrentState, UIViewAnimationOptions.curveLinear], animations: {
             self.bottomLayoutConstraint?.update(offset: 0)
             self.updateConstraintsIfNeeded()
         }, completion: nil)
@@ -72,18 +67,18 @@ class ChatView : UIView, UIGestureRecognizerDelegate {
     
     func keyboardWillShowNotification(_ notification: Notification) {
         self.addGestureRecognizer(self.tapGesture!)
-        let userInfo = (notification as NSNotification).userInfo!
-        let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        let userInfo = notification.userInfo!
         let keyboardEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let convertedKeyboardEndFrame = self.convert(keyboardEndFrame, from: self.window)
-        let rawAnimationCurve = ((notification as NSNotification).userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).uint32Value << 16
-        let animationCurve = UIViewAnimationOptions(rawValue: UInt(rawAnimationCurve))
-        UIView.animate(withDuration: animationDuration, delay: 0.0, options: [.beginFromCurrentState, animationCurve], animations: {
+        UIView.animate(withDuration: 0, delay: 0.0, options: [.beginFromCurrentState, UIViewAnimationOptions.curveLinear], animations: {
             self.bottomLayoutConstraint?.update(offset: -convertedKeyboardEndFrame.height)
             self.updateConstraintsIfNeeded()
+            if self.tableView.contentSize.height > (self.tableView.frame.height - convertedKeyboardEndFrame.height){
+            self.tableView.contentOffset.y += convertedKeyboardEndFrame.height
+            }
         }, completion: nil)
     }
-
+    
     func tap(_ sender: UITapGestureRecognizer){
         self.endEditing(true)
     }

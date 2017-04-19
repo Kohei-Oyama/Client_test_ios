@@ -18,7 +18,7 @@ class InputTextView: UIView{
         let inputField = NextGrowingTextView(frame: CGRect.zero)
         inputField.layer.cornerRadius = 8
         inputField.backgroundColor = UIColor(white: 0.9, alpha: 1)
-        inputField.textContainerInset = UIEdgeInsets(top: 16, left: 0, bottom: 4, right: 0)
+        inputField.textContainerInset = UIEdgeInsets(top: 10, left: 0, bottom: 4, right: 0)
         inputField.placeholderAttributedText = NSAttributedString(string: "テキストを入力してください",attributes: [NSFontAttributeName: inputField.font!,NSForegroundColorAttributeName: UIColor.gray])
         inputField.translatesAutoresizingMaskIntoConstraints = false
         return inputField

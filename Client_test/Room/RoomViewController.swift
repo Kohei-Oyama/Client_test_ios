@@ -39,8 +39,6 @@ class RoomViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("Start program")
-        
         // タイトル
         self.navigationController?.navigationBar.barTintColor = UIColor.red
         self.navigationItem.setHidesBackButton(true, animated: false)
@@ -67,7 +65,6 @@ class RoomViewController: UIViewController {
             }
             let JSONObject = JSON(data!)
             var recieveArray = JSONObject.arrayValue.map{ RoomCellValue(roomName: $0["roomName"].stringValue, roomID: $0["roomID"].intValue, time: $0["time"].stringValue)}
-            print(recieveArray)
             for i in 0..<recieveArray.count {
                 guard let time = recieveArray[i].time else { continue }
                 guard let roomName = recieveArray[i].roomName else { continue }
@@ -82,11 +79,10 @@ class RoomViewController: UIViewController {
             self.roomView.tableView.reloadData()
         }
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
+
+    // Room画面になる度に一覧リセット
+    override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        // Room画面になる度に一覧リセット
         self.rooms = []
         self.channel?.action(self.actionInit)
     }

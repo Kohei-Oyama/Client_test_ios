@@ -15,7 +15,7 @@ class RegisterViewController: UIViewController {
     
     private let registerChannelIdentifier: String = "RegisterChannel"
     private let actionRegister = "register"
-    private let client = ActionCableClient(url: myURL.Ist.url)
+    private let client = ActionCableClient(url: myURL.Finatext.url)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +49,7 @@ class RegisterViewController: UIViewController {
         
         self.client.onDisconnected = {(error: Error?) in
             print("Disconnect")
+            self.client.connect()
         }
         
         self.client.willReconnect = {

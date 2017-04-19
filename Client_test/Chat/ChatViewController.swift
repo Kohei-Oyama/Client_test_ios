@@ -32,12 +32,7 @@ class ChatViewController: UIViewController {
     var userName: String?
     var userID: Int?
     var roomID: Int?
-    var roomName: String? {
-        didSet {
-            // roomNameの値が変わったら行う
-            resetChannel(roomName: roomName!, roomID: self.roomID!, userID: self.userID!)
-        }
-    }
+    var roomName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,22 +44,16 @@ class ChatViewController: UIViewController {
         view.addSubview(chatView)
         chatView.snp.remakeConstraints({ (make) -> Void in
             make.top.bottom.left.right.equalTo(self.view)
-        })        
+        })
     }
     
     // コントローラ起動時の初期設定
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-    }
-    
-    func resetChannel(roomName: String, roomID: Int, userID: Int) -> Void {
         self.title = roomName
         // channelのstreamを変更
-        let room_identifier = ["roomID" : roomID, "userID" : userID]
-        self.channel?.unsubscribe()
-        self.channel = (client?.create(self.channelIdentifier, identifier: room_identifier, autoSubscribe: false, bufferActions: true))
-        self.channel?.subscribe()
-        // Log初期化
+        let roomIdentifier = ["roomID" : self.roomID!, "userID" : self.userID!]
+        self.channel = self.client?.create(self.channelIdentifier, identifier: roomIdentifier)
         self.log = []
         // 受信処理
         self.channel?.onReceive = {(data: Any?, error: Error?) in
@@ -73,27 +62,28 @@ class ChatViewController: UIViewController {
                 return
             }
             let JSONObject = JSON(data!)
-            print("JSON-MessageChannel:")
-            print(JSONObject)
-
-            var recieveArray = JSONObject.arrayValue.map{ ChatCellValue(userName: $0["userName"].stringValue, messageLog: $0["messageLog"].stringValue)}
-            
+            let recieveArray = JSONObject.arrayValue.map{ ChatCellValue(userName: $0["userName"].stringValue, messageLog: $0["messageLog"].stringValue)}
             var obj: ChatCellValue?
             for i in 0..<recieveArray.count {
                 guard let userName = recieveArray[i].userName else { continue }
                 guard let messageLog = recieveArray[i].messageLog else { continue }
                 obj = ChatCellValue(userName: userName, messageLog: messageLog)
-                
                 self.log.append(obj!)
+                if i == (recieveArray.count - 1 ){
+                    self.chatView.tableView.reloadData()
+                }
             }
-            self.chatView.tableView.reloadData()
-            // 自分が発言したら一番下にスクロール
-            if (obj?.userName! == self.userName) {
+            // 自分が発言したら or Enterしたとき一番下にスクロール
+            if (obj?.userName! == self.userName) || recieveArray.count > 1 {
                 let indexPath = IndexPath(row: self.log.count - 1, section: 0)
-                self.chatView.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                self.chatView.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
             }
         }
-        self.channel?.action(self.actionNameEnter, with: ["roomID": roomID, "userID": self.userID!])
+        self.channel?.action(self.actionNameEnter, with: ["roomID": self.roomID!, "userID": self.userID!])
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.channel?.unsubscribe()
     }
     
     // Send
@@ -112,8 +102,6 @@ class ChatViewController: UIViewController {
 extension ChatViewController: UITableViewDelegate {
     // MyCellの高さ指定
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        print("Index")
-        print(indexPath.row)
         let object = self.log[indexPath.row]
         let attrString = object.attributedString(sentence: object.messageLog!, fontSize: 14.0)
         let width = self.chatView.tableView.bounds.size.width;
