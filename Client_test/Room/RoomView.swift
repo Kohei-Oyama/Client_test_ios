@@ -60,12 +60,9 @@ class RoomView : UIView, UIGestureRecognizerDelegate {
         self.removeGestureRecognizer(self.tapGesture!)
         let userInfo = (notification as NSNotification).userInfo!
         let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-        let rawAnimationCurve = ((notification as NSNotification).userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).uint32Value << 16
-        let animationCurve = UIViewAnimationOptions(rawValue: UInt(rawAnimationCurve))
-        
-        UIView.animate(withDuration: animationDuration, delay: 0.0, options: [.beginFromCurrentState, animationCurve], animations: {
+        UIView.animate(withDuration: animationDuration, delay: 0.0, options: [.beginFromCurrentState, .curveLinear], animations: {
             self.bottomLayoutConstraint?.update(offset: 0)
-            self.updateConstraintsIfNeeded()
+            self.layoutIfNeeded()
         }, completion: nil)
     }
     
@@ -75,11 +72,9 @@ class RoomView : UIView, UIGestureRecognizerDelegate {
         let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
         let keyboardEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let convertedKeyboardEndFrame = self.convert(keyboardEndFrame, from: self.window)
-        let rawAnimationCurve = ((notification as NSNotification).userInfo![UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).uint32Value << 16
-        let animationCurve = UIViewAnimationOptions(rawValue: UInt(rawAnimationCurve))
-        UIView.animate(withDuration: animationDuration, delay: 0.0, options: [.beginFromCurrentState, animationCurve], animations: {
+        UIView.animate(withDuration: animationDuration, delay: 0.0, options: [.beginFromCurrentState, .curveLinear], animations: {
             self.bottomLayoutConstraint?.update(offset: -convertedKeyboardEndFrame.height)
-            self.updateConstraintsIfNeeded()
+            self.layoutIfNeeded()
         }, completion: nil)
     }
     
