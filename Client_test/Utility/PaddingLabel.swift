@@ -10,17 +10,19 @@ import UIKit
 
 //　周囲に余白を持ったUILabel
 class PaddingLabel: UILabel {
-    private let padding: UIEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+
+    static let paddingSize: CGFloat = 8
     
     override func drawText(in rect: CGRect) {
+        let padding = UIEdgeInsets(top: PaddingLabel.paddingSize, left: PaddingLabel.paddingSize, bottom: PaddingLabel.paddingSize, right: PaddingLabel.paddingSize)
         let newRect = UIEdgeInsetsInsetRect(rect, padding)
         super.drawText(in: newRect)
     }
     
     override var intrinsicContentSize: CGSize {
         var contentSize = super.intrinsicContentSize
-        contentSize.height += padding.top + padding.bottom
-        contentSize.width += padding.left + padding.right
+        contentSize.height += 2 * PaddingLabel.paddingSize
+        contentSize.width += 2 * PaddingLabel.paddingSize
         return contentSize
     }
 }

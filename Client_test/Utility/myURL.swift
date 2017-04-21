@@ -20,7 +20,7 @@ enum myURL {
     var url: URL {
         let local: String = "ws://localhost:3000"
         let finatext: String = "ws://192.168.12.126:3000"
-        let hirose: String = "ws://157.82.6.240:3000"
+        let hirose: String = "ws://157.82.6.194:3000"
         let ist: String = "ws://157.82.4.137:3000"
         let myhome: String = "ws://192.168.11.5:3000"
         let cnl: String = "ws://192.168.11.12:3000"

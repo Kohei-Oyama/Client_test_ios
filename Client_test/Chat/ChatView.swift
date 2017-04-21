@@ -22,7 +22,6 @@ class ChatView : UIView, UIGestureRecognizerDelegate {
         return tableView
     }()
     private var bottomLayoutConstraint: Constraint?
-    private var topLayoutConstraint: Constraint?
     
     var inputTextView = InputTextView()
     var tapGesture: UITapGestureRecognizer?
@@ -51,7 +50,6 @@ class ChatView : UIView, UIGestureRecognizerDelegate {
             make.left.right.equalTo(self)
             make.top.equalTo(tableView.snp.bottom)
             self.bottomLayoutConstraint = make.bottom.equalTo(self).constraint
-            self.topLayoutConstraint = make.top.equalTo(tableView.snp.bottom).constraint
         }
         self.inputTextView.inputField.delegates.willChangeHeight = {(height: CGFloat) in
             if (self.inputFieldHeight != height) && (height > self.inputFieldHeight) {

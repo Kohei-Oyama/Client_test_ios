@@ -27,36 +27,42 @@ class DateUtils {
 
 extension Date {
     func offsetFrom(date: Date) -> String {
-        if yearsFrom(date: date)   > 0 { return "\(yearsFrom(date: date))年前"   }
-        if monthsFrom(date: date)  > 0 { return "\(monthsFrom(date: date))ヶ月前"  }
-        if weeksFrom(date: date)   > 0 { return "\(weeksFrom(date: date))週間前"   }
-        if daysFrom(date: date)    > 0 { return "\(daysFrom(date: date))日前"    }
-        if hoursFrom(date: date)   > 0 { return "\(hoursFrom(date: date))時間前"   }
-        if minutesFrom(date: date) > 0 { return "\(minutesFrom(date: date))分前" }
-        if secondsFrom(date: date) > 0 { return "\(secondsFrom(date: date))秒前" }
+        guard let years = yearsFrom(date: date) else { return "Error Date" }
+        if years > 0 { return "\(years)年前" }
+        guard let months = monthsFrom(date: date) else { return "Error Date" }
+        if months > 0 { return "\(months)ヶ月前" }
+        guard let weeks = weeksFrom(date: date) else { return "Error Date" }
+        if weeks > 0 { return "\(weeks)週間前" }
+        guard let days = daysFrom(date: date) else { return "Error Date" }
+        if days > 0 { return "\(days)日前" }
+        guard let hours = hoursFrom(date: date) else { return "Error Date" }
+        if hours > 0 { return "\(hours)時間前" }
+        guard let minutes = minutesFrom(date: date) else { return "Error Date" }
+        if minutes > 0 { return "\(minutes)分前" }
+        guard let seconds = secondsFrom(date: date) else { return "Error Date" }
+        if seconds > 0 { return "\(seconds)秒前" }
         return "たった今"
     }
     
-    func yearsFrom(date: Date) -> Int {
-        return Calendar.current.dateComponents([.year], from: date, to: self).year ?? 0
+    func yearsFrom(date: Date) -> Int? {
+        return Calendar.current.dateComponents([.year], from: date, to: self).year
     }
-    func monthsFrom(date: Date) -> Int {
-        return Calendar.current.dateComponents([.month], from: date, to: self).month ?? 0
+    func monthsFrom(date: Date) -> Int? {
+        return Calendar.current.dateComponents([.month], from: date, to: self).month
     }
-    func weeksFrom(date: Date) -> Int {
-        return Calendar.current.dateComponents([.weekOfYear], from: date, to: self).weekOfYear ?? 0
+    func weeksFrom(date: Date) -> Int? {
+        return Calendar.current.dateComponents([.weekOfYear], from: date, to: self).weekOfYear
     }
-    func daysFrom(date: Date) -> Int {
-        return Calendar.current.dateComponents([.day], from: date, to: self).day ?? 0
+    func daysFrom(date: Date) -> Int? {
+        return Calendar.current.dateComponents([.day], from: date, to: self).day
     }
-    func hoursFrom(date: Date) -> Int {
-        return Calendar.current.dateComponents([.hour], from: date, to: self).hour ?? 0
+    func hoursFrom(date: Date) -> Int? {
+        return Calendar.current.dateComponents([.hour], from: date, to: self).hour
     }
-    func minutesFrom(date: Date) -> Int {
-        return Calendar.current.dateComponents([.minute], from: date, to: self).minute ?? 0
+    func minutesFrom(date: Date) -> Int? {
+        return Calendar.current.dateComponents([.minute], from: date, to: self).minute
     }
-    func secondsFrom(date: Date) -> Int {
-        return Calendar.current.dateComponents([.second], from: date, to: self).second ?? 0
+    func secondsFrom(date: Date) -> Int? {
+        return Calendar.current.dateComponents([.second], from: date, to: self).second
     }
-    
 }
