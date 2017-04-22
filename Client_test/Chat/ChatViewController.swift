@@ -20,11 +20,24 @@ class ChatViewController: UIViewController {
     let cellName = "ChatCell"
     var channel: Channel?
     var log: Array<ChatCellValue> = Array()
+    var upLabel:UILabel?
+    var leftLabel:UILabel?
+    var sendType = 0
     var chatView: ChatView = {
         let chatView = ChatView(frame: CGRect.zero)
         chatView.backgroundColor = UIColor.gray
         chatView.translatesAutoresizingMaskIntoConstraints = false
+        chatView.inputTextView.button.addTarget(self, action: #selector(ChatViewController.sendTouch(sender:)), for: .touchDown)
         chatView.inputTextView.button.addTarget(self, action: #selector(ChatViewController.sendPush), for: .touchUpInside)
+        chatView.inputTextView.button.addTarget(self, action: #selector(ChatViewController.sendPush), for: .touchDragOutside)
+        let swipeUp = UISwipeGestureRecognizer()
+        swipeUp.direction = .up
+        swipeUp.addTarget(self, action: #selector(ChatViewController.sendUp(sender:)))
+        chatView.inputTextView.button.addGestureRecognizer(swipeUp)
+        let swipeLeft = UISwipeGestureRecognizer()
+        swipeLeft.direction = .left
+        swipeLeft.addTarget(self, action: #selector(ChatViewController.sendLeft(sender:)))
+        chatView.inputTextView.button.addGestureRecognizer(swipeLeft)
         chatView.inputTextView.buttonTitle = "Send"
         return chatView
     }()
@@ -86,8 +99,53 @@ class ChatViewController: UIViewController {
         self.channel?.unsubscribe()
     }
     
+    //ボタンに触れた時のアクション
+    func sendTouch(sender: UIButton){
+        if upLabel == nil{
+            upLabel = UILabel()
+            upLabel!.frame = CGRect(x: 0, y: 0, width: sender.frame.width, height: sender.frame.height)
+            //起点となるボタンを支点とする
+            upLabel!.layer.position = CGPoint(x:sender.layer.position.x, y:sender.layer.position.y - sender.frame.height)
+            upLabel!.backgroundColor = UIColor.red
+            upLabel!.text = "red"
+            upLabel!.font = UIFont.systemFont(ofSize: 10)
+            upLabel!.textAlignment = NSTextAlignment.center
+            self.chatView.inputTextView.addSubview(upLabel!)
+        }
+        if leftLabel == nil{
+            leftLabel = UILabel()
+            leftLabel!.frame = CGRect(x: 0, y: 0, width: sender.frame.width, height: sender.frame.height)
+            leftLabel!.layer.position = CGPoint(x:sender.layer.position.x - sender.frame.width, y:sender.layer.position.y)
+            leftLabel!.backgroundColor = UIColor.blue
+            leftLabel!.text = "blue"
+            leftLabel!.font = UIFont.systemFont(ofSize: 10)
+            leftLabel!.textAlignment = NSTextAlignment.center
+            self.chatView.inputTextView.addSubview(leftLabel!)
+        }
+    }
+    
+    //上にスワイプした時
+    func sendUp(sender:UISwipeGestureRecognizer){
+        print("UP")
+        self.sendType = 1
+        sendPush()
+    }
+    //下にスワイプした時
+    func sendLeft(sender:UISwipeGestureRecognizer){
+        print("Left")
+        self.sendType = 2
+        sendPush()
+    }
+    
     // Send
     func sendPush() {
+        print(self.sendType)
+        if self.upLabel != nil && self.leftLabel != nil {
+            self.upLabel!.removeFromSuperview()
+            self.leftLabel!.removeFromSuperview()
+            self.upLabel = nil
+            self.leftLabel = nil
+        }
         let message = (self.chatView.inputTextView.inputField.text)!
         let prettyMessage = message.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         if (!(prettyMessage.isEmpty)) {
@@ -95,6 +153,7 @@ class ChatViewController: UIViewController {
         }
         self.chatView.inputTextView.inputField.text = ""
         view.endEditing(true)
+        self.sendType = 0
     }
 }
 
@@ -102,22 +161,27 @@ class ChatViewController: UIViewController {
 extension ChatViewController: UITableViewDelegate {
     // Cellの高さ指定
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let object = self.log[indexPath.row]
-        let messageLabel = PaddingLabel(frame: CGRect.zero)
-        messageLabel.numberOfLines = 0
-        messageLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        messageLabel.attributedText = object.attributedString(sentence: object.messageLog!, fontSize: ChatCell.messageFontSize)
-        let maxWidth = self.view.frame.width - 2.0 * (ChatCell.inset + PaddingLabel.paddingSize)
-        let messageLabelFrame = CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude)
-        let messageLabelRect = messageLabel.sizeThatFits(messageLabelFrame)
-        
-        let nameLabel = UILabel(frame: CGRect.zero)
-        nameLabel.numberOfLines = 1
-        nameLabel.font = UIFont.boldSystemFont(ofSize: ChatCell.nameFontSize)
-        nameLabel.text = object.userName!
-        nameLabel.sizeToFit()
-        
-        return messageLabelRect.height + 2.0 * PaddingLabel.paddingSize + 3.0 * ChatCell.inset + nameLabel.frame.height
+        if indexPath.row < self.log.count {
+            let object = self.log[indexPath.row]
+            let messageLabel = PaddingLabel(frame: CGRect.zero)
+            messageLabel.numberOfLines = 0
+            messageLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+            messageLabel.font = UIFont.boldSystemFont(ofSize: ChatCell.messageFontSize)
+            guard let message = object.messageLog else { return 0 }
+            messageLabel.text = message
+            let maxWidth = self.view.frame.width - 2.0 * (ChatCell.inset + PaddingLabel.paddingSize)
+            let messageLabelFrame = CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude)
+            let messageLabelRect = messageLabel.sizeThatFits(messageLabelFrame)
+            
+            let nameLabel = UILabel(frame: CGRect.zero)
+            nameLabel.numberOfLines = 1
+            nameLabel.font = UIFont.boldSystemFont(ofSize: ChatCell.nameFontSize)
+            nameLabel.text = object.userName!
+            nameLabel.sizeToFit()
+            
+            // 余白混みでメッセージと名前が入りきる高さ
+            return messageLabelRect.height + 2.0 * PaddingLabel.paddingSize + 3.0 * ChatCell.inset + nameLabel.frame.height
+        } else { return 0 }
     }
 }
 
@@ -139,6 +203,12 @@ extension ChatViewController: UITableViewDataSource {
             let frame = CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude)
             let rect = cell.messageLabel.sizeThatFits(frame)
             
+            cell.backView.snp.remakeConstraints { (make) -> Void in
+                make.bottom.equalTo(cell)
+                make.width.equalTo(rect.width + 2.0 * (PaddingLabel.paddingSize + ChatCell.inset))
+                make.top.equalTo(cell.nameLabel.snp.bottom)
+            }
+            
             cell.messageLabel.snp.remakeConstraints { (make) -> Void in
                 make.bottom.equalTo(cell).offset(-ChatCell.inset)
                 make.width.equalTo(rect.width + 2.0 * PaddingLabel.paddingSize)
@@ -149,7 +219,13 @@ extension ChatViewController: UITableViewDataSource {
             }
             
             // 自分の発言は右側に出現
+            cell.backView.transform = CGAffineTransform.identity
             if msg.userName! == self.userName! {
+                
+                cell.backView.transform = cell.backView.transform.scaledBy(x: -1.0, y: 1.0)
+                cell.backView.snp.makeConstraints { (make) -> Void in
+                    make.right.equalTo(cell)
+                }
                 cell.messageLabel.snp.makeConstraints { (make) -> Void in
                     make.right.equalTo(cell).offset(-ChatCell.inset)
                 }
@@ -157,6 +233,9 @@ extension ChatViewController: UITableViewDataSource {
                     make.right.equalTo(cell).offset(-ChatCell.inset)
                 }
             } else {
+                cell.backView.snp.makeConstraints { (make) -> Void in
+                    make.left.equalTo(cell)
+                }
                 cell.messageLabel.snp.makeConstraints { (make) -> Void in
                     make.left.equalTo(cell).offset(ChatCell.inset)
                 }

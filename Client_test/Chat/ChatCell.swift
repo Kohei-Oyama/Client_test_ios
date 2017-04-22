@@ -9,22 +9,29 @@
 import UIKit
 import SnapKit
 
+// ChatCellの保有する情報
+struct ChatCellValue {
+    var userName: String?
+    var messageLog: String?
+}
+
 // チャット画面のCell
 class ChatCell: UITableViewCell {
     
-    static let inset: CGFloat = 10.0
-    static let messageFontSize: CGFloat = 14.0
+    static let inset: CGFloat = 15.0
+    static let messageFontSize: CGFloat = 12.0
     static let nameFontSize: CGFloat = 15.0
     
     var messageLabel: PaddingLabel = {
         let messageLabel = PaddingLabel(frame: CGRect.zero)
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        messageLabel.backgroundColor = UIColor.green
+        messageLabel.backgroundColor = UIColor.clear
         messageLabel.layer.masksToBounds = true
         messageLabel.layer.cornerRadius = 10.0
         messageLabel.textAlignment = NSTextAlignment.left
         messageLabel.adjustsFontSizeToFitWidth = false
+        messageLabel.font = UIFont.boldSystemFont(ofSize: ChatCell.messageFontSize)
         return messageLabel
     }()
     var nameLabel: UILabel = {
@@ -34,9 +41,17 @@ class ChatCell: UITableViewCell {
         return nameLabel
     }()
     
+    var backView: UIImageView = {
+        let backView = UIImageView(frame: CGRect.zero)
+        let image = UIImage(named: "simple")!
+        backView.image = image
+        return backView
+    }()
+    
     var object: ChatCellValue? {
         didSet {
-            self.messageLabel.attributedText = object?.attributedString(sentence: (object?.messageLog)!, fontSize: ChatCell.messageFontSize)
+            guard let message = object?.messageLog else { return }
+            self.messageLabel.text = message
             self.nameLabel.text = self.object?.userName
         }
     }
@@ -45,6 +60,7 @@ class ChatCell: UITableViewCell {
         // cellの初期スタイル
         super.init(style: UITableViewCellStyle.subtitle, reuseIdentifier: reuseIdentifier)
         
+        self.addSubview(backView)
         self.addSubview(messageLabel)
         self.addSubview(nameLabel)
         

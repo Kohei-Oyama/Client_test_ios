@@ -15,7 +15,7 @@ class RegisterViewController: UIViewController {
     
     private let registerChannelIdentifier: String = "RegisterChannel"
     private let actionRegister = "register"
-    private let client = ActionCableClient(url: myURL.MyHome.url)
+    private let client = ActionCableClient(url: myURL.Local.url)
     
     override func viewDidLoad() {
         super.viewDidLoad()
