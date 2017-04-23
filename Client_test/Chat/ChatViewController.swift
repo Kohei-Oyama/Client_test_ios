@@ -206,7 +206,7 @@ extension ChatViewController: UITableViewDataSource {
             cell.backView.snp.remakeConstraints { (make) -> Void in
                 make.bottom.equalTo(cell)
                 make.width.equalTo(rect.width + 2.0 * (PaddingLabel.paddingSize + ChatCell.inset))
-                make.top.equalTo(cell.nameLabel.snp.bottom)
+                make.top.equalTo(cell.nameLabel.snp.bottom).offset(ChatCell.inset)
             }
             
             cell.messageLabel.snp.remakeConstraints { (make) -> Void in

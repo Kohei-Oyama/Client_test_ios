@@ -18,7 +18,7 @@ struct ChatCellValue {
 // チャット画面のCell
 class ChatCell: UITableViewCell {
     
-    static let inset: CGFloat = 15.0
+    static let inset: CGFloat = 9.0
     static let messageFontSize: CGFloat = 12.0
     static let nameFontSize: CGFloat = 15.0
     
@@ -43,7 +43,10 @@ class ChatCell: UITableViewCell {
     
     var backView: UIImageView = {
         let backView = UIImageView(frame: CGRect.zero)
-        let image = UIImage(named: "simple")!
+        var image = UIImage(named: "simple2")!
+        // 画像の糊しろサイズ
+        image = image.resizableImage(withCapInsets: UIEdgeInsetsMake(8, 18, 18, 10), resizingMode: UIImageResizingMode.tile)
+        backView.contentMode = .scaleToFill
         backView.image = image
         return backView
     }()
