@@ -1,7 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
-target 'Client_test' do
+target 'Emotional_Chat' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
@@ -12,12 +12,12 @@ target 'Client_test' do
   pod 'ActionCableClient'
   pod 'SnapKit'
 
-  target 'Client_testTests' do
+  target 'Emotional_ChatTests' do
     inherit! :search_paths
     # Pods for testing
   end
 
-  target 'Client_testUITests' do
+  target 'Emotional_ChatUITests' do
     inherit! :search_paths
     # Pods for testing
   end

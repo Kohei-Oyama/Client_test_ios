@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00BCEC05E117D24CA2BFE288 /* Pods_Emotional_ChatUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF374BEA3198B857C33F3B9B /* Pods_Emotional_ChatUITests.framework */; };
 		0B0649C91EAD03CC003E5D31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B0649C81EAD03CC003E5D31 /* Assets.xcassets */; };
 		0B3F06E21EA6FCF100DB707E /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3F06DD1EA6FCF100DB707E /* ChatCell.swift */; };
 		0B3F06E41EA6FCF100DB707E /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3F06DF1EA6FCF100DB707E /* ChatViewController.swift */; };
@@ -27,7 +28,8 @@
 		8E5BB3091E6819F100523DA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E5BB3071E6819F100523DA6 /* LaunchScreen.storyboard */; };
 		8E5BB3141E6819F100523DA6 /* Client_testTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5BB3131E6819F100523DA6 /* Client_testTests.swift */; };
 		8E5BB31F1E6819F100523DA6 /* Client_testUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5BB31E1E6819F100523DA6 /* Client_testUITests.swift */; };
-		99080B6C515F581017B9B8B3 /* Pods_Client_test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009F8D80003D1D7BB802E318 /* Pods_Client_test.framework */; };
+		C60CC157A0BCC5197E0853BF /* Pods_Emotional_Chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4F296634302D2E187CAFE94 /* Pods_Emotional_Chat.framework */; };
+		C830353E16F84C9CBF5F8226 /* Pods_Emotional_ChatTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 254AED11DA4FD5C559998AF0 /* Pods_Emotional_ChatTests.framework */; };
 		EC4DDCC06E897B3E54FCEC9B /* Pods_Client_testUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36B079D1D6720BFB56CC70B0 /* Pods_Client_testUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,25 +64,34 @@
 		0B8254F11E9B756700612EC5 /* RoomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomCell.swift; sourceTree = "<group>"; };
 		0B8254F21E9B756700612EC5 /* RoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
 		0B8254F41E9B756700612EC5 /* RoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
+		0B8C760460DCB0C5D3B4C6AF /* Pods-Emotional_ChatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emotional_ChatTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Emotional_ChatTests/Pods-Emotional_ChatTests.debug.xcconfig"; sourceTree = "<group>"; };
+		0BCADAF464ED1D11680C997C /* Pods-Emotional_ChatTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emotional_ChatTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Emotional_ChatTests/Pods-Emotional_ChatTests.release.xcconfig"; sourceTree = "<group>"; };
 		0BD496C11E9CF6170013F4BB /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		0E8862239A3EEBA1202B109B /* Pods-Client_testUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client_testUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Client_testUITests/Pods-Client_testUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		254AED11DA4FD5C559998AF0 /* Pods_Emotional_ChatTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Emotional_ChatTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		36B079D1D6720BFB56CC70B0 /* Pods_Client_testUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Client_testUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D53631647447259B7889E7D /* Pods-Client_test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client_test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Client_test/Pods-Client_test.debug.xcconfig"; sourceTree = "<group>"; };
 		4790D15F8A9CF040DF12856D /* Pods-Client_testUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client_testUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Client_testUITests/Pods-Client_testUITests.release.xcconfig"; sourceTree = "<group>"; };
 		67598337869806C6384E3675 /* Pods-Client_testTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client_testTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Client_testTests/Pods-Client_testTests.release.xcconfig"; sourceTree = "<group>"; };
 		6C41B9EBC539E8E26BEE3803 /* Pods_Client_testTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Client_testTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8E5BB2FB1E6819F100523DA6 /* Client_test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Client_test.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8242701AA8DB194E1E800C94 /* Pods-Emotional_ChatUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emotional_ChatUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Emotional_ChatUITests/Pods-Emotional_ChatUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		8E5BB2FB1E6819F100523DA6 /* Emotional_Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Emotional_Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5BB2FE1E6819F100523DA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E5BB3001E6819F100523DA6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8E5BB3031E6819F100523DA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8E5BB3081E6819F100523DA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8E5BB30A1E6819F100523DA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8E5BB30F1E6819F100523DA6 /* Client_testTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Client_testTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E5BB30F1E6819F100523DA6 /* Emotional_ChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Emotional_ChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5BB3131E6819F100523DA6 /* Client_testTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client_testTests.swift; sourceTree = "<group>"; };
 		8E5BB3151E6819F100523DA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8E5BB31A1E6819F100523DA6 /* Client_testUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Client_testUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E5BB31A1E6819F100523DA6 /* Emotional_ChatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Emotional_ChatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E5BB31E1E6819F100523DA6 /* Client_testUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client_testUITests.swift; sourceTree = "<group>"; };
 		8E5BB3201E6819F100523DA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		99D322B3EB4CDCF042525D01 /* Pods-Emotional_Chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emotional_Chat.release.xcconfig"; path = "Pods/Target Support Files/Pods-Emotional_Chat/Pods-Emotional_Chat.release.xcconfig"; sourceTree = "<group>"; };
+		9F1EA7C80263AE32644007EB /* Pods-Emotional_Chat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emotional_Chat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Emotional_Chat/Pods-Emotional_Chat.debug.xcconfig"; sourceTree = "<group>"; };
+		A4F296634302D2E187CAFE94 /* Pods_Emotional_Chat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Emotional_Chat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE3DD401139676CA6A01482D /* Pods-Emotional_ChatUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Emotional_ChatUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Emotional_ChatUITests/Pods-Emotional_ChatUITests.release.xcconfig"; sourceTree = "<group>"; };
+		CF374BEA3198B857C33F3B9B /* Pods_Emotional_ChatUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Emotional_ChatUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFA3274D37FC4A837F5E7FC2 /* Pods-Client_testTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client_testTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Client_testTests/Pods-Client_testTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E48D862F6CC43243E120FBC4 /* Pods-Client_test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Client_test.release.xcconfig"; path = "Pods/Target Support Files/Pods-Client_test/Pods-Client_test.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,7 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99080B6C515F581017B9B8B3 /* Pods_Client_test.framework in Frameworks */,
+				C60CC157A0BCC5197E0853BF /* Pods_Emotional_Chat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +110,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6134BF0F86CA385E96C2F5DB /* Pods_Client_testTests.framework in Frameworks */,
+				C830353E16F84C9CBF5F8226 /* Pods_Emotional_ChatTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +119,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC4DDCC06E897B3E54FCEC9B /* Pods_Client_testUITests.framework in Frameworks */,
+				00BCEC05E117D24CA2BFE288 /* Pods_Emotional_ChatUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +172,9 @@
 				009F8D80003D1D7BB802E318 /* Pods_Client_test.framework */,
 				6C41B9EBC539E8E26BEE3803 /* Pods_Client_testTests.framework */,
 				36B079D1D6720BFB56CC70B0 /* Pods_Client_testUITests.framework */,
+				A4F296634302D2E187CAFE94 /* Pods_Emotional_Chat.framework */,
+				254AED11DA4FD5C559998AF0 /* Pods_Emotional_ChatTests.framework */,
+				CF374BEA3198B857C33F3B9B /* Pods_Emotional_ChatUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -166,9 +182,9 @@
 		8E5BB2F21E6819F100523DA6 = {
 			isa = PBXGroup;
 			children = (
-				8E5BB2FD1E6819F100523DA6 /* Client_test */,
-				8E5BB3121E6819F100523DA6 /* Client_testTests */,
-				8E5BB31D1E6819F100523DA6 /* Client_testUITests */,
+				8E5BB2FD1E6819F100523DA6 /* Emotional_Chat */,
+				8E5BB3121E6819F100523DA6 /* Emotional_ChatTests */,
+				8E5BB31D1E6819F100523DA6 /* Emotional_ChatUITests */,
 				4EEA4CA77F39E77892EC780D /* Frameworks */,
 				F1AD7A8BDDCA757C7CF66FD0 /* Pods */,
 				8E5BB2FC1E6819F100523DA6 /* Products */,
@@ -178,14 +194,14 @@
 		8E5BB2FC1E6819F100523DA6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8E5BB2FB1E6819F100523DA6 /* Client_test.app */,
-				8E5BB30F1E6819F100523DA6 /* Client_testTests.xctest */,
-				8E5BB31A1E6819F100523DA6 /* Client_testUITests.xctest */,
+				8E5BB2FB1E6819F100523DA6 /* Emotional_Chat.app */,
+				8E5BB30F1E6819F100523DA6 /* Emotional_ChatTests.xctest */,
+				8E5BB31A1E6819F100523DA6 /* Emotional_ChatUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8E5BB2FD1E6819F100523DA6 /* Client_test */ = {
+		8E5BB2FD1E6819F100523DA6 /* Emotional_Chat */ = {
 			isa = PBXGroup;
 			children = (
 				0B3F06E11EA6FCF100DB707E /* Chat */,
@@ -199,25 +215,25 @@
 				8E5BB3021E6819F100523DA6 /* Main.storyboard */,
 				8E5BB3001E6819F100523DA6 /* ViewController.swift */,
 			);
-			path = Client_test;
+			path = Emotional_Chat;
 			sourceTree = "<group>";
 		};
-		8E5BB3121E6819F100523DA6 /* Client_testTests */ = {
+		8E5BB3121E6819F100523DA6 /* Emotional_ChatTests */ = {
 			isa = PBXGroup;
 			children = (
 				8E5BB3131E6819F100523DA6 /* Client_testTests.swift */,
 				8E5BB3151E6819F100523DA6 /* Info.plist */,
 			);
-			path = Client_testTests;
+			path = Emotional_ChatTests;
 			sourceTree = "<group>";
 		};
-		8E5BB31D1E6819F100523DA6 /* Client_testUITests */ = {
+		8E5BB31D1E6819F100523DA6 /* Emotional_ChatUITests */ = {
 			isa = PBXGroup;
 			children = (
 				8E5BB31E1E6819F100523DA6 /* Client_testUITests.swift */,
 				8E5BB3201E6819F100523DA6 /* Info.plist */,
 			);
-			path = Client_testUITests;
+			path = Emotional_ChatUITests;
 			sourceTree = "<group>";
 		};
 		F1AD7A8BDDCA757C7CF66FD0 /* Pods */ = {
@@ -229,6 +245,12 @@
 				67598337869806C6384E3675 /* Pods-Client_testTests.release.xcconfig */,
 				0E8862239A3EEBA1202B109B /* Pods-Client_testUITests.debug.xcconfig */,
 				4790D15F8A9CF040DF12856D /* Pods-Client_testUITests.release.xcconfig */,
+				9F1EA7C80263AE32644007EB /* Pods-Emotional_Chat.debug.xcconfig */,
+				99D322B3EB4CDCF042525D01 /* Pods-Emotional_Chat.release.xcconfig */,
+				0B8C760460DCB0C5D3B4C6AF /* Pods-Emotional_ChatTests.debug.xcconfig */,
+				0BCADAF464ED1D11680C997C /* Pods-Emotional_ChatTests.release.xcconfig */,
+				8242701AA8DB194E1E800C94 /* Pods-Emotional_ChatUITests.debug.xcconfig */,
+				AE3DD401139676CA6A01482D /* Pods-Emotional_ChatUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -236,9 +258,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8E5BB2FA1E6819F100523DA6 /* Client_test */ = {
+		8E5BB2FA1E6819F100523DA6 /* Emotional_Chat */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8E5BB3231E6819F100523DA6 /* Build configuration list for PBXNativeTarget "Client_test" */;
+			buildConfigurationList = 8E5BB3231E6819F100523DA6 /* Build configuration list for PBXNativeTarget "Emotional_Chat" */;
 			buildPhases = (
 				63F9D361DB3758A2D8A9BD79 /* [CP] Check Pods Manifest.lock */,
 				8E5BB2F71E6819F100523DA6 /* Sources */,
@@ -251,14 +273,14 @@
 			);
 			dependencies = (
 			);
-			name = Client_test;
+			name = Emotional_Chat;
 			productName = Client_test;
-			productReference = 8E5BB2FB1E6819F100523DA6 /* Client_test.app */;
+			productReference = 8E5BB2FB1E6819F100523DA6 /* Emotional_Chat.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8E5BB30E1E6819F100523DA6 /* Client_testTests */ = {
+		8E5BB30E1E6819F100523DA6 /* Emotional_ChatTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8E5BB3261E6819F100523DA6 /* Build configuration list for PBXNativeTarget "Client_testTests" */;
+			buildConfigurationList = 8E5BB3261E6819F100523DA6 /* Build configuration list for PBXNativeTarget "Emotional_ChatTests" */;
 			buildPhases = (
 				54700FCFAD678968B4D2E68C /* [CP] Check Pods Manifest.lock */,
 				8E5BB30B1E6819F100523DA6 /* Sources */,
@@ -272,14 +294,14 @@
 			dependencies = (
 				8E5BB3111E6819F100523DA6 /* PBXTargetDependency */,
 			);
-			name = Client_testTests;
+			name = Emotional_ChatTests;
 			productName = Client_testTests;
-			productReference = 8E5BB30F1E6819F100523DA6 /* Client_testTests.xctest */;
+			productReference = 8E5BB30F1E6819F100523DA6 /* Emotional_ChatTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		8E5BB3191E6819F100523DA6 /* Client_testUITests */ = {
+		8E5BB3191E6819F100523DA6 /* Emotional_ChatUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8E5BB3291E6819F100523DA6 /* Build configuration list for PBXNativeTarget "Client_testUITests" */;
+			buildConfigurationList = 8E5BB3291E6819F100523DA6 /* Build configuration list for PBXNativeTarget "Emotional_ChatUITests" */;
 			buildPhases = (
 				B4C7D0BFF24151FCDEC5E84B /* [CP] Check Pods Manifest.lock */,
 				8E5BB3161E6819F100523DA6 /* Sources */,
@@ -293,9 +315,9 @@
 			dependencies = (
 				8E5BB31C1E6819F100523DA6 /* PBXTargetDependency */,
 			);
-			name = Client_testUITests;
+			name = Emotional_ChatUITests;
 			productName = Client_testUITests;
-			productReference = 8E5BB31A1E6819F100523DA6 /* Client_testUITests.xctest */;
+			productReference = 8E5BB31A1E6819F100523DA6 /* Emotional_ChatUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -325,7 +347,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8E5BB2F61E6819F100523DA6 /* Build configuration list for PBXProject "Client_test" */;
+			buildConfigurationList = 8E5BB2F61E6819F100523DA6 /* Build configuration list for PBXProject "Emotional_Chat" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -338,9 +360,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8E5BB2FA1E6819F100523DA6 /* Client_test */,
-				8E5BB30E1E6819F100523DA6 /* Client_testTests */,
-				8E5BB3191E6819F100523DA6 /* Client_testUITests */,
+				8E5BB2FA1E6819F100523DA6 /* Emotional_Chat */,
+				8E5BB30E1E6819F100523DA6 /* Emotional_ChatTests */,
+				8E5BB3191E6819F100523DA6 /* Emotional_ChatUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -385,7 +407,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Client_test/Pods-Client_test-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Emotional_Chat/Pods-Emotional_Chat-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4B6EB5F8A493B25368B1A8BE /* [CP] Copy Pods Resources */ = {
@@ -400,7 +422,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Client_testUITests/Pods-Client_testUITests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Emotional_ChatUITests/Pods-Emotional_ChatUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		54700FCFAD678968B4D2E68C /* [CP] Check Pods Manifest.lock */ = {
@@ -445,7 +467,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Client_testUITests/Pods-Client_testUITests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Emotional_ChatUITests/Pods-Emotional_ChatUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B4C7D0BFF24151FCDEC5E84B /* [CP] Check Pods Manifest.lock */ = {
@@ -475,7 +497,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Client_test/Pods-Client_test-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Emotional_Chat/Pods-Emotional_Chat-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BF7FA5919CB479E0E077BBFC /* [CP] Embed Pods Frameworks */ = {
@@ -490,7 +512,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Client_testTests/Pods-Client_testTests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Emotional_ChatTests/Pods-Emotional_ChatTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F5D636E1CE52E672A5391AE2 /* [CP] Copy Pods Resources */ = {
@@ -505,7 +527,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Client_testTests/Pods-Client_testTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Emotional_ChatTests/Pods-Emotional_ChatTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -553,12 +575,12 @@
 /* Begin PBXTargetDependency section */
 		8E5BB3111E6819F100523DA6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8E5BB2FA1E6819F100523DA6 /* Client_test */;
+			target = 8E5BB2FA1E6819F100523DA6 /* Emotional_Chat */;
 			targetProxy = 8E5BB3101E6819F100523DA6 /* PBXContainerItemProxy */;
 		};
 		8E5BB31C1E6819F100523DA6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8E5BB2FA1E6819F100523DA6 /* Client_test */;
+			target = 8E5BB2FA1E6819F100523DA6 /* Emotional_Chat */;
 			targetProxy = 8E5BB31B1E6819F100523DA6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -678,11 +700,11 @@
 		};
 		8E5BB3241E6819F100523DA6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3D53631647447259B7889E7D /* Pods-Client_test.debug.xcconfig */;
+			baseConfigurationReference = 9F1EA7C80263AE32644007EB /* Pods-Emotional_Chat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Q7MWV852PW;
-				INFOPLIST_FILE = Client_test/Info.plist;
+				INFOPLIST_FILE = Emotional_Chat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Oyama.Client-test";
@@ -693,11 +715,11 @@
 		};
 		8E5BB3251E6819F100523DA6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E48D862F6CC43243E120FBC4 /* Pods-Client_test.release.xcconfig */;
+			baseConfigurationReference = 99D322B3EB4CDCF042525D01 /* Pods-Emotional_Chat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Q7MWV852PW;
-				INFOPLIST_FILE = Client_test/Info.plist;
+				INFOPLIST_FILE = Emotional_Chat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Oyama.Client-test";
@@ -708,40 +730,40 @@
 		};
 		8E5BB3271E6819F100523DA6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DFA3274D37FC4A837F5E7FC2 /* Pods-Client_testTests.debug.xcconfig */;
+			baseConfigurationReference = 0B8C760460DCB0C5D3B4C6AF /* Pods-Emotional_ChatTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = Client_testTests/Info.plist;
+				INFOPLIST_FILE = Emotional_ChatTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mycompany.Client-testTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Client_test.app/Client_test";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Emotional_Chat.app/Emotional_Chat";
 			};
 			name = Debug;
 		};
 		8E5BB3281E6819F100523DA6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 67598337869806C6384E3675 /* Pods-Client_testTests.release.xcconfig */;
+			baseConfigurationReference = 0BCADAF464ED1D11680C997C /* Pods-Emotional_ChatTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = Client_testTests/Info.plist;
+				INFOPLIST_FILE = Emotional_ChatTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mycompany.Client-testTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Client_test.app/Client_test";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Emotional_Chat.app/Emotional_Chat";
 			};
 			name = Release;
 		};
 		8E5BB32A1E6819F100523DA6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E8862239A3EEBA1202B109B /* Pods-Client_testUITests.debug.xcconfig */;
+			baseConfigurationReference = 8242701AA8DB194E1E800C94 /* Pods-Emotional_ChatUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				INFOPLIST_FILE = Client_testUITests/Info.plist;
+				INFOPLIST_FILE = Emotional_ChatUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mycompany.Client-testUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -752,10 +774,10 @@
 		};
 		8E5BB32B1E6819F100523DA6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4790D15F8A9CF040DF12856D /* Pods-Client_testUITests.release.xcconfig */;
+			baseConfigurationReference = AE3DD401139676CA6A01482D /* Pods-Emotional_ChatUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				INFOPLIST_FILE = Client_testUITests/Info.plist;
+				INFOPLIST_FILE = Emotional_ChatUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mycompany.Client-testUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -767,7 +789,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8E5BB2F61E6819F100523DA6 /* Build configuration list for PBXProject "Client_test" */ = {
+		8E5BB2F61E6819F100523DA6 /* Build configuration list for PBXProject "Emotional_Chat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8E5BB3211E6819F100523DA6 /* Debug */,
@@ -776,7 +798,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8E5BB3231E6819F100523DA6 /* Build configuration list for PBXNativeTarget "Client_test" */ = {
+		8E5BB3231E6819F100523DA6 /* Build configuration list for PBXNativeTarget "Emotional_Chat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8E5BB3241E6819F100523DA6 /* Debug */,
@@ -785,7 +807,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8E5BB3261E6819F100523DA6 /* Build configuration list for PBXNativeTarget "Client_testTests" */ = {
+		8E5BB3261E6819F100523DA6 /* Build configuration list for PBXNativeTarget "Emotional_ChatTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8E5BB3271E6819F100523DA6 /* Debug */,
@@ -794,7 +816,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8E5BB3291E6819F100523DA6 /* Build configuration list for PBXNativeTarget "Client_testUITests" */ = {
+		8E5BB3291E6819F100523DA6 /* Build configuration list for PBXNativeTarget "Emotional_ChatUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8E5BB32A1E6819F100523DA6 /* Debug */,
