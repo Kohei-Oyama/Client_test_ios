@@ -113,35 +113,39 @@ extension RoomViewController: UITableViewDelegate {
     
     // Cellの高さ指定
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let object = self.rooms[indexPath.row]
-        let nameLabel = PaddingLabel(frame: CGRect.zero)
-        nameLabel.numberOfLines = 0
-        nameLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-        nameLabel.attributedText = object.attributedString(sentence: object.roomName!, num: nil, fontSize: RoomCell.nameFontSize)
-        let timeLabel = UILabel(frame: CGRect.zero)
-        timeLabel.numberOfLines = 2
-        timeLabel.font = UIFont.boldSystemFont(ofSize: RoomCell.timeFontSize)
-        timeLabel.attributedText = object.attributedString(sentence: object.time!, num: object.messageNum, fontSize: nil)
-        let maxWidth = self.view.frame.width - 2.0 * (RoomCell.inset + PaddingLabel.paddingSize)
-        let timeLabelframe = CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude)
-        let timeLabelRect = timeLabel.sizeThatFits(timeLabelframe)
-        let nameLabelFrame = CGSize(width: maxWidth - timeLabelRect.width, height: CGFloat.greatestFiniteMagnitude)
-        let nameLabelRect = nameLabel.sizeThatFits(nameLabelFrame)
-        
-     return nameLabelRect.height + 2.0 * (PaddingLabel.paddingSize + RoomCell.inset)
-     }
+        if indexPath.row < self.rooms.count {
+            let object = self.rooms[indexPath.row]
+            let nameLabel = PaddingLabel(frame: CGRect.zero)
+            nameLabel.numberOfLines = 0
+            nameLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+            nameLabel.attributedText = object.attributedString(sentence: object.roomName!, num: nil, fontSize: RoomCell.nameFontSize)
+            let timeLabel = UILabel(frame: CGRect.zero)
+            timeLabel.numberOfLines = 2
+            timeLabel.font = UIFont.boldSystemFont(ofSize: RoomCell.timeFontSize)
+            timeLabel.attributedText = object.attributedString(sentence: object.time!, num: object.messageNum, fontSize: nil)
+            let maxWidth = self.view.frame.width - 2.0 * (RoomCell.inset + PaddingLabel.paddingSize)
+            let timeLabelframe = CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude)
+            let timeLabelRect = timeLabel.sizeThatFits(timeLabelframe)
+            let nameLabelFrame = CGSize(width: maxWidth - timeLabelRect.width, height: CGFloat.greatestFiniteMagnitude)
+            let nameLabelRect = nameLabel.sizeThatFits(nameLabelFrame)
+            
+            return nameLabelRect.height + 2.0 * (PaddingLabel.paddingSize + RoomCell.inset)
+        } else { return 0 }
+    }
     
     // Cellタップで画面遷移
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let room = self.rooms[indexPath.row]
-        let chatController = ChatViewController()
-        chatController.client = self.client
-        chatController.userID = self.userID!
-        chatController.userName = self.userName!
-        chatController.roomID = room.roomID
-        chatController.roomName = room.roomName!
-        self.navigationController?.pushViewController(chatController, animated: true)
-        tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.row < self.rooms.count {
+            let room = self.rooms[indexPath.row]
+            let chatController = ChatViewController()
+            chatController.client = self.client
+            chatController.userID = self.userID!
+            chatController.userName = self.userName!
+            chatController.roomID = room.roomID
+            chatController.roomName = room.roomName!
+            self.navigationController?.pushViewController(chatController, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
     
     // Cellの削除

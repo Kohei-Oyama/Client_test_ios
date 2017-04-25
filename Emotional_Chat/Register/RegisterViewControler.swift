@@ -19,7 +19,6 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.backgroundColor = UIColor.white
         
         // 通知
@@ -45,33 +44,6 @@ class RegisterViewController: UIViewController {
             })
             alert.addAction(defaultAction)
             self.present(alert, animated: true, completion: nil)
-        }
-        
-        self.client.onDisconnected = {(error: Error?) in
-            print("Disconnect")
-            let alert: UIAlertController = UIAlertController(title: "Disconnect…", message: nil, preferredStyle: UIAlertControllerStyle.alert)
-            let defaultAction: UIAlertAction = UIAlertAction(title: "Reconnect", style: .default, handler:{(action: UIAlertAction!) -> Void in
-                self.client.connect()
-            })
-            let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler:{(action: UIAlertAction!) -> Void in
-            })
-            alert.addAction(cancelAction)
-            alert.addAction(defaultAction)
-            self.present(alert, animated: true, completion: nil)
-        }
-        
-        self.client.willReconnect = {
-            print("Reconnect")
-            let alert: UIAlertController = UIAlertController(title: "Connect Fail...", message: nil, preferredStyle: UIAlertControllerStyle.alert)
-            let defaultAction: UIAlertAction = UIAlertAction(title: "Reconnect", style: .default, handler:{(action: UIAlertAction!) -> Void in
-                self.client.connect()
-            })
-            let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler:{(action: UIAlertAction!) -> Void in
-            })
-            alert.addAction(cancelAction)
-            alert.addAction(defaultAction)
-            self.present(alert, animated: true, completion: nil)
-            return true
         }
         self.client.connect()
     }

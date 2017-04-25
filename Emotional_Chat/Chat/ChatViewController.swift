@@ -105,7 +105,6 @@ class ChatViewController: UIViewController {
         self.channel?.unsubscribe()
     }
     
-    //長押しした時
     func sendTouch(sender: UIButton){
         let sendWidth = self.chatView.inputTextView.button.frame.width
         let sendHeight = self.chatView.inputTextView.button.frame.height
@@ -116,7 +115,7 @@ class ChatViewController: UIViewController {
             upLabel!.frame = CGRect(x: 0, y: 0, width: sendWidth, height: sendHeight)
             upLabel!.layer.position = CGPoint(x: sendX, y:sendY - sendHeight)
             upLabel!.backgroundColor = UIColor.red
-            upLabel!.text = "red"
+            upLabel!.text = "Send"
             upLabel!.font = UIFont.systemFont(ofSize: 10)
             upLabel!.textAlignment = NSTextAlignment.center
             self.chatView.inputTextView.addSubview(upLabel!)
@@ -126,7 +125,7 @@ class ChatViewController: UIViewController {
             leftLabel!.frame = CGRect(x: 0, y: 0, width: sendWidth, height: sendHeight)
             leftLabel!.layer.position = CGPoint(x:sendX - sendWidth, y:sendY)
             leftLabel!.backgroundColor = UIColor.blue
-            leftLabel!.text = "blue"
+            leftLabel!.text = "Send"
             leftLabel!.font = UIFont.systemFont(ofSize: 10)
             leftLabel!.textAlignment = NSTextAlignment.center
             self.chatView.inputTextView.addSubview(leftLabel!)
