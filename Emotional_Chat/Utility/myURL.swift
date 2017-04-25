@@ -15,7 +15,7 @@ enum myURL {
     case Hirose
     case Ist
     case MyHome
-    case CNL
+    case Deploy
     
     var url: URL {
         let local: String = "ws://localhost:3000"
@@ -23,7 +23,7 @@ enum myURL {
         let hirose: String = "ws://157.82.6.194:3000"
         let ist: String = "ws://157.82.4.137:3000"
         let myhome: String = "ws://192.168.11.5:3000"
-        let cnl: String = "ws://192.168.11.12:3000"
+        let deploy: String = "ws://52.192.242.171:80"
         
         switch self {
         case .Local:
@@ -36,8 +36,8 @@ enum myURL {
             return URL(string: "\(ist)/cable")!
         case .MyHome:
             return URL(string: "\(myhome)/cable")!
-        case .CNL:
-            return URL(string: "\(cnl)/cable")!
+        case .Deploy:
+            return URL(string: "\(deploy)/cable")!
         }
     }
 }

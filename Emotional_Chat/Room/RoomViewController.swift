@@ -42,7 +42,7 @@ class RoomViewController: UIViewController {
         // タイトル
         self.navigationController?.navigationBar.barTintColor = UIColor.red
         self.navigationItem.setHidesBackButton(true, animated: false)
-        self.title = "Rooms"
+        self.title = "\(self.userName!) : Rooms"
         
         // viewの設定
         self.roomView.tableView.delegate = self

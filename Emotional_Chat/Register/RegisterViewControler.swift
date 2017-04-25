@@ -15,7 +15,7 @@ class RegisterViewController: UIViewController {
     
     private let registerChannelIdentifier: String = "RegisterChannel"
     private let actionRegister = "register"
-    private let client = ActionCableClient(url: myURL.Local.url)
+    private let client = ActionCableClient(url: myURL.Deploy.url)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +49,15 @@ class RegisterViewController: UIViewController {
         
         self.client.onDisconnected = {(error: Error?) in
             print("Disconnect")
-            self.client.connect()
+            let alert: UIAlertController = UIAlertController(title: "Disconnect…", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+            let defaultAction: UIAlertAction = UIAlertAction(title: "Reconnect", style: .default, handler:{(action: UIAlertAction!) -> Void in
+                self.client.connect()
+            })
+            let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler:{(action: UIAlertAction!) -> Void in
+            })
+            alert.addAction(cancelAction)
+            alert.addAction(defaultAction)
+            self.present(alert, animated: true, completion: nil)
         }
         
         self.client.willReconnect = {
